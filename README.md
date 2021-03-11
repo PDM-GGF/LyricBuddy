@@ -10,3 +10,4 @@ Tema: Unknown;
 Idee: 
     - SpotyFake
     - DreamTrip (itinerari di viaggi)
+    - PhotoFilter (filtri per foto)
