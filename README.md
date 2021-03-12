@@ -9,5 +9,5 @@ Tema: Unknown;
 
 Idee: 
     - SpotyFake
-    - DreamTrip (itinerari di viaggi)
+    - DreamTrip (agenzia di viaggi)
     - PhotoFilter (filtri per foto)
