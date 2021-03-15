@@ -14,7 +14,7 @@ Idee:
     - PhotoFilter (filtri per foto)
     
     
-    - BeatBuddy 
+    - LyricBuddy 
             API: (https://www.programmableweb.com/api/teosto)
                  (https://www.programmableweb.com/api/copyleaks-plagiarism-checker)
                  (Lyrics.ovh API GITHUB)
