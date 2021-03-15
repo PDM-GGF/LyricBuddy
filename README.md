@@ -11,3 +11,4 @@ Idee:
     - SpotyFake
     - DreamTrip (agenzia di viaggi)
     - PhotoFilter (filtri per foto)
+    - MusicCopyright
