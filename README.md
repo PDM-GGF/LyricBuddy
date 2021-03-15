@@ -12,4 +12,4 @@ Idee:
     - SpotyFake
     - DreamTrip (agenzia di viaggi) //fatta lo scorso anno
     - PhotoFilter (filtri per foto)
-    - BeatBuddy 
+    - BeatBuddy (https://www.programmableweb.com/api/teosto)
