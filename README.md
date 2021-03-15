@@ -5,10 +5,11 @@ Galbusera Riccardo
 Giganti Luca
 Ferrario Fabio
 
+LINK API: https://github.com/public-apis/public-apis
 Tema: Unknown;
 
 Idee: 
     - SpotyFake
-    - DreamTrip (agenzia di viaggi)
+    - DreamTrip (agenzia di viaggi) //fatta lo scorso anno
     - PhotoFilter (filtri per foto)
     - MusicCopyright
