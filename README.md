@@ -18,3 +18,4 @@ Idee:
             API: (https://www.programmableweb.com/api/teosto)
                  (https://www.programmableweb.com/api/copyleaks-plagiarism-checker)
                  (Lyrics.ovh API GITHUB)
+                 (https://rapidapi.com/search/music%20lyrics)
