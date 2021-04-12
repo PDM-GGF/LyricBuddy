@@ -1,3 +1,4 @@
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=PDM-GGF_LyricBuddy&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=PDM-GGF_LyricBuddy)
 # PDM-GGF
 Progetto di Programmazione di Dispositivi Mobili 2021 di:
 
