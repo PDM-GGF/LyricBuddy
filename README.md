@@ -1,3 +1,6 @@
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/dashboard?id=PDM-GGF_LyricBuddy)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=PDM-GGF_LyricBuddy&metric=ncloc)](https://sonarcloud.io/dashboard?id=PDM-GGF_LyricBuddy)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=PDM-GGF_LyricBuddy&metric=bugs)](https://sonarcloud.io/dashboard?id=PDM-GGF_LyricBuddy)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=PDM-GGF_LyricBuddy&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=PDM-GGF_LyricBuddy)
 # PDM-GGF
 Progetto di Programmazione di Dispositivi Mobili 2021 di:
