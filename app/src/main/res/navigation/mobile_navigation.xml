@@ -13,8 +13,9 @@
 
     <fragment
         android:id="@+id/navigation_search"
+        android:name="com.progettopdm.lyricbuddy.ui.search.SearchFragment"
         android:label="@string/title_search"
-        tools:layout="@layout/search_fragment" />
+        tools:layout="@layout/fragment_search" />
 
     <fragment
         android:id="@+id/navigation_favorites"
