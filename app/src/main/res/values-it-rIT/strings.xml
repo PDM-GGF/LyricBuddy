@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LyricBuddy</string>
+    <string name="title_search">Cerca</string>
+    <string name="title_favorites">Preferiti</string>
+</resources>
