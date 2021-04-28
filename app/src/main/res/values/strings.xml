@@ -3,5 +3,8 @@
     <string name="title_search">Search</string>
     <string name="title_favorites">Favorites</string>
     <string name="title_home" translatable="false">Home</string>
+    <string name="recommended_home" translatable="true">Recommended for you</string>
+    <string name="new_home" translatable="true">New Hits</string>
+    <string name="best_home" translatable="true">All time best</string>
     <string name="title_userprofile"> UserProfile </string>
 </resources>

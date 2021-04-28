@@ -3,5 +3,8 @@
     <string name="app_name">LyricBuddy</string>
     <string name="title_search">Cerca</string>
     <string name="title_favorites">Preferiti</string>
+    <string name="recommended_home">Consigliate</string>
+    <string name="new_home">Le hit del momento</string>
+    <string name="best_home">Le migliori di sempre</string>
     <string name="title_userprofile">Profilo</string>
 </resources>
