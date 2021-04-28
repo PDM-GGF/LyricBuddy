@@ -28,9 +28,9 @@
         android:id="@+id/nav_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:itemBackground="@color/white"
-        app:itemTextColor="@color/black"
-        app:itemIconTint="@color/black"
+        app:itemBackground="@android:color/black"
+        app:itemTextColor="@color/white"
+        app:itemIconTint="@color/white"
         app:menu="@menu/bottom_nav_menu"
         android:layout_alignParentBottom="true">
     </com.google.android.material.bottomnavigation.BottomNavigationView>
