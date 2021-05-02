@@ -22,13 +22,6 @@ public class UserProfileFragment extends Fragment {
         userProfileViewModel =
                 new ViewModelProvider(this).get(UserProfileViewModel.class);
         View root = inflater.inflate(R.layout.fragment_userprofile, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-        userProfileViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
         return root;
     }
 }

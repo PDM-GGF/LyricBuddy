@@ -1,39 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.appcompat.widget.Toolbar
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/black">
+    android:background="@color/teal_200">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:background="#009688">
+
+        >
+
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/left_icon"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_baseline_music_note_24"/>
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_baseline_music_note_24" />
+
+        <TextView
             android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
             android:layout_marginStart="16dp"
             android:layout_toEndOf="@id/left_icon"
-            android:textColor="@android:color/black"
-            android:layout_centerVertical="true"
-            android:textSize="25sp"
             android:text="@string/app_name"
-            android:layout_gravity="center"
-            android:textStyle="bold"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/right_icon"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_baseline_person_24"/>
-    </RelativeLayout>
+            android:textColor="@android:color/black"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
-</RelativeLayout>
+    </RelativeLayout>
+</androidx.appcompat.widget.Toolbar>

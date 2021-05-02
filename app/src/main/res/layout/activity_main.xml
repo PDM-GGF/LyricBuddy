@@ -21,6 +21,7 @@
 
     <include
         layout="@layout/toolbar"
+        android:id="@+id/main_toolbar"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="match_parent" />
 
