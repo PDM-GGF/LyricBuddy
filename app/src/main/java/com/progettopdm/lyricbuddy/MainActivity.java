@@ -1,6 +1,8 @@
 package com.progettopdm.lyricbuddy;
 
+import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -50,9 +52,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+
         // Handle item selection
         if (item.getItemId() == R.id.toolbar_menu_userprofile) {
-            // vai al frammento user
+            navController.navigate(R.id.action_global_navigation_userprofile);
+            Log.d("USERPROFILE: ", "CREATO");
             return true;
         }
         return true;
