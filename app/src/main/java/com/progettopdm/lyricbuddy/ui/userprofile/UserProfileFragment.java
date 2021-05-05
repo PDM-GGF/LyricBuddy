@@ -18,9 +18,6 @@ import com.progettopdm.lyricbuddy.R;
 public class UserProfileFragment extends Fragment {
     private UserProfileViewModel userProfileViewModel;
 
-    public UserProfileFragment() {
-    }
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         Log.d("USERPROFILE: ", "CREATO SI BRO");

@@ -1,6 +1,5 @@
 package com.progettopdm.lyricbuddy;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -10,11 +9,9 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.progettopdm.lyricbuddy.ui.userprofile.UserProfileFragment;
+
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
