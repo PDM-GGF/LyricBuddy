@@ -9,7 +9,8 @@
         android:id="@+id/navigation_home"
         android:name="com.progettopdm.lyricbuddy.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_search"
@@ -22,9 +23,15 @@
         android:name="com.progettopdm.lyricbuddy.ui.favorites.FavoritesFragment"
         android:label="@string/title_favorites"
         tools:layout="@layout/fragment_favorites" />
+
     <fragment
         android:id="@+id/navigation_userprofile"
         android:name="com.progettopdm.lyricbuddy.ui.userprofile.UserProfileFragment"
         android:label="@string/title_userprofile"
         tools:layout="@layout/fragment_userprofile" />
+
+    <action
+        android:id="@+id/action_global_navigation_userprofile"
+        app:destination="@id/navigation_userprofile"/>
+
 </navigation>

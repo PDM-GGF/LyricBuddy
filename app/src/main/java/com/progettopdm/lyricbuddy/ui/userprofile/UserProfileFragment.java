@@ -1,6 +1,7 @@
 package com.progettopdm.lyricbuddy.ui.userprofile;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +20,11 @@ public class UserProfileFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        Log.d("USERPROFILE: ", "CREATO SI BRO");
         userProfileViewModel =
                 new ViewModelProvider(this).get(UserProfileViewModel.class);
         View root = inflater.inflate(R.layout.fragment_userprofile, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
+        final TextView textView = root.findViewById(R.id.text_userprofile);
         userProfileViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
