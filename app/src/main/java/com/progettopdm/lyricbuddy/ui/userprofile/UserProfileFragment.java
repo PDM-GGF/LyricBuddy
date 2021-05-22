@@ -20,7 +20,6 @@ public class UserProfileFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        Log.d("USERPROFILE: ", "CREATO SI BRO");
         userProfileViewModel =
                 new ViewModelProvider(this).get(UserProfileViewModel.class);
         View root = inflater.inflate(R.layout.fragment_userprofile, container, false);
