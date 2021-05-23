@@ -1,7 +1,7 @@
 package com.progettopdm.lyricbuddy.services;
 
 import retrofit2.Call;
-import com.progettopdm.lyricbuddy.model.Response;
+import com.progettopdm.lyricbuddy.model.AuthResponse;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
@@ -16,6 +16,6 @@ public interface CCAuthService {
 
     @FormUrlEncoded
     @POST("/api/token")
-    Call<Response> getToken(@Field("grant_type") String grantType,
-                            @Header("Authorization") String clientId);
+    Call<AuthResponse> getToken(@Field("grant_type") String grantType,
+                                @Header("Authorization") String clientId);
 }
