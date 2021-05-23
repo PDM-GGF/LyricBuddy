@@ -10,6 +10,7 @@ import com.progettopdm.lyricbuddy.utils.ServiceLocator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
+import com.progettopdm.lyricbuddy.utils.Constants;
 
 public class CCAuthRepository {
 
@@ -23,7 +24,7 @@ public class CCAuthRepository {
     public void authorize(){
 
         Call<AuthResponse> call = ccAuthService.getToken("client_credentials",
-                "Basic Y2M0MWIzYzM3MTNhNGYyZmFiMjkyY2QxNjFhMmJlOGM6ODE2ZDM1NjM4OWMyNGMxY2I2MDExMTYxMjBkOTc4Yjc");
+                "Basic " +  Constants.SPOTIFY_CLIENT_ID);
 
         call.enqueue(new Callback<AuthResponse>() {
             @Override
