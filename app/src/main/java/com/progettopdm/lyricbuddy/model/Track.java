@@ -1,5 +1,6 @@
 package com.progettopdm.lyricbuddy.model;
 
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -7,11 +8,11 @@ public class Track implements Parcelable {
 
     int trackId;
     String title;
-    String image_url;
+    Uri image_url;
     String lyrics;
     int year;
 
-    public Track(int trackId, String title, String image_url, String lyrics, int year) {
+    public Track(int trackId, String title, Uri image_url, String lyrics, int year) {
         this.trackId = trackId;
         this.title = title;
         this.image_url = image_url;
@@ -19,7 +20,7 @@ public class Track implements Parcelable {
         this.year = year;
     }
 
-    public Track(){
+    public Track(Parcel in){
 
     }
 
@@ -31,7 +32,7 @@ public class Track implements Parcelable {
         return title;
     }
 
-    public String getImage_url() {
+    public Uri getImage_url() {
         return image_url;
     }
 
@@ -51,7 +52,7 @@ public class Track implements Parcelable {
         this.title = title;
     }
 
-    public void setImage_url(String image_url) {
+    public void setImage_url(Uri image_url) {
         this.image_url = image_url;
     }
 
@@ -73,26 +74,16 @@ public class Track implements Parcelable {
                 '}';
     }
 
-    protected Track(Parcel in) {
-        trackId = in.readInt();
-        title = in.readString();
-        image_url = in.readString();
-        lyrics = in.readString();
-        year = in.readInt();
-    }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(trackId);
-        dest.writeString(title);
-        dest.writeString(image_url);
-        dest.writeString(lyrics);
-        dest.writeInt(year);
-    }
 
     @Override
     public int describeContents() {
         return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
     }
 
     public static final Creator<Track> CREATOR = new Creator<Track>() {
