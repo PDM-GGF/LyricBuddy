@@ -3,8 +3,13 @@ package com.progettopdm.lyricbuddy.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "playlists")
 public class Playlist implements Parcelable {
 
+    @PrimaryKey
     int playlistId;
     String name;
     String image_url;

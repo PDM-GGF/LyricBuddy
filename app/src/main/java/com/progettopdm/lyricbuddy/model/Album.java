@@ -3,15 +3,20 @@ package com.progettopdm.lyricbuddy.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.util.ArrayList;
 
+@Entity(tableName = "albums")
 public class Album implements Parcelable {
 
-    int albumId;
-    String title;
-    int artistId;
-    ArrayList<Track> trackList;
-    int year;
+    @PrimaryKey
+    public int albumId;
+    public String title;
+    public int artistId;
+    public ArrayList<Track> trackList;
+    public int year;
 
     public Album(int albumId, String title, int artistId, ArrayList<Track> trackList, int year) {
         this.albumId = albumId;
