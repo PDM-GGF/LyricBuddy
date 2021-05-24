@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">LyricBuddy</string>
     <string name="title_search">Cerca</string>
     <string name="title_favorites">Preferiti</string>
     <string name="recommended_home">Consigliate</string>
     <string name="new_home">Le hit del momento</string>
     <string name="best_home">Le migliori di sempre</string>
     <string name="title_userprofile">Profilo</string>
+    <string name="new_releases">Nuove Uscite</string>
 </resources>

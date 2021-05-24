@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -55,14 +56,16 @@ public class HomeFragment extends Fragment {
 
         List<Album> albumList = getNewReleases();
 
-        Log.d("Lista album: ", albumList.get(1).getTitle());
+        Log.d("Lista album: ", albumList.get(0).getTitle());
 
         RecyclerView newReleasesList = view.findViewById(R.id.new_releases_list);
 
         NewReleasesAdapter newReleasesAdapter = new NewReleasesAdapter(albumList);
 
-        newReleasesList.setLayoutManager(new LinearLayoutManager(getContext()));
+        newReleasesList.setLayoutManager(new GridLayoutManager(getContext(),  1,
+                GridLayoutManager.HORIZONTAL, false));
         newReleasesList.setAdapter(newReleasesAdapter);
+
 
 
     }
