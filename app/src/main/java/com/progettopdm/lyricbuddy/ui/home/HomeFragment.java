@@ -50,7 +50,7 @@ public class HomeFragment extends Fragment {
             newReleasesList = getNewReleases();
             featuredPlaylistsList = getFeaturedPlaylists();
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
         loadAlbumImages(newReleasesList);
@@ -99,14 +99,14 @@ public class HomeFragment extends Fragment {
         try {
             fileInputStream = getActivity().getAssets().open("newreleases.json");
             jsonReader = new JsonReader(new InputStreamReader(fileInputStream, "UTF-8"));
+            jsonReader.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
         NewReleaseResponse response = new Gson().fromJson(bufferedReader, NewReleaseResponse.class);
 
-        jsonReader.close();
 
         return response.getAlbumList();
     }
@@ -117,8 +117,9 @@ public class HomeFragment extends Fragment {
         try {
             fileInputStream = getActivity().getAssets().open("featured.json");
             jsonReader = new JsonReader(new InputStreamReader(fileInputStream, "UTF-8"));
+            jsonReader.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
@@ -127,8 +128,6 @@ public class HomeFragment extends Fragment {
         Log.d("PLAYLIST RESPONSE: ", response.getPlaylistWrapper().getPlaylistList().get(0).getName());
 
         featuredMessage = response.getMessage();
-
-        jsonReader.close();
 
         return response.getPlaylistWrapper().getPlaylistList();
     }
