@@ -52,6 +52,7 @@ public class HomeFragment extends Fragment {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         loadAlbumImages(newReleasesList);
         loadPlaylistImages(featuredPlaylistsList);
 
@@ -104,7 +105,8 @@ public class HomeFragment extends Fragment {
 
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
         NewReleaseResponse response = new Gson().fromJson(bufferedReader, NewReleaseResponse.class);
-        bufferedReader.close();
+
+        jsonReader.close();
 
         return response.getAlbumList();
     }
@@ -126,7 +128,7 @@ public class HomeFragment extends Fragment {
 
         featuredMessage = response.getMessage();
 
-        bufferedReader.close();
+        jsonReader.close();
 
         return response.getPlaylistWrapper().getPlaylistList();
     }
