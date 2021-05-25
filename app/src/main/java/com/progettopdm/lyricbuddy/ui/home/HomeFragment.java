@@ -99,16 +99,16 @@ public class HomeFragment extends Fragment {
         try {
             fileInputStream = getActivity().getAssets().open("newreleases.json");
             jsonReader = new JsonReader(new InputStreamReader(fileInputStream, "UTF-8"));
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
+            NewReleaseResponse response = new Gson().fromJson(bufferedReader, NewReleaseResponse.class);
             jsonReader.close();
+            return response.getAlbumList();
         } catch (IOException e) {
             //e.printStackTrace();
         }
 
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
-        NewReleaseResponse response = new Gson().fromJson(bufferedReader, NewReleaseResponse.class);
+        return null;
 
-
-        return response.getAlbumList();
     }
 
     private List<Playlist> getFeaturedPlaylists() throws IOException {
@@ -117,19 +117,16 @@ public class HomeFragment extends Fragment {
         try {
             fileInputStream = getActivity().getAssets().open("featured.json");
             jsonReader = new JsonReader(new InputStreamReader(fileInputStream, "UTF-8"));
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
+            FeaturedResponse response = new Gson().fromJson(bufferedReader, FeaturedResponse.class);
+            Log.d("PLAYLIST RESPONSE: ", response.getPlaylistWrapper().getPlaylistList().get(0).getName());
+            featuredMessage = response.getMessage();
             jsonReader.close();
+            return response.getPlaylistWrapper().getPlaylistList();
         } catch (IOException e) {
             //e.printStackTrace();
         }
-
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
-        FeaturedResponse response = new Gson().fromJson(bufferedReader, FeaturedResponse.class);
-
-        Log.d("PLAYLIST RESPONSE: ", response.getPlaylistWrapper().getPlaylistList().get(0).getName());
-
-        featuredMessage = response.getMessage();
-
-        return response.getPlaylistWrapper().getPlaylistList();
+        return null;
     }
 
     private void loadAlbumImages(List<Album> albumList){
