@@ -1,4 +1,4 @@
-package com.progettopdm.lyricbuddy.model;
+package com.progettopdm.lyricbuddy.model.response;
 
 import android.os.Parcel;
 import android.os.Parcelable;

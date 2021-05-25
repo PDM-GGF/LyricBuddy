@@ -3,87 +3,35 @@ package com.progettopdm.lyricbuddy.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
+import com.google.gson.annotations.SerializedName;
 
-public class Album implements Parcelable {
+import java.util.List;
 
-    int albumId;
-    String title;
-    int artistId;
-    ArrayList<Track> trackList;
-    int year;
+public class Album extends TrackContainer implements Parcelable {
 
-    public Album(int albumId, String title, int artistId, ArrayList<Track> trackList, int year) {
-        this.albumId = albumId;
-        this.title = title;
-        this.artistId = artistId;
-        this.trackList = trackList;
-        this.year = year;
+    @SerializedName("name")
+    String name;
+    @SerializedName("images")
+    List<GenericImage> genericImageList;
+
+
+
+    public Album(String name, List<GenericImage> genericImageList) {
+        this.name = name;
+        this.genericImageList = genericImageList;
     }
 
-    public Album(){
+    public List<GenericImage> getImgList() {
+        return genericImageList;
     }
 
-    public int getAlbumId() {
-        return albumId;
-    }
-
-    public void setAlbumId(int albumId) {
-        this.albumId = albumId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public int getArtistId() {
-        return artistId;
-    }
-
-    public void setArtist(int artistId) {
-        this.artistId = artistId;
-    }
-
-    public ArrayList<Track> getTrackList() {
-        return trackList;
-    }
-
-    public void setTrackList(ArrayList<Track> trackList) {
-        this.trackList = trackList;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
+    public void setImgList(List<GenericImage> genericImageList) {
+        this.genericImageList = genericImageList;
     }
 
     protected Album(Parcel in) {
-        albumId = in.readInt();
-        title = in.readString();
-        artistId = in.readInt();
-        trackList = in.createTypedArrayList(Track.CREATOR);
-        year = in.readInt();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(albumId);
-        dest.writeString(title);
-        dest.writeInt(artistId);
-        dest.writeTypedList(trackList);
-        dest.writeInt(year);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
+        name = in.readString();
+        genericImageList = in.createTypedArrayList(GenericImage.CREATOR);
     }
 
     public static final Creator<Album> CREATOR = new Creator<Album>() {
@@ -97,4 +45,22 @@ public class Album implements Parcelable {
             return new Album[size];
         }
     };
+
+    public String getName() {
+        return name;
+    }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeTypedList(genericImageList);
+    }
 }
+
+

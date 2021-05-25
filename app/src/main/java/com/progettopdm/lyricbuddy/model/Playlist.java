@@ -3,96 +3,68 @@ package com.progettopdm.lyricbuddy.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Playlist implements Parcelable {
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
+public class Playlist extends TrackContainer implements Parcelable {
 
     int playlistId;
     String name;
-    String image_url;
     String description;
-    String genre;
+    @SerializedName("images")
+    List<GenericImage> playlistImgList;
 
-    public Playlist(int playlistId, String name, String image_url, String description, String genre) {
+
+    public Playlist(int playlistId, String name, String image_url, String description, List<GenericImage> playlistImageList) {
         this.playlistId = playlistId;
         this.name = name;
-        this.image_url = image_url;
+        this.playlistImgList = playlistImageList;
         this.description = description;
-        this.genre = genre;
-    }
-
-    public Playlist(){
-
     }
 
     public int getPlaylistId() {
         return playlistId;
     }
 
+    public void setPlaylistId(int playlistId) {
+        this.playlistId = playlistId;
+    }
+
     public String getName() {
         return name;
     }
 
-    public String getImage_url() {
-        return image_url;
+    @Override
+    public List<GenericImage> getImgList() {
+        return playlistImgList;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setPlaylistId(int playlistId) {
-        this.playlistId = playlistId;
-    }
-
-    public void setTitle(String name) {
-        this.name = name;
-    }
-
-    public void setImage_url(String image_url) {
-        this.image_url = image_url;
-    }
-
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public List<GenericImage> getPlaylistImgList() {
+        return playlistImgList;
     }
 
-    @Override
-    public String toString() {
-        return "Playlist{" +
-                "playlistId=" + playlistId +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", genre=" + genre +
-                '}';
+    public void setPlaylistImgList(List<GenericImage> playlistImgList) {
+        this.playlistImgList = playlistImgList;
     }
 
     protected Playlist(Parcel in) {
         playlistId = in.readInt();
         name = in.readString();
-        image_url = in.readString();
         description = in.readString();
-        genre = in.readString();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(playlistId);
-        dest.writeString(name);
-        dest.writeString(image_url);
-        dest.writeString(description);
-        dest.writeString(genre);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
+        playlistImgList = in.createTypedArrayList(GenericImage.CREATOR);
     }
 
     public static final Creator<Playlist> CREATOR = new Creator<Playlist>() {
@@ -106,4 +78,17 @@ public class Playlist implements Parcelable {
             return new Playlist[size];
         }
     };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(playlistId);
+        dest.writeString(name);
+        dest.writeString(description);
+        dest.writeTypedList(playlistImgList);
+    }
 }

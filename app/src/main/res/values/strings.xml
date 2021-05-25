@@ -7,4 +7,5 @@
     <string name="new_home" translatable="true">New Hits</string>
     <string name="best_home" translatable="true">All time best</string>
     <string name="title_userprofile"> User Profile </string>
+    <string name="new_releases">New Releases</string>
 </resources>

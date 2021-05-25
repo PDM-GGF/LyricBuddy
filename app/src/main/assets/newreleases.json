@@ -1,5 +1,4 @@
 {
-  "albums": {
     "href": "https://api.spotify.com/v1/browse/new-releases?country=IT&offset=0&limit=5",
     "items": [
       {
@@ -1123,5 +1122,4 @@
     "offset": 0,
     "previous": null,
     "total": 100
-  }
 }

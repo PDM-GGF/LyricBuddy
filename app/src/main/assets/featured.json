@@ -1,0 +1,193 @@
+{
+  "message": "Buona giornata in musica!",
+  "playlists": {
+    "href": "https://api.spotify.com/v1/browse/featured-playlists?country=IT&locale=sv_se&timestamp=2014-10-23T09%3A00%3A00&offset=5&limit=5",
+    "items": [
+      {
+        "collaborative": false,
+        "description": "Il nuovo pop italiano è qui. Cover: Cosmo",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/playlist/37i9dQZF1DX6PSDDh80gxI"
+        },
+        "href": "https://api.spotify.com/v1/playlists/37i9dQZF1DX6PSDDh80gxI",
+        "id": "37i9dQZF1DX6PSDDh80gxI",
+        "images": [
+          {
+            "height": null,
+            "url": "https://i.scdn.co/image/ab67706f00000003228eeb9ad8ae3de8cf8f2125",
+            "width": null
+          }
+        ],
+        "name": "Indie Italia",
+        "owner": {
+          "display_name": "Spotify",
+          "external_urls": {
+            "spotify": "https://open.spotify.com/user/spotify"
+          },
+          "href": "https://api.spotify.com/v1/users/spotify",
+          "id": "spotify",
+          "type": "user",
+          "uri": "spotify:user:spotify"
+        },
+        "primary_color": null,
+        "public": null,
+        "snapshot_id": "MTYyMTU0ODA2MCwwMDAwMDNlMTAwMDAwMTc5OGJjYmNlMTkwMDAwMDE3OTg5MTczYTJj",
+        "tracks": {
+          "href": "https://api.spotify.com/v1/playlists/37i9dQZF1DX6PSDDh80gxI/tracks",
+          "total": 50
+        },
+        "type": "playlist",
+        "uri": "spotify:playlist:37i9dQZF1DX6PSDDh80gxI"
+      },
+      {
+        "collaborative": false,
+        "description": "La colonna sonora perfetta mentre lavori.",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/playlist/37i9dQZF1DXcb7YJnr6Ck4"
+        },
+        "href": "https://api.spotify.com/v1/playlists/37i9dQZF1DXcb7YJnr6Ck4",
+        "id": "37i9dQZF1DXcb7YJnr6Ck4",
+        "images": [
+          {
+            "height": null,
+            "url": "https://i.scdn.co/image/ab67706f00000003d17f6956c984157e3b0211d9",
+            "width": null
+          }
+        ],
+        "name": "Lavorare con la musica",
+        "owner": {
+          "display_name": "Spotify",
+          "external_urls": {
+            "spotify": "https://open.spotify.com/user/spotify"
+          },
+          "href": "https://api.spotify.com/v1/users/spotify",
+          "id": "spotify",
+          "type": "user",
+          "uri": "spotify:user:spotify"
+        },
+        "primary_color": null,
+        "public": null,
+        "snapshot_id": "MTYyMTk1NDE0OSwwMDAwMDAwMGQ0MWQ4Y2Q5OGYwMGIyMDRlOTgwMDk5OGVjZjg0Mjdl",
+        "tracks": {
+          "href": "https://api.spotify.com/v1/playlists/37i9dQZF1DXcb7YJnr6Ck4/tracks",
+          "total": 75
+        },
+        "type": "playlist",
+        "uri": "spotify:playlist:37i9dQZF1DXcb7YJnr6Ck4"
+      },
+      {
+        "collaborative": false,
+        "description": "La nuova generazione di rapper italiani. Cover: Sacky",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/playlist/37i9dQZF1DWUQru3jd69v5"
+        },
+        "href": "https://api.spotify.com/v1/playlists/37i9dQZF1DWUQru3jd69v5",
+        "id": "37i9dQZF1DWUQru3jd69v5",
+        "images": [
+          {
+            "height": null,
+            "url": "https://i.scdn.co/image/ab67706f00000003093f8a1d93506349ab63bbb6",
+            "width": null
+          }
+        ],
+        "name": "Raptopia",
+        "owner": {
+          "display_name": "Spotify",
+          "external_urls": {
+            "spotify": "https://open.spotify.com/user/spotify"
+          },
+          "href": "https://api.spotify.com/v1/users/spotify",
+          "id": "spotify",
+          "type": "user",
+          "uri": "spotify:user:spotify"
+        },
+        "primary_color": null,
+        "public": null,
+        "snapshot_id": "MTYyMTg5MzY2MCwwMDAwMDMwMTAwMDAwMTc5YTA2NTNkYWMwMDAwMDE3OTg5MzQ5OTc0",
+        "tracks": {
+          "href": "https://api.spotify.com/v1/playlists/37i9dQZF1DWUQru3jd69v5/tracks",
+          "total": 55
+        },
+        "type": "playlist",
+        "uri": "spotify:playlist:37i9dQZF1DWUQru3jd69v5"
+      },
+      {
+        "collaborative": false,
+        "description": "La giusta compagnia per i tuoi momenti in casa!",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/playlist/37i9dQZF1DXdHKb3VkLtuj"
+        },
+        "href": "https://api.spotify.com/v1/playlists/37i9dQZF1DXdHKb3VkLtuj",
+        "id": "37i9dQZF1DXdHKb3VkLtuj",
+        "images": [
+          {
+            "height": null,
+            "url": "https://i.scdn.co/image/ab67706f000000032292f2ac869164f3b4e307a0",
+            "width": null
+          }
+        ],
+        "name": "Casa Dolce Casa",
+        "owner": {
+          "display_name": "Spotify",
+          "external_urls": {
+            "spotify": "https://open.spotify.com/user/spotify"
+          },
+          "href": "https://api.spotify.com/v1/users/spotify",
+          "id": "spotify",
+          "type": "user",
+          "uri": "spotify:user:spotify"
+        },
+        "primary_color": null,
+        "public": null,
+        "snapshot_id": "MTYyMTk1NDEyNiwwMDAwMDAwMGQ0MWQ4Y2Q5OGYwMGIyMDRlOTgwMDk5OGVjZjg0Mjdl",
+        "tracks": {
+          "href": "https://api.spotify.com/v1/playlists/37i9dQZF1DXdHKb3VkLtuj/tracks",
+          "total": 80
+        },
+        "type": "playlist",
+        "uri": "spotify:playlist:37i9dQZF1DXdHKb3VkLtuj"
+      },
+      {
+        "collaborative": false,
+        "description": "Giovane, Pop, Z. Cover: Aka 7even",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/playlist/37i9dQZF1DWYCIYGXn56uz"
+        },
+        "href": "https://api.spotify.com/v1/playlists/37i9dQZF1DWYCIYGXn56uz",
+        "id": "37i9dQZF1DWYCIYGXn56uz",
+        "images": [
+          {
+            "height": null,
+            "url": "https://i.scdn.co/image/ab67706f0000000395d198a0d4621772d3557092",
+            "width": null
+          }
+        ],
+        "name": "Generazione Z",
+        "owner": {
+          "display_name": "Spotify",
+          "external_urls": {
+            "spotify": "https://open.spotify.com/user/spotify"
+          },
+          "href": "https://api.spotify.com/v1/users/spotify",
+          "id": "spotify",
+          "type": "user",
+          "uri": "spotify:user:spotify"
+        },
+        "primary_color": null,
+        "public": null,
+        "snapshot_id": "MTYyMTU0ODA2MCwwMDAwMDMyMTAwMDAwMTc5OGJjYmNlMWIwMDAwMDE3OTY1N2Q5YmI1",
+        "tracks": {
+          "href": "https://api.spotify.com/v1/playlists/37i9dQZF1DWYCIYGXn56uz/tracks",
+          "total": 50
+        },
+        "type": "playlist",
+        "uri": "spotify:playlist:37i9dQZF1DWYCIYGXn56uz"
+      }
+    ],
+    "limit": 5,
+    "next": "https://api.spotify.com/v1/browse/featured-playlists?country=IT&locale=sv_se&timestamp=2014-10-23T09%3A00%3A00&offset=10&limit=5",
+    "offset": 5,
+    "previous": "https://api.spotify.com/v1/browse/featured-playlists?country=IT&locale=sv_se&timestamp=2014-10-23T09%3A00%3A00&offset=0&limit=5",
+    "total": 13
+  }
+}
