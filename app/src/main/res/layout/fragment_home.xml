@@ -4,8 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.home.HomeFragment"
-    android:paddingTop="100dp">
+    tools:context=".ui.home.HomeFragment">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -13,7 +12,8 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="100dp">
+        tools:layout_editor_absoluteY="100dp"
+        android:paddingTop="70dp">
 
         <TextView
             android:id="@+id/new_release_text"
@@ -27,7 +27,23 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/new_releases_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:paddingBottom="30dp"/>
+
+        <TextView
+            android:id="@+id/featured_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:gravity="center"
+            android:text="@string/new_releases"
+            android:textSize="24sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/featured_playlist_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="30dp"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

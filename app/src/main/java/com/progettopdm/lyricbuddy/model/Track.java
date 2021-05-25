@@ -7,14 +7,14 @@ import android.os.Parcelable;
 public class Track implements Parcelable {
 
     int trackId;
-    String title;
+    String name;
     Uri image_url;
     String lyrics;
     int year;
 
-    public Track(int trackId, String title, Uri image_url, String lyrics, int year) {
+    public Track(int trackId, String name, Uri image_url, String lyrics, int year) {
         this.trackId = trackId;
-        this.title = title;
+        this.name = name;
         this.image_url = image_url;
         this.lyrics = lyrics;
         this.year = year;
@@ -28,8 +28,8 @@ public class Track implements Parcelable {
         return trackId;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
     public Uri getImage_url() {
@@ -48,8 +48,8 @@ public class Track implements Parcelable {
         this.trackId = trackId;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setImage_url(Uri image_url) {
@@ -68,7 +68,7 @@ public class Track implements Parcelable {
     public String toString() {
         return "Track{" +
                 "trackId=" + trackId +
-                ", title='" + title + '\'' +
+                ", name='" + name + '\'' +
                 ", lyrics='" + lyrics + '\'' +
                 ", year=" + year +
                 '}';

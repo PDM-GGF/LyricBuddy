@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 
 import androidx.annotation.NonNull;
@@ -20,8 +21,10 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.progettopdm.lyricbuddy.R;
 import com.progettopdm.lyricbuddy.model.Album;
-import com.progettopdm.lyricbuddy.model.AlbumImg;
-import com.progettopdm.lyricbuddy.model.NewReleaseResponse;
+import com.progettopdm.lyricbuddy.model.GenericImage;
+import com.progettopdm.lyricbuddy.model.Playlist;
+import com.progettopdm.lyricbuddy.model.response.FeaturedResponse;
+import com.progettopdm.lyricbuddy.model.response.NewReleaseResponse;
 import com.progettopdm.lyricbuddy.repository.CCAuthRepository;
 
 import java.io.BufferedReader;
@@ -33,7 +36,9 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
-    List<Album> albumList;
+    List<Album> newReleasesList;
+    List<Playlist> featuredPlaylistsList;
+    String featuredMessage;
 
     CCAuthRepository ccAuthRepository = new CCAuthRepository();
 
@@ -41,8 +46,10 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         ccAuthRepository.authorize();
-        albumList = getNewReleases();
-        loadAlbumImages(albumList);
+        newReleasesList = getNewReleases();
+        featuredPlaylistsList = getFeaturedPlaylists();
+        loadAlbumImages(newReleasesList);
+        loadPlaylistImages(featuredPlaylistsList);
 
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
@@ -59,13 +66,23 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        RecyclerView newReleasesList = view.findViewById(R.id.new_releases_list);
+        TextView featuredText = view.findViewById(R.id.featured_text);
+        featuredText.setText(featuredMessage);
 
-        NewReleasesAdapter newReleasesAdapter = new NewReleasesAdapter(albumList);
+        RecyclerView newReleasesRecyclerView = view.findViewById(R.id.new_releases_list);
+        RecyclerView featuredPlaylistsRecyclerView = view.findViewById(R.id.featured_playlist_list);
 
-        newReleasesList.setLayoutManager(new GridLayoutManager(getContext(),  1,
+        AlbumRecyclerViewAdapter albumRecyclerViewAdapter = new AlbumRecyclerViewAdapter(newReleasesList);
+        PlaylistRecyclerViewAdapter playlistRecyclerViewAdapter = new PlaylistRecyclerViewAdapter(featuredPlaylistsList);
+
+        newReleasesRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),  1,
                 GridLayoutManager.HORIZONTAL, false));
-        newReleasesList.setAdapter(newReleasesAdapter);
+        newReleasesRecyclerView.setAdapter(albumRecyclerViewAdapter);
+
+        featuredPlaylistsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),  1,
+                GridLayoutManager.HORIZONTAL, false));
+        featuredPlaylistsRecyclerView.setAdapter(playlistRecyclerViewAdapter);
+
 
 
 
@@ -87,11 +104,40 @@ public class HomeFragment extends Fragment {
         return response.getAlbumList();
     }
 
+    private List<Playlist> getFeaturedPlaylists() {
+        InputStream fileInputStream = null;
+        JsonReader jsonReader = null;
+        try {
+            fileInputStream = getActivity().getAssets().open("featured.json");
+            jsonReader = new JsonReader(new InputStreamReader(fileInputStream, "UTF-8"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
+        FeaturedResponse response = new Gson().fromJson(bufferedReader, FeaturedResponse.class);
+
+        Log.d("PLAYLIST RESPONSE: ", response.getPlaylistWrapper().getPlaylistList().get(0).getName());
+
+        featuredMessage = response.getMessage();
+
+        return response.getPlaylistWrapper().getPlaylistList();
+    }
+
     private void loadAlbumImages(List<Album> albumList){
 
         for(Album a : albumList){
-            for(AlbumImg i : a.getAlbumImgList()){
-                i.setAlbumImg(Glide.with(this.getContext()).load(i.getImgUrl()));
+            for(GenericImage i : a.getImgList()){
+                i.setImg(Glide.with(this.getContext()).load(i.getImgUrl()));
+            }
+        }
+    }
+
+    private void loadPlaylistImages(List<Playlist> playlistList){
+
+        for(Playlist p : playlistList){
+            for(GenericImage i : p.getImgList()){
+                i.setImg(Glide.with(this.getContext()).load(i.getImgUrl()));
             }
         }
     }

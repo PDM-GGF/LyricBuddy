@@ -1,7 +1,7 @@
 package com.progettopdm.lyricbuddy.services;
 
 import retrofit2.Call;
-import com.progettopdm.lyricbuddy.model.AuthResponse;
+import com.progettopdm.lyricbuddy.model.response.AuthResponse;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;

@@ -4,7 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.progettopdm.lyricbuddy.model.AuthResponse;
+import com.progettopdm.lyricbuddy.model.response.AuthResponse;
 import com.progettopdm.lyricbuddy.services.CCAuthService;
 import com.progettopdm.lyricbuddy.utils.ServiceLocator;
 

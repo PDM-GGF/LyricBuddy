@@ -1,10 +1,11 @@
-package com.progettopdm.lyricbuddy.model;
+package com.progettopdm.lyricbuddy.model.response;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
+import com.progettopdm.lyricbuddy.model.Album;
 
 
 import java.util.List;

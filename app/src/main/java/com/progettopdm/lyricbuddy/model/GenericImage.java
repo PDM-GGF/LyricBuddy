@@ -10,43 +10,43 @@ import com.google.gson.annotations.SerializedName;
 import java.io.IOException;
 import java.net.URL;
 
-public class AlbumImg implements Parcelable {
+public class GenericImage implements Parcelable {
 
     @SerializedName("url")
     URL imgUrl;
-    RequestBuilder<Drawable> albumImg;
+    RequestBuilder<Drawable> img;
 
-    public AlbumImg(URL imgUrl) throws IOException {
+    public GenericImage(URL imgUrl) throws IOException {
         this.imgUrl = imgUrl;
     }
 
-    protected AlbumImg(Parcel in) {
+    protected GenericImage(Parcel in) {
     }
 
-    public static final Creator<AlbumImg> CREATOR = new Creator<AlbumImg>() {
+    public static final Creator<GenericImage> CREATOR = new Creator<GenericImage>() {
         @Override
-        public AlbumImg createFromParcel(Parcel in) {
-            return new AlbumImg(in);
+        public GenericImage createFromParcel(Parcel in) {
+            return new GenericImage(in);
         }
 
         @Override
-        public AlbumImg[] newArray(int size) {
-            return new AlbumImg[size];
+        public GenericImage[] newArray(int size) {
+            return new GenericImage[size];
         }
     };
 
-    public RequestBuilder<Drawable> getAlbumImg() {
-        return albumImg;
+    public RequestBuilder<Drawable> getImg() {
+        return img;
     }
 
-    public void setAlbumImg(RequestBuilder<Drawable> albumImg) {
-        this.albumImg = albumImg;
+    public void setImg(RequestBuilder<Drawable> img) {
+        this.img = img;
     }
 
 
     @Override
     public String toString() {
-        return "AlbumImg{" +
+        return "img{" +
                 "imgUrl=" + imgUrl +
                 '}';
     }
