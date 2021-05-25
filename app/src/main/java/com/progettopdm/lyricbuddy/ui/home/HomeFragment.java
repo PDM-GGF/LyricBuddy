@@ -46,8 +46,12 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         ccAuthRepository.authorize();
-        newReleasesList = getNewReleases();
-        featuredPlaylistsList = getFeaturedPlaylists();
+        try {
+            newReleasesList = getNewReleases();
+            featuredPlaylistsList = getFeaturedPlaylists();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         loadAlbumImages(newReleasesList);
         loadPlaylistImages(featuredPlaylistsList);
 
@@ -88,7 +92,7 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private List<Album> getNewReleases() {
+    private List<Album> getNewReleases() throws IOException {
         InputStream fileInputStream = null;
         JsonReader jsonReader = null;
         try {
@@ -100,11 +104,12 @@ public class HomeFragment extends Fragment {
 
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
         NewReleaseResponse response = new Gson().fromJson(bufferedReader, NewReleaseResponse.class);
+        bufferedReader.close();
 
         return response.getAlbumList();
     }
 
-    private List<Playlist> getFeaturedPlaylists() {
+    private List<Playlist> getFeaturedPlaylists() throws IOException {
         InputStream fileInputStream = null;
         JsonReader jsonReader = null;
         try {
@@ -120,6 +125,8 @@ public class HomeFragment extends Fragment {
         Log.d("PLAYLIST RESPONSE: ", response.getPlaylistWrapper().getPlaylistList().get(0).getName());
 
         featuredMessage = response.getMessage();
+
+        bufferedReader.close();
 
         return response.getPlaylistWrapper().getPlaylistList();
     }
