@@ -77,12 +77,13 @@ public class HomeFragment extends Fragment {
         RecyclerView newReleasesRecyclerView = view.findViewById(R.id.new_releases_list);
         RecyclerView featuredPlaylistsRecyclerView = view.findViewById(R.id.featured_playlist_list);
 
-        AlbumRecyclerViewAdapter albumRecyclerViewAdapter = new AlbumRecyclerViewAdapter(newReleasesList);
-        PlaylistRecyclerViewAdapter playlistRecyclerViewAdapter = new PlaylistRecyclerViewAdapter(featuredPlaylistsList);
+        HomeCardRecyclerViewAdapter homeCardRecyclerViewAdapter = new HomeCardRecyclerViewAdapter(newReleasesList);
+        HomeCardRecyclerViewAdapter playlistRecyclerViewAdapter = new HomeCardRecyclerViewAdapter(featuredPlaylistsList);
+        // PlaylistRecyclerViewAdapter playlistRecyclerViewAdapter = new PlaylistRecyclerViewAdapter(featuredPlaylistsList);
 
         newReleasesRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),  1,
                 GridLayoutManager.HORIZONTAL, false));
-        newReleasesRecyclerView.setAdapter(albumRecyclerViewAdapter);
+        newReleasesRecyclerView.setAdapter(homeCardRecyclerViewAdapter);
 
         featuredPlaylistsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),  1,
                 GridLayoutManager.HORIZONTAL, false));

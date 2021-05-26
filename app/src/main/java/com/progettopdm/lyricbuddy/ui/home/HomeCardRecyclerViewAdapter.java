@@ -10,19 +10,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.progettopdm.lyricbuddy.R;
-import com.progettopdm.lyricbuddy.model.Album;
-import com.progettopdm.lyricbuddy.model.Playlist;
 import com.progettopdm.lyricbuddy.model.TrackContainer;
 
 import java.io.IOException;
 import java.util.List;
 
-public class PlaylistRecyclerViewAdapter extends RecyclerView.Adapter<PlaylistRecyclerViewAdapter.NewReleasesViewHolder> {
+public class HomeCardRecyclerViewAdapter extends RecyclerView.Adapter<HomeCardRecyclerViewAdapter.NewReleasesViewHolder> {
 
-    private List<Playlist> playlistList;
+    private List<? extends TrackContainer> tcList;
 
-    public PlaylistRecyclerViewAdapter(List<Playlist> playlistList) {
-        this.playlistList = playlistList;
+    public HomeCardRecyclerViewAdapter(List<? extends TrackContainer> tcList) {
+        this.tcList = tcList;
     }
 
     @NonNull
@@ -35,33 +33,29 @@ public class PlaylistRecyclerViewAdapter extends RecyclerView.Adapter<PlaylistRe
 
     @Override
     public void onBindViewHolder(@NonNull NewReleasesViewHolder holder, int position) {
-        try {
-            holder.bind(playlistList.get(position));
-        } catch (IOException e) {
-            //e.printStackTrace();
-        }
+        holder.bind(tcList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return playlistList.size();
+        return tcList.size();
     }
 
     public class NewReleasesViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView nameTextView;
-        private final ImageView playlistImageView;
+        private final ImageView tcImageView;
 
 
         public NewReleasesViewHolder(@NonNull View itemView) {
             super(itemView);
-            nameTextView = itemView.findViewById(R.id.album_name);
-            playlistImageView = itemView.findViewById(R.id.album_cover);
+            nameTextView = itemView.findViewById(R.id.tc_name);
+            tcImageView = itemView.findViewById(R.id.tc_cover);
         }
 
-        public void bind(TrackContainer trackContainer) throws IOException {
+        public void bind(TrackContainer trackContainer) {
             nameTextView.setText(trackContainer.getName());
-            trackContainer.getImgList().get(0).getImg().into(playlistImageView);
+            trackContainer.getImgList().get(0).getImg().into(tcImageView);
         }
     }
 }
