@@ -3,6 +3,14 @@ package com.progettopdm.lyricbuddy.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.room.Embedded;
+import androidx.room.Entity;
+import androidx.room.Junction;
+import androidx.room.Relation;
+
+import java.util.List;
+
+@Entity(primaryKeys = {"trackId", "playlistId"})
 public class TrackPlaylist implements Parcelable {
 
     int trackId;
@@ -34,6 +42,17 @@ public class TrackPlaylist implements Parcelable {
     public void setPlaylistId(int playlistId) {
         this.playlistId = playlistId;
     }
+
+    //METODO PER RELAZIONE MOLTI A MOLTI **DA DEFINIRE**
+    @Embedded
+    public Playlist playlist;
+    @Relation(
+            parentColumn = "playlistId",
+            entityColumn = "songId",
+            associateBy = @Junction(TrackPlaylist.class)
+    )
+    public List<Track> tracks;
+
 
 
     @Override
@@ -71,4 +90,7 @@ public class TrackPlaylist implements Parcelable {
             return new TrackPlaylist[size];
         }
     };
+
+
+
 }
