@@ -1,5 +1,8 @@
 package com.progettopdm.lyricbuddy.utils;
 
+import android.app.Application;
+
+import com.progettopdm.lyricbuddy.database.MusicDatabase;
 import com.progettopdm.lyricbuddy.services.CCAuthService;
 
 import retrofit2.Retrofit;
@@ -25,5 +28,11 @@ public class ServiceLocator {
                 addConverterFactory(GsonConverterFactory.create()).build();
 
         return retrofit.create(CCAuthService.class);
+    }
+
+
+    /*metodo per tutto il database o solo per le track?*/
+    public MusicDatabase getMusicDao(Application application) {
+        return MusicDatabase.getDatabase(application);
     }
 }

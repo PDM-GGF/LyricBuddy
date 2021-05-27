@@ -15,6 +15,7 @@ public class Album implements Parcelable {
     public int albumId;
     public String title;
     public int artistId;
+    /*Array di tracce è necessario?*/
     public ArrayList<Track> trackList;
     public int year;
 
