@@ -9,6 +9,7 @@ import java.util.List;
 
 public class Album extends TrackContainer implements Parcelable {
 
+    String albumId;
     @SerializedName("name")
     String name;
     @SerializedName("images")
