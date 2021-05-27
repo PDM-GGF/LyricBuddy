@@ -14,7 +14,7 @@ public class Album extends TrackContainer implements Parcelable {
     String name;
     @SerializedName("images")
     List<GenericImage> genericImageList;
-
+    List<Track> trackList;
 
 
     public Album(String name, List<GenericImage> genericImageList) {
@@ -24,6 +24,11 @@ public class Album extends TrackContainer implements Parcelable {
 
     public List<GenericImage> getImgList() {
         return genericImageList;
+    }
+
+    @Override
+    public List<Track> getTrackList() {
+        return null;
     }
 
     public void setImgList(List<GenericImage> genericImageList) {

@@ -18,9 +18,15 @@ import java.util.List;
 public class HomeCardRecyclerViewAdapter extends RecyclerView.Adapter<HomeCardRecyclerViewAdapter.NewReleasesViewHolder> {
 
     private List<? extends TrackContainer> tcList;
+    OnItemClickListener onItemClickListener;
 
-    public HomeCardRecyclerViewAdapter(List<? extends TrackContainer> tcList) {
+    public interface OnItemClickListener {
+        void onItemClick(TrackContainer trackContainer);
+    }
+
+    public HomeCardRecyclerViewAdapter(List<? extends TrackContainer> tcList, OnItemClickListener onItemClickListener) {
         this.tcList = tcList;
+        this.onItemClickListener = onItemClickListener;
     }
 
     @NonNull
@@ -56,6 +62,13 @@ public class HomeCardRecyclerViewAdapter extends RecyclerView.Adapter<HomeCardRe
         public void bind(TrackContainer trackContainer) {
             nameTextView.setText(trackContainer.getName());
             trackContainer.getImgList().get(0).getImg().into(tcImageView);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+
+                    onItemClickListener.onItemClick(trackContainer);
+                }
+            });
         }
     }
 }
