@@ -5,4 +5,5 @@ import java.util.List;
 public abstract class TrackContainer {
     public abstract String getName();
     public abstract List<GenericImage> getImgList();
+    public abstract List<Track> getTrackList();
 }

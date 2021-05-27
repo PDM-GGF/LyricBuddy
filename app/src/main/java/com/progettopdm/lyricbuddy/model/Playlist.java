@@ -40,6 +40,11 @@ public class Playlist extends TrackContainer implements Parcelable {
         return playlistImgList;
     }
 
+    @Override
+    public List<Track> getTrackList() {
+        return null;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
