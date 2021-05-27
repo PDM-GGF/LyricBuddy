@@ -9,12 +9,12 @@ import com.google.gson.annotations.SerializedName;
 public class Track implements Parcelable {
 
     @SerializedName("id")
-    int trackId;
+    String trackId;
     String name;
     int duration_ms;
     String lyrics;
 
-    public Track(int trackId, String name, int duration_ms, String lyrics) {
+    public Track(String trackId, String name, int duration_ms, String lyrics) {
         this.trackId = trackId;
         this.name = name;
         this.duration_ms = duration_ms;
@@ -22,7 +22,7 @@ public class Track implements Parcelable {
     }
 
     public Track(Parcel in) {
-        trackId = in.readInt();
+        trackId = in.readString();
         name = in.readString();
         duration_ms = in.readInt();
         lyrics = in.readString();
@@ -40,11 +40,11 @@ public class Track implements Parcelable {
         }
     };
 
-    public int getTrackId() {
+    public String getTrackId() {
         return trackId;
     }
 
-    public void setTrackId(int trackId) {
+    public void setTrackId(String trackId) {
         this.trackId = trackId;
     }
 
@@ -79,7 +79,7 @@ public class Track implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(trackId);
+        dest.writeString(trackId);
         dest.writeString(name);
         dest.writeInt(duration_ms);
         dest.writeString(lyrics);

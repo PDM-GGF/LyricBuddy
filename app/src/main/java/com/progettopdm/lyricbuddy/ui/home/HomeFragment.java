@@ -87,6 +87,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemClick(TrackContainer trackContainer) {
                 Log.d("Album", trackContainer.getName());
+
+                //servirà per implementazione api (per ora prendiamo la tracklist del primo album di new releases da tracklist.json)
+                List<Track> trackList = getTrackList(trackContainer.getId());
+
+                Log.d("Tracklist: ", "");
+                for(Track t : trackList){
+                    Log.d("", t.getName());
+                }
             }
         });
 
@@ -96,7 +104,7 @@ public class HomeFragment extends Fragment {
             //Click su elemento lista "Featured"
             @Override
             public void onItemClick(TrackContainer trackContainer) {
-                Log.d("Album", trackContainer.getName());
+                Log.d("Playlist", trackContainer.getName());
             }
         });
 
@@ -113,7 +121,7 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private List<Track> getTrackList() {
+    private List<Track> getTrackList(String trackContainerId) {
         InputStream fileInputStream = null;
         JsonReader jsonReader = null;
         try {

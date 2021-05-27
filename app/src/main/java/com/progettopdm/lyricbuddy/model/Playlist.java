@@ -9,27 +9,34 @@ import java.util.List;
 
 public class Playlist extends TrackContainer implements Parcelable {
 
-    int playlistId;
+    String playlistId;
     String name;
     String description;
     @SerializedName("images")
     List<GenericImage> playlistImgList;
 
 
-    public Playlist(int playlistId, String name, String image_url, String description, List<GenericImage> playlistImageList) {
+    public Playlist(String playlistId, String name, String image_url, String description, List<GenericImage> playlistImageList) {
         this.playlistId = playlistId;
         this.name = name;
         this.playlistImgList = playlistImageList;
         this.description = description;
     }
 
-    public int getPlaylistId() {
+    public String getPlaylistId() {
         return playlistId;
     }
 
-    public void setPlaylistId(int playlistId) {
+    public void setPlaylistId(String playlistId) {
         this.playlistId = playlistId;
     }
+
+    @Override
+    public String getId() {
+        return playlistId;
+    }
+
+
 
     public String getName() {
         return name;
@@ -66,7 +73,7 @@ public class Playlist extends TrackContainer implements Parcelable {
     }
 
     protected Playlist(Parcel in) {
-        playlistId = in.readInt();
+        playlistId = in.readString();
         name = in.readString();
         description = in.readString();
         playlistImgList = in.createTypedArrayList(GenericImage.CREATOR);
@@ -91,7 +98,7 @@ public class Playlist extends TrackContainer implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(playlistId);
+        dest.writeString(playlistId);
         dest.writeString(name);
         dest.writeString(description);
         dest.writeTypedList(playlistImgList);

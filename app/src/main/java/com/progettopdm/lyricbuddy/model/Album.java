@@ -26,6 +26,10 @@ public class Album extends TrackContainer implements Parcelable {
         return genericImageList;
     }
 
+    public void setTrackList(List<Track> trackList) {
+        this.trackList = trackList;
+    }
+
     @Override
     public List<Track> getTrackList() {
         return null;
@@ -51,6 +55,15 @@ public class Album extends TrackContainer implements Parcelable {
             return new Album[size];
         }
     };
+
+    public void setAlbumId(String albumId) {
+        this.albumId = albumId;
+    }
+
+    @Override
+    public String getId() {
+        return albumId;
+    }
 
     public String getName() {
         return name;
