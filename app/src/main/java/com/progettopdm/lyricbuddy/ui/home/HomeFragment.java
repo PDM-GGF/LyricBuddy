@@ -23,6 +23,7 @@ import com.progettopdm.lyricbuddy.R;
 import com.progettopdm.lyricbuddy.model.Album;
 import com.progettopdm.lyricbuddy.model.GenericImage;
 import com.progettopdm.lyricbuddy.model.Playlist;
+import com.progettopdm.lyricbuddy.model.TrackContainer;
 import com.progettopdm.lyricbuddy.model.response.FeaturedResponse;
 import com.progettopdm.lyricbuddy.model.response.NewReleaseResponse;
 import com.progettopdm.lyricbuddy.repository.CCAuthRepository;
@@ -77,9 +78,25 @@ public class HomeFragment extends Fragment {
         RecyclerView newReleasesRecyclerView = view.findViewById(R.id.new_releases_list);
         RecyclerView featuredPlaylistsRecyclerView = view.findViewById(R.id.featured_playlist_list);
 
-        HomeCardRecyclerViewAdapter homeCardRecyclerViewAdapter = new HomeCardRecyclerViewAdapter(newReleasesList);
-        HomeCardRecyclerViewAdapter playlistRecyclerViewAdapter = new HomeCardRecyclerViewAdapter(featuredPlaylistsList);
-        // PlaylistRecyclerViewAdapter playlistRecyclerViewAdapter = new PlaylistRecyclerViewAdapter(featuredPlaylistsList);
+
+        HomeCardRecyclerViewAdapter homeCardRecyclerViewAdapter = new HomeCardRecyclerViewAdapter(newReleasesList, new HomeCardRecyclerViewAdapter.OnItemClickListener() {
+
+            //Click su elemento lista "Nuove Uscite"
+            @Override
+            public void onItemClick(TrackContainer trackContainer) {
+                Log.d("Album", trackContainer.getName());
+            }
+        });
+
+
+        HomeCardRecyclerViewAdapter playlistRecyclerViewAdapter = new HomeCardRecyclerViewAdapter(featuredPlaylistsList, new HomeCardRecyclerViewAdapter.OnItemClickListener() {
+
+            //Click su elemento lista "Featured"
+            @Override
+            public void onItemClick(TrackContainer trackContainer) {
+                Log.d("Album", trackContainer.getName());
+            }
+        });
 
         newReleasesRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),  1,
                 GridLayoutManager.HORIZONTAL, false));
@@ -89,12 +106,9 @@ public class HomeFragment extends Fragment {
                 GridLayoutManager.HORIZONTAL, false));
         featuredPlaylistsRecyclerView.setAdapter(playlistRecyclerViewAdapter);
 
-
-
-
     }
 
-    private List<Album> getNewReleases() throws IOException {
+    private List<Album> getNewReleases() {
         InputStream fileInputStream = null;
         JsonReader jsonReader = null;
         try {
