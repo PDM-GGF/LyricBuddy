@@ -23,9 +23,11 @@ import com.progettopdm.lyricbuddy.R;
 import com.progettopdm.lyricbuddy.model.Album;
 import com.progettopdm.lyricbuddy.model.GenericImage;
 import com.progettopdm.lyricbuddy.model.Playlist;
+import com.progettopdm.lyricbuddy.model.Track;
 import com.progettopdm.lyricbuddy.model.TrackContainer;
 import com.progettopdm.lyricbuddy.model.response.FeaturedResponse;
 import com.progettopdm.lyricbuddy.model.response.NewReleaseResponse;
+import com.progettopdm.lyricbuddy.model.response.TrackListResponse;
 import com.progettopdm.lyricbuddy.repository.CCAuthRepository;
 
 import java.io.BufferedReader;
@@ -106,9 +108,29 @@ public class HomeFragment extends Fragment {
                 GridLayoutManager.HORIZONTAL, false));
         featuredPlaylistsRecyclerView.setAdapter(playlistRecyclerViewAdapter);
 
+
+
+
     }
 
-    private List<Album> getNewReleases() {
+    private List<Track> getTrackList() {
+        InputStream fileInputStream = null;
+        JsonReader jsonReader = null;
+        try {
+            fileInputStream = getActivity().getAssets().open("tracklist.json");
+            jsonReader = new JsonReader(new InputStreamReader(fileInputStream, "UTF-8"));
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
+            TrackListResponse response = new Gson().fromJson(bufferedReader, TrackListResponse.class);
+            jsonReader.close();
+            return response.getTrackList();
+        } catch (IOException e) {
+            //e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    private List<Album> getNewReleases() throws IOException {
         InputStream fileInputStream = null;
         JsonReader jsonReader = null;
         try {
