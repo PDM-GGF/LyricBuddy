@@ -23,9 +23,11 @@ import com.progettopdm.lyricbuddy.R;
 import com.progettopdm.lyricbuddy.model.Album;
 import com.progettopdm.lyricbuddy.model.GenericImage;
 import com.progettopdm.lyricbuddy.model.Playlist;
+import com.progettopdm.lyricbuddy.model.Track;
 import com.progettopdm.lyricbuddy.model.TrackContainer;
 import com.progettopdm.lyricbuddy.model.response.FeaturedResponse;
 import com.progettopdm.lyricbuddy.model.response.NewReleaseResponse;
+import com.progettopdm.lyricbuddy.model.response.TrackListResponse;
 import com.progettopdm.lyricbuddy.repository.CCAuthRepository;
 
 import java.io.BufferedReader;
@@ -85,6 +87,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemClick(TrackContainer trackContainer) {
                 Log.d("Album", trackContainer.getName());
+
+                //servirà per implementazione api (per ora prendiamo la tracklist del primo album di new releases da tracklist.json)
+                List<Track> trackList = getTrackList(trackContainer.getId());
+
+                Log.d("Tracklist: ", "");
+                for(Track t : trackList){
+                    Log.d("", t.getName());
+                }
             }
         });
 
@@ -94,7 +104,7 @@ public class HomeFragment extends Fragment {
             //Click su elemento lista "Featured"
             @Override
             public void onItemClick(TrackContainer trackContainer) {
-                Log.d("Album", trackContainer.getName());
+                Log.d("Playlist", trackContainer.getName());
             }
         });
 
@@ -106,9 +116,29 @@ public class HomeFragment extends Fragment {
                 GridLayoutManager.HORIZONTAL, false));
         featuredPlaylistsRecyclerView.setAdapter(playlistRecyclerViewAdapter);
 
+
+
+
     }
 
-    private List<Album> getNewReleases() {
+    private List<Track> getTrackList(String trackContainerId) {
+        InputStream fileInputStream = null;
+        JsonReader jsonReader = null;
+        try {
+            fileInputStream = getActivity().getAssets().open("tracklist.json");
+            jsonReader = new JsonReader(new InputStreamReader(fileInputStream, "UTF-8"));
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
+            TrackListResponse response = new Gson().fromJson(bufferedReader, TrackListResponse.class);
+            jsonReader.close();
+            return response.getTrackList();
+        } catch (IOException e) {
+            //e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    private List<Album> getNewReleases() throws IOException {
         InputStream fileInputStream = null;
         JsonReader jsonReader = null;
         try {

@@ -9,6 +9,7 @@ import java.util.List;
 
 public class Album extends TrackContainer implements Parcelable {
 
+    String albumId;
     @SerializedName("name")
     String name;
     @SerializedName("images")
@@ -23,6 +24,10 @@ public class Album extends TrackContainer implements Parcelable {
 
     public List<GenericImage> getImgList() {
         return genericImageList;
+    }
+
+    public void setTrackList(List<Track> trackList) {
+        this.trackList = trackList;
     }
 
     @Override
@@ -50,6 +55,15 @@ public class Album extends TrackContainer implements Parcelable {
             return new Album[size];
         }
     };
+
+    public void setAlbumId(String albumId) {
+        this.albumId = albumId;
+    }
+
+    @Override
+    public String getId() {
+        return albumId;
+    }
 
     public String getName() {
         return name;

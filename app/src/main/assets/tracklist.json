@@ -1,0 +1,460 @@
+{
+  "href": "https://api.spotify.com/v1/albums/3ZQ76t0fo1GxMP3FWUJaDu/tracks?offset=5&limit=10&market=IT",
+  "items": [
+    {
+      "artists": [
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/2VZNmg4vCnew4Pavo8zDdW"
+          },
+          "href": "https://api.spotify.com/v1/artists/2VZNmg4vCnew4Pavo8zDdW",
+          "id": "2VZNmg4vCnew4Pavo8zDdW",
+          "name": "Max Richter",
+          "type": "artist",
+          "uri": "spotify:artist:2VZNmg4vCnew4Pavo8zDdW"
+        }
+      ],
+      "disc_number": 1,
+      "duration_ms": 201401,
+      "explicit": false,
+      "external_urls": {
+        "spotify": "https://open.spotify.com/track/6Lxc9yB6q1enfXgX28zL3Q"
+      },
+      "href": "https://api.spotify.com/v1/tracks/6Lxc9yB6q1enfXgX28zL3Q",
+      "id": "6Lxc9yB6q1enfXgX28zL3Q",
+      "is_local": false,
+      "is_playable": true,
+      "name": "Prelude 6",
+      "preview_url": "https://p.scdn.co/mp3-preview/83e1001718293fc90332fce840b985bba9090890?cid=774b29d4f13844c495f206cafdad9c86",
+      "track_number": 6,
+      "type": "track",
+      "uri": "spotify:track:6Lxc9yB6q1enfXgX28zL3Q"
+    },
+    {
+      "artists": [
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/2VZNmg4vCnew4Pavo8zDdW"
+          },
+          "href": "https://api.spotify.com/v1/artists/2VZNmg4vCnew4Pavo8zDdW",
+          "id": "2VZNmg4vCnew4Pavo8zDdW",
+          "name": "Max Richter",
+          "type": "artist",
+          "uri": "spotify:artist:2VZNmg4vCnew4Pavo8zDdW"
+        },
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/6XHc5bOPo6tCfP92bbhNa4"
+          },
+          "href": "https://api.spotify.com/v1/artists/6XHc5bOPo6tCfP92bbhNa4",
+          "id": "6XHc5bOPo6tCfP92bbhNa4",
+          "name": "KiKi Layne",
+          "type": "artist",
+          "uri": "spotify:artist:6XHc5bOPo6tCfP92bbhNa4"
+        },
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/670EXb4x6t2MAvRvqCixyx"
+          },
+          "href": "https://api.spotify.com/v1/artists/670EXb4x6t2MAvRvqCixyx",
+          "id": "670EXb4x6t2MAvRvqCixyx",
+          "name": "Mari Samuelsen",
+          "type": "artist",
+          "uri": "spotify:artist:670EXb4x6t2MAvRvqCixyx"
+        },
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/6c3mMiMnHQtu4mGWN87CFx"
+          },
+          "href": "https://api.spotify.com/v1/artists/6c3mMiMnHQtu4mGWN87CFx",
+          "id": "6c3mMiMnHQtu4mGWN87CFx",
+          "name": "Robert Ziegler",
+          "type": "artist",
+          "uri": "spotify:artist:6c3mMiMnHQtu4mGWN87CFx"
+        }
+      ],
+      "disc_number": 1,
+      "duration_ms": 496898,
+      "explicit": false,
+      "external_urls": {
+        "spotify": "https://open.spotify.com/track/47SgtSoK1jYgkjhaWlHx7X"
+      },
+      "href": "https://api.spotify.com/v1/tracks/47SgtSoK1jYgkjhaWlHx7X",
+      "id": "47SgtSoK1jYgkjhaWlHx7X",
+      "is_local": false,
+      "is_playable": true,
+      "name": "Murmuration",
+      "preview_url": "https://p.scdn.co/mp3-preview/8bcb3b9f508501198ee45aafec8226ae1a95a273?cid=774b29d4f13844c495f206cafdad9c86",
+      "track_number": 7,
+      "type": "track",
+      "uri": "spotify:track:47SgtSoK1jYgkjhaWlHx7X"
+    },
+    {
+      "artists": [
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/2VZNmg4vCnew4Pavo8zDdW"
+          },
+          "href": "https://api.spotify.com/v1/artists/2VZNmg4vCnew4Pavo8zDdW",
+          "id": "2VZNmg4vCnew4Pavo8zDdW",
+          "name": "Max Richter",
+          "type": "artist",
+          "uri": "spotify:artist:2VZNmg4vCnew4Pavo8zDdW"
+        },
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/6XHc5bOPo6tCfP92bbhNa4"
+          },
+          "href": "https://api.spotify.com/v1/artists/6XHc5bOPo6tCfP92bbhNa4",
+          "id": "6XHc5bOPo6tCfP92bbhNa4",
+          "name": "KiKi Layne",
+          "type": "artist",
+          "uri": "spotify:artist:6XHc5bOPo6tCfP92bbhNa4"
+        }
+      ],
+      "disc_number": 1,
+      "duration_ms": 255165,
+      "explicit": false,
+      "external_urls": {
+        "spotify": "https://open.spotify.com/track/1UXzO1umROMhY9UXK5UEwV"
+      },
+      "href": "https://api.spotify.com/v1/tracks/1UXzO1umROMhY9UXK5UEwV",
+      "id": "1UXzO1umROMhY9UXK5UEwV",
+      "is_local": false,
+      "is_playable": true,
+      "name": "Cartography",
+      "preview_url": "https://p.scdn.co/mp3-preview/f5dabfecdf8f0a863aebd078f84ffec66a0aa51d?cid=774b29d4f13844c495f206cafdad9c86",
+      "track_number": 8,
+      "type": "track",
+      "uri": "spotify:track:1UXzO1umROMhY9UXK5UEwV"
+    },
+    {
+      "artists": [
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/2VZNmg4vCnew4Pavo8zDdW"
+          },
+          "href": "https://api.spotify.com/v1/artists/2VZNmg4vCnew4Pavo8zDdW",
+          "id": "2VZNmg4vCnew4Pavo8zDdW",
+          "name": "Max Richter",
+          "type": "artist",
+          "uri": "spotify:artist:2VZNmg4vCnew4Pavo8zDdW"
+        },
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/6XHc5bOPo6tCfP92bbhNa4"
+          },
+          "href": "https://api.spotify.com/v1/artists/6XHc5bOPo6tCfP92bbhNa4",
+          "id": "6XHc5bOPo6tCfP92bbhNa4",
+          "name": "KiKi Layne",
+          "type": "artist",
+          "uri": "spotify:artist:6XHc5bOPo6tCfP92bbhNa4"
+        },
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/1J87mxfzE58rZLrRIOx5I5"
+          },
+          "href": "https://api.spotify.com/v1/artists/1J87mxfzE58rZLrRIOx5I5",
+          "id": "1J87mxfzE58rZLrRIOx5I5",
+          "name": "Grace Davidson",
+          "type": "artist",
+          "uri": "spotify:artist:1J87mxfzE58rZLrRIOx5I5"
+        },
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/670EXb4x6t2MAvRvqCixyx"
+          },
+          "href": "https://api.spotify.com/v1/artists/670EXb4x6t2MAvRvqCixyx",
+          "id": "670EXb4x6t2MAvRvqCixyx",
+          "name": "Mari Samuelsen",
+          "type": "artist",
+          "uri": "spotify:artist:670EXb4x6t2MAvRvqCixyx"
+        },
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/6c3mMiMnHQtu4mGWN87CFx"
+          },
+          "href": "https://api.spotify.com/v1/artists/6c3mMiMnHQtu4mGWN87CFx",
+          "id": "6c3mMiMnHQtu4mGWN87CFx",
+          "name": "Robert Ziegler",
+          "type": "artist",
+          "uri": "spotify:artist:6c3mMiMnHQtu4mGWN87CFx"
+        }
+      ],
+      "disc_number": 1,
+      "duration_ms": 464615,
+      "explicit": false,
+      "external_urls": {
+        "spotify": "https://open.spotify.com/track/4y2J3k6ODKuwwbj4U1oMue"
+      },
+      "href": "https://api.spotify.com/v1/tracks/4y2J3k6ODKuwwbj4U1oMue",
+      "id": "4y2J3k6ODKuwwbj4U1oMue",
+      "is_local": false,
+      "is_playable": true,
+      "name": "Little Requiems",
+      "preview_url": "https://p.scdn.co/mp3-preview/72717b55067f7534ecbe6b75bd26158ad8363bda?cid=774b29d4f13844c495f206cafdad9c86",
+      "track_number": 9,
+      "type": "track",
+      "uri": "spotify:track:4y2J3k6ODKuwwbj4U1oMue"
+    },
+    {
+      "artists": [
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/2VZNmg4vCnew4Pavo8zDdW"
+          },
+          "href": "https://api.spotify.com/v1/artists/2VZNmg4vCnew4Pavo8zDdW",
+          "id": "2VZNmg4vCnew4Pavo8zDdW",
+          "name": "Max Richter",
+          "type": "artist",
+          "uri": "spotify:artist:2VZNmg4vCnew4Pavo8zDdW"
+        },
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/670EXb4x6t2MAvRvqCixyx"
+          },
+          "href": "https://api.spotify.com/v1/artists/670EXb4x6t2MAvRvqCixyx",
+          "id": "670EXb4x6t2MAvRvqCixyx",
+          "name": "Mari Samuelsen",
+          "type": "artist",
+          "uri": "spotify:artist:670EXb4x6t2MAvRvqCixyx"
+        }
+      ],
+      "disc_number": 1,
+      "duration_ms": 328894,
+      "explicit": false,
+      "external_urls": {
+        "spotify": "https://open.spotify.com/track/0RpkVigRs7isnjAaK6WOdQ"
+      },
+      "href": "https://api.spotify.com/v1/tracks/0RpkVigRs7isnjAaK6WOdQ",
+      "id": "0RpkVigRs7isnjAaK6WOdQ",
+      "is_local": false,
+      "is_playable": true,
+      "name": "Mercy",
+      "preview_url": "https://p.scdn.co/mp3-preview/78fdc82e7b499817800bb921960b66d58570370d?cid=774b29d4f13844c495f206cafdad9c86",
+      "track_number": 10,
+      "type": "track",
+      "uri": "spotify:track:0RpkVigRs7isnjAaK6WOdQ"
+    },
+    {
+      "artists": [
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/2VZNmg4vCnew4Pavo8zDdW"
+          },
+          "href": "https://api.spotify.com/v1/artists/2VZNmg4vCnew4Pavo8zDdW",
+          "id": "2VZNmg4vCnew4Pavo8zDdW",
+          "name": "Max Richter",
+          "type": "artist",
+          "uri": "spotify:artist:2VZNmg4vCnew4Pavo8zDdW"
+        },
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/670EXb4x6t2MAvRvqCixyx"
+          },
+          "href": "https://api.spotify.com/v1/artists/670EXb4x6t2MAvRvqCixyx",
+          "id": "670EXb4x6t2MAvRvqCixyx",
+          "name": "Mari Samuelsen",
+          "type": "artist",
+          "uri": "spotify:artist:670EXb4x6t2MAvRvqCixyx"
+        },
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/0cs87q4mrkIUnMqHVAf4eL"
+          },
+          "href": "https://api.spotify.com/v1/artists/0cs87q4mrkIUnMqHVAf4eL",
+          "id": "0cs87q4mrkIUnMqHVAf4eL",
+          "name": "Ian Burdge",
+          "type": "artist",
+          "uri": "spotify:artist:0cs87q4mrkIUnMqHVAf4eL"
+        },
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/6c3mMiMnHQtu4mGWN87CFx"
+          },
+          "href": "https://api.spotify.com/v1/artists/6c3mMiMnHQtu4mGWN87CFx",
+          "id": "6c3mMiMnHQtu4mGWN87CFx",
+          "name": "Robert Ziegler",
+          "type": "artist",
+          "uri": "spotify:artist:6c3mMiMnHQtu4mGWN87CFx"
+        }
+      ],
+      "disc_number": 1,
+      "duration_ms": 413241,
+      "explicit": false,
+      "external_urls": {
+        "spotify": "https://open.spotify.com/track/19aNFLR1kK4pgsK9oddBpo"
+      },
+      "href": "https://api.spotify.com/v1/tracks/19aNFLR1kK4pgsK9oddBpo",
+      "id": "19aNFLR1kK4pgsK9oddBpo",
+      "is_local": false,
+      "is_playable": true,
+      "name": "Psychogeography",
+      "preview_url": "https://p.scdn.co/mp3-preview/f28478d44ea1d4783e34b871a666abb5f612b30a?cid=774b29d4f13844c495f206cafdad9c86",
+      "track_number": 11,
+      "type": "track",
+      "uri": "spotify:track:19aNFLR1kK4pgsK9oddBpo"
+    },
+    {
+      "artists": [
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/2VZNmg4vCnew4Pavo8zDdW"
+          },
+          "href": "https://api.spotify.com/v1/artists/2VZNmg4vCnew4Pavo8zDdW",
+          "id": "2VZNmg4vCnew4Pavo8zDdW",
+          "name": "Max Richter",
+          "type": "artist",
+          "uri": "spotify:artist:2VZNmg4vCnew4Pavo8zDdW"
+        }
+      ],
+      "disc_number": 1,
+      "duration_ms": 156133,
+      "explicit": false,
+      "external_urls": {
+        "spotify": "https://open.spotify.com/track/3Cdzk02nbZWYs3qYD7ae5Q"
+      },
+      "href": "https://api.spotify.com/v1/tracks/3Cdzk02nbZWYs3qYD7ae5Q",
+      "id": "3Cdzk02nbZWYs3qYD7ae5Q",
+      "is_local": false,
+      "is_playable": true,
+      "name": "Mirrors",
+      "preview_url": "https://p.scdn.co/mp3-preview/5649e5846ed8a0eb41ebd85226ba22577091c29e?cid=774b29d4f13844c495f206cafdad9c86",
+      "track_number": 12,
+      "type": "track",
+      "uri": "spotify:track:3Cdzk02nbZWYs3qYD7ae5Q"
+    },
+    {
+      "artists": [
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/2VZNmg4vCnew4Pavo8zDdW"
+          },
+          "href": "https://api.spotify.com/v1/artists/2VZNmg4vCnew4Pavo8zDdW",
+          "id": "2VZNmg4vCnew4Pavo8zDdW",
+          "name": "Max Richter",
+          "type": "artist",
+          "uri": "spotify:artist:2VZNmg4vCnew4Pavo8zDdW"
+        },
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/670EXb4x6t2MAvRvqCixyx"
+          },
+          "href": "https://api.spotify.com/v1/artists/670EXb4x6t2MAvRvqCixyx",
+          "id": "670EXb4x6t2MAvRvqCixyx",
+          "name": "Mari Samuelsen",
+          "type": "artist",
+          "uri": "spotify:artist:670EXb4x6t2MAvRvqCixyx"
+        },
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/6c3mMiMnHQtu4mGWN87CFx"
+          },
+          "href": "https://api.spotify.com/v1/artists/6c3mMiMnHQtu4mGWN87CFx",
+          "id": "6c3mMiMnHQtu4mGWN87CFx",
+          "name": "Robert Ziegler",
+          "type": "artist",
+          "uri": "spotify:artist:6c3mMiMnHQtu4mGWN87CFx"
+        }
+      ],
+      "disc_number": 1,
+      "duration_ms": 303126,
+      "explicit": false,
+      "external_urls": {
+        "spotify": "https://open.spotify.com/track/4qJabqFMcVX7VZ4tW7wJoc"
+      },
+      "href": "https://api.spotify.com/v1/tracks/4qJabqFMcVX7VZ4tW7wJoc",
+      "id": "4qJabqFMcVX7VZ4tW7wJoc",
+      "is_local": false,
+      "is_playable": true,
+      "name": "Follower",
+      "preview_url": "https://p.scdn.co/mp3-preview/3eebaa83417209bf2e1f6c78e711bcf3b31c903e?cid=774b29d4f13844c495f206cafdad9c86",
+      "track_number": 13,
+      "type": "track",
+      "uri": "spotify:track:4qJabqFMcVX7VZ4tW7wJoc"
+    },
+    {
+      "artists": [
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/2VZNmg4vCnew4Pavo8zDdW"
+          },
+          "href": "https://api.spotify.com/v1/artists/2VZNmg4vCnew4Pavo8zDdW",
+          "id": "2VZNmg4vCnew4Pavo8zDdW",
+          "name": "Max Richter",
+          "type": "artist",
+          "uri": "spotify:artist:2VZNmg4vCnew4Pavo8zDdW"
+        }
+      ],
+      "disc_number": 1,
+      "duration_ms": 289182,
+      "explicit": false,
+      "external_urls": {
+        "spotify": "https://open.spotify.com/track/0dsAoqx5UZ3db3X8dOmSW8"
+      },
+      "href": "https://api.spotify.com/v1/tracks/0dsAoqx5UZ3db3X8dOmSW8",
+      "id": "0dsAoqx5UZ3db3X8dOmSW8",
+      "is_local": false,
+      "is_playable": true,
+      "name": "Solitaries",
+      "preview_url": "https://p.scdn.co/mp3-preview/010f086a6116116770d2a24900a0d0a84b067233?cid=774b29d4f13844c495f206cafdad9c86",
+      "track_number": 14,
+      "type": "track",
+      "uri": "spotify:track:0dsAoqx5UZ3db3X8dOmSW8"
+    },
+    {
+      "artists": [
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/2VZNmg4vCnew4Pavo8zDdW"
+          },
+          "href": "https://api.spotify.com/v1/artists/2VZNmg4vCnew4Pavo8zDdW",
+          "id": "2VZNmg4vCnew4Pavo8zDdW",
+          "name": "Max Richter",
+          "type": "artist",
+          "uri": "spotify:artist:2VZNmg4vCnew4Pavo8zDdW"
+        },
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/670EXb4x6t2MAvRvqCixyx"
+          },
+          "href": "https://api.spotify.com/v1/artists/670EXb4x6t2MAvRvqCixyx",
+          "id": "670EXb4x6t2MAvRvqCixyx",
+          "name": "Mari Samuelsen",
+          "type": "artist",
+          "uri": "spotify:artist:670EXb4x6t2MAvRvqCixyx"
+        },
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/6c3mMiMnHQtu4mGWN87CFx"
+          },
+          "href": "https://api.spotify.com/v1/artists/6c3mMiMnHQtu4mGWN87CFx",
+          "id": "6c3mMiMnHQtu4mGWN87CFx",
+          "name": "Robert Ziegler",
+          "type": "artist",
+          "uri": "spotify:artist:6c3mMiMnHQtu4mGWN87CFx"
+        }
+      ],
+      "disc_number": 1,
+      "duration_ms": 348687,
+      "explicit": false,
+      "external_urls": {
+        "spotify": "https://open.spotify.com/track/3NRL6OleNikGHov6sFVJQr"
+      },
+      "href": "https://api.spotify.com/v1/tracks/3NRL6OleNikGHov6sFVJQr",
+      "id": "3NRL6OleNikGHov6sFVJQr",
+      "is_local": false,
+      "is_playable": true,
+      "name": "Movement Study",
+      "preview_url": "https://p.scdn.co/mp3-preview/845e936f85a8d19db9f9fd57f1b6affc0ad301f5?cid=774b29d4f13844c495f206cafdad9c86",
+      "track_number": 15,
+      "type": "track",
+      "uri": "spotify:track:3NRL6OleNikGHov6sFVJQr"
+    }
+  ],
+  "limit": 10,
+  "next": "https://api.spotify.com/v1/albums/3ZQ76t0fo1GxMP3FWUJaDu/tracks?offset=15&limit=10&market=IT",
+  "offset": 5,
+  "previous": "https://api.spotify.com/v1/albums/3ZQ76t0fo1GxMP3FWUJaDu/tracks?offset=0&limit=10&market=IT",
+  "total": 20
+}
