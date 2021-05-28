@@ -58,7 +58,7 @@ public class HomeViewModel extends AndroidViewModel {
         return mFeaturedPlaylists;
     }
 
-    private void loadTrackList(List<? extends TrackContainer> trackContainer) {
+    private void loadTrackList(List<? extends TrackContainer> trackContainer) throws IOException {
         InputStream fileInputStream = null;
         JsonReader jsonReader = null;
 
@@ -68,10 +68,12 @@ public class HomeViewModel extends AndroidViewModel {
                 jsonReader = new JsonReader(new InputStreamReader(fileInputStream, "UTF-8"));
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
                 TrackListResponse response = new Gson().fromJson(bufferedReader, TrackListResponse.class);
-                jsonReader.close();
                 tc.setTrackList(response.getTrackList());
             } catch (IOException e) {
                 //e.printStackTrace();
+            }finally {
+                jsonReader.close();
+                fileInputStream.close();
             }
         }
 
@@ -85,13 +87,12 @@ public class HomeViewModel extends AndroidViewModel {
             jsonReader = new JsonReader(new InputStreamReader(fileInputStream, "UTF-8"));
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
             NewReleaseResponse response = new Gson().fromJson(bufferedReader, NewReleaseResponse.class);
-            jsonReader.close();
-            fileInputStream.close();
-            Log.d("RELEASES: ", response.getAlbumList().toString());
             mNewReleases.setValue(response.getAlbumList());
         } catch (IOException e) {
-            Log.d("RELEASES: ", "CATCH");
-            e.printStackTrace();
+            //e.printStackTrace();
+        }finally {
+            jsonReader.close();
+            fileInputStream.close();
         }
 
     }
@@ -106,12 +107,13 @@ public class HomeViewModel extends AndroidViewModel {
             FeaturedResponse response = new Gson().fromJson(bufferedReader, FeaturedResponse.class);
             Log.d("PLAYLIST RESPONSE: ", response.getPlaylistWrapper().getPlaylistList().get(0).getName());
             featuredMessage = response.getMessage();
-            jsonReader.close();
-            fileInputStream.close();
             mFeaturedPlaylists.setValue(response.getPlaylistWrapper().getPlaylistList());
             loadImagesFromUrl(mFeaturedPlaylists.getValue());
         } catch (IOException e) {
             //e.printStackTrace();
+        }finally {
+            jsonReader.close();
+            fileInputStream.close();
         }
     }
 

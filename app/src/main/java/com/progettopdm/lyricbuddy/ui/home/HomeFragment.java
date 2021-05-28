@@ -76,7 +76,7 @@ public class HomeFragment extends Fragment {
                 }
             });
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
 
@@ -99,7 +99,7 @@ public class HomeFragment extends Fragment {
                 }
             });
         } catch (IOException e) {
-            e.printStackTrace();
+           //e.printStackTrace();
         }
 
     }
