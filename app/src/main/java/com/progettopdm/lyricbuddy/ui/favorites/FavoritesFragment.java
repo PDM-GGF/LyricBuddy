@@ -13,13 +13,25 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.progettopdm.lyricbuddy.R;
+import com.progettopdm.lyricbuddy.repository.MxmLyricsCallback;
+import com.progettopdm.lyricbuddy.repository.MxmLyricsRepository;
 
-public class FavoritesFragment extends Fragment {
+public class FavoritesFragment extends Fragment implements MxmLyricsCallback {
 
     private FavoritesViewModel favoritesViewModel;
 
+    private MxmLyricsRepository mxmLyricsRepository;
+    private String track;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+        mxmLyricsRepository = new MxmLyricsRepository(this);
+
+        track = new String();
+        mxmLyricsRepository.fetchLyrics();
+
+
         favoritesViewModel =
                 new ViewModelProvider(this).get(FavoritesViewModel.class);
         View root = inflater.inflate(R.layout.fragment_favorites, container, false);
@@ -31,5 +43,15 @@ public class FavoritesFragment extends Fragment {
             }
         });
         return root;
+    }
+
+    @Override
+    public void onResponse(String track) {
+
+    }
+
+    @Override
+    public void onFailure(String msg) {
+
     }
 }
