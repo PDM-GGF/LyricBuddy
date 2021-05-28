@@ -69,10 +69,10 @@ public class HomeViewModel extends AndroidViewModel {
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
                 TrackListResponse response = new Gson().fromJson(bufferedReader, TrackListResponse.class);
                 tc.setTrackList(response.getTrackList());
+                jsonReader.close();
             } catch (IOException e) {
                 //e.printStackTrace();
             }finally {
-                jsonReader.close();
                 fileInputStream.close();
             }
         }
@@ -88,10 +88,10 @@ public class HomeViewModel extends AndroidViewModel {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
             NewReleaseResponse response = new Gson().fromJson(bufferedReader, NewReleaseResponse.class);
             mNewReleases.setValue(response.getAlbumList());
+            jsonReader.close();
         } catch (IOException e) {
             //e.printStackTrace();
         }finally {
-            jsonReader.close();
             fileInputStream.close();
         }
 
@@ -109,10 +109,10 @@ public class HomeViewModel extends AndroidViewModel {
             featuredMessage = response.getMessage();
             mFeaturedPlaylists.setValue(response.getPlaylistWrapper().getPlaylistList());
             loadImagesFromUrl(mFeaturedPlaylists.getValue());
+            jsonReader.close();
         } catch (IOException e) {
             //e.printStackTrace();
         }finally {
-            jsonReader.close();
             fileInputStream.close();
         }
     }
