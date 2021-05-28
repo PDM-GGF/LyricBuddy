@@ -3,33 +3,34 @@ package com.progettopdm.lyricbuddy.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "tracks")
 public class Track implements Parcelable {
 
-    @PrimaryKey
-    public int trackId;
+    @PrimaryKey @NonNull
+    public String trackId;
     public String title;
     public String image_url;
     public String lyrics;
     public int year;
-    public int albumTrackId;
+    public int artistTrackId;
+    public int playlistTrackId;
 
-    public Track(int trackId, String title, String image_url, String lyrics, int year) {
+    public Track(String trackId, String title, String image_url, String lyrics, int year, int artistTrackId,int playlistTrackId) {
         this.trackId = trackId;
         this.title = title;
         this.image_url = image_url;
         this.lyrics = lyrics;
         this.year = year;
+        this.artistTrackId = artistTrackId;
+        this.playlistTrackId = playlistTrackId;
+
     }
 
-    public Track(){
-
-    }
-
-    public int getTrackId() {
+    public String getTrackId() {
         return trackId;
     }
 
@@ -49,7 +50,13 @@ public class Track implements Parcelable {
         return year;
     }
 
-    public void setTrackId(int trackId) {
+    public int getArtistTrackId() {
+        return artistTrackId;
+    }
+
+    public int getPlaylistTrackId() { return playlistTrackId; }
+
+    public void setTrackId(String trackId) {
         this.trackId = trackId;
     }
 
@@ -69,6 +76,13 @@ public class Track implements Parcelable {
         this.year = year;
     }
 
+    public void setArtistTrackId(int artistTrackId){ this.artistTrackId = artistTrackId; }
+
+    public void setPlaylistTrackId(int playlistTrackId){ this.playlistTrackId = playlistTrackId; }
+
+
+
+
     @Override
     public String toString() {
         return "Track{" +
@@ -80,7 +94,7 @@ public class Track implements Parcelable {
     }
 
     protected Track(Parcel in) {
-        trackId = in.readInt();
+        trackId = in.readString();
         title = in.readString();
         image_url = in.readString();
         lyrics = in.readString();
@@ -89,7 +103,7 @@ public class Track implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(trackId);
+        dest.writeString(trackId);
         dest.writeString(title);
         dest.writeString(image_url);
         dest.writeString(lyrics);

@@ -3,26 +3,24 @@ package com.progettopdm.lyricbuddy.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
 
-@Entity(tableName = "albums")
+@Entity(tableName = "albums", ignoredColumns = "trackList")
 public class Album implements Parcelable {
 
-    @PrimaryKey
-    public int albumId;
+    @PrimaryKey @NonNull
+    public String albumId;
     public String title;
-    public int artistId;
-    /*Array di tracce è necessario?*/
     public ArrayList<Track> trackList;
     public int year;
 
-    public Album(int albumId, String title, int artistId, ArrayList<Track> trackList, int year) {
+    public Album(String albumId, String title, ArrayList<Track> trackList, int year) {
         this.albumId = albumId;
         this.title = title;
-        this.artistId = artistId;
         this.trackList = trackList;
         this.year = year;
     }
@@ -30,11 +28,11 @@ public class Album implements Parcelable {
     public Album(){
     }
 
-    public int getAlbumId() {
+    public String getAlbumId() {
         return albumId;
     }
 
-    public void setAlbumId(int albumId) {
+    public void setAlbumId(String albumId) {
         this.albumId = albumId;
     }
 
@@ -44,14 +42,6 @@ public class Album implements Parcelable {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public int getArtistId() {
-        return artistId;
-    }
-
-    public void setArtist(int artistId) {
-        this.artistId = artistId;
     }
 
     public ArrayList<Track> getTrackList() {
@@ -71,18 +61,16 @@ public class Album implements Parcelable {
     }
 
     protected Album(Parcel in) {
-        albumId = in.readInt();
+        albumId = in.readString();
         title = in.readString();
-        artistId = in.readInt();
         trackList = in.createTypedArrayList(Track.CREATOR);
         year = in.readInt();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(albumId);
+        dest.writeString(albumId);
         dest.writeString(title);
-        dest.writeInt(artistId);
         dest.writeTypedList(trackList);
         dest.writeInt(year);
     }

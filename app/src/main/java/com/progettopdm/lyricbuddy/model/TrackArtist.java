@@ -13,26 +13,23 @@ import java.util.List;
 @Entity(primaryKeys = {"trackId", "artistId"})
 public class TrackArtist implements Parcelable {
 
-    int trackId;
-    int artistId;
+    String trackId;
+    String artistId;
 
-    public TrackArtist(int trackId, int artistId) {
+    public TrackArtist(String trackId, String artistId) {
         this.trackId = trackId;
         this.artistId = artistId;
     }
 
-    public TrackArtist() {
-    }
-
     protected TrackArtist(Parcel in) {
-        trackId = in.readInt();
-        artistId = in.readInt();
+        trackId = in.readString();
+        artistId = in.readString();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(trackId);
-        dest.writeInt(artistId);
+        dest.writeString(trackId);
+        dest.writeString(artistId);
     }
 
     @Override
@@ -52,19 +49,19 @@ public class TrackArtist implements Parcelable {
         }
     };
 
-    public int getTrackId() {
+    public String getTrackId() {
         return trackId;
     }
 
-    public void setTrackId(int trackId) {
+    public void setTrackId(String trackId) {
         this.trackId = trackId;
     }
 
-    public int getArtistId() {
+    public String getArtistId() {
         return artistId;
     }
 
-    public void setArtistId(int artistId) {
+    public void setArtistId(String artistId) {
         this.artistId = artistId;
     }
 
@@ -73,7 +70,7 @@ public class TrackArtist implements Parcelable {
     public Artist artist;
     @Relation(
             parentColumn = "trackId",
-            entityColumn = "artistId",
+            entityColumn = "artistTrackId",
             associateBy = @Junction(TrackArtist.class)
     )
     public List<Track> tracks;

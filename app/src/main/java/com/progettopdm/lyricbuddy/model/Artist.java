@@ -3,29 +3,27 @@ package com.progettopdm.lyricbuddy.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "artists")
 public class Artist implements Parcelable {
 
-    @PrimaryKey
-    int artistId;
+    @PrimaryKey @NonNull
+    String artistId;
     String name;
     String country;
     String age;
 
-    public Artist(int artistId, String name, String country, String age) {
+    public Artist(String artistId, String name, String country, String age) {
         this.artistId = artistId;
         this.name = name;
         this.country = country;
         this.age = age;
     }
 
-    public Artist() {
-    }
-
-    public int getArtistId() {
+    public String getArtistId() {
         return artistId;
     }
 
@@ -41,7 +39,7 @@ public class Artist implements Parcelable {
         return age;
     }
 
-    public void setArtistId(int artistId) {
+    public void setArtistId(String artistId) {
         this.artistId = artistId;
     }
 
@@ -74,14 +72,14 @@ public class Artist implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(artistId);
+        dest.writeString(artistId);
         dest.writeString(name);
         dest.writeString(country);
         dest.writeString(age);
     }
 
     protected Artist(Parcel in) {
-        artistId = in.readInt();
+        artistId = in.readString();
         name = in.readString();
         country = in.readString();
         age = in.readString();

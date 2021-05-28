@@ -7,7 +7,7 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 
 import com.progettopdm.lyricbuddy.model.Album;
-import com.progettopdm.lyricbuddy.model.TrackAlbum;
+//import com.progettopdm.lyricbuddy.model.TrackAlbum;
 
 import java.util.List;
 

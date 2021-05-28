@@ -13,11 +13,11 @@ import java.util.List;
 @Entity(primaryKeys = {"trackId", "playlistId"})
 public class TrackPlaylist implements Parcelable {
 
-    int trackId;
-    int playlistId;
+    String trackId;
+    String playlistId;
 
 
-    public TrackPlaylist(int trackId, int playlistId) {
+    public TrackPlaylist(String trackId, String playlistId) {
         this.trackId = trackId;
         this.playlistId = playlistId;
 
@@ -27,19 +27,19 @@ public class TrackPlaylist implements Parcelable {
 
     }
 
-    public int getTrackId() {
+    public String getTrackId() {
         return trackId;
     }
 
-    public int getPlaylistId() {
+    public String getPlaylistId() {
         return playlistId;
     }
 
-    public void setTrackId(int trackId) {
+    public void setTrackId(String trackId) {
         this.trackId = trackId;
     }
 
-    public void setPlaylistId(int playlistId) {
+    public void setPlaylistId(String playlistId) {
         this.playlistId = playlistId;
     }
 
@@ -48,7 +48,7 @@ public class TrackPlaylist implements Parcelable {
     public Playlist playlist;
     @Relation(
             parentColumn = "playlistId",
-            entityColumn = "songId",
+            entityColumn = "playlistTrackId",
             associateBy = @Junction(TrackPlaylist.class)
     )
     public List<Track> tracks;
@@ -64,14 +64,14 @@ public class TrackPlaylist implements Parcelable {
     }
 
     protected TrackPlaylist(Parcel in) {
-        trackId = in.readInt();
-        playlistId = in.readInt();
+        trackId = in.readString();
+        playlistId = in.readString();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(trackId);
-        dest.writeInt(playlistId);
+        dest.writeString(trackId);
+        dest.writeString(playlistId);
     }
 
     @Override

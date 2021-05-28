@@ -3,20 +3,21 @@ package com.progettopdm.lyricbuddy.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "playlists")
 public class Playlist implements Parcelable {
 
-    @PrimaryKey
-    int playlistId;
+    @PrimaryKey @NonNull
+    String playlistId;
     String name;
     String image_url;
     String description;
     String genre;
 
-    public Playlist(int playlistId, String name, String image_url, String description, String genre) {
+    public Playlist(String playlistId, String name, String image_url, String description, String genre) {
         this.playlistId = playlistId;
         this.name = name;
         this.image_url = image_url;
@@ -24,11 +25,7 @@ public class Playlist implements Parcelable {
         this.genre = genre;
     }
 
-    public Playlist(){
-
-    }
-
-    public int getPlaylistId() {
+    public String getPlaylistId() {
         return playlistId;
     }
 
@@ -48,7 +45,7 @@ public class Playlist implements Parcelable {
         return genre;
     }
 
-    public void setPlaylistId(int playlistId) {
+    public void setPlaylistId(String playlistId) {
         this.playlistId = playlistId;
     }
 
@@ -79,7 +76,7 @@ public class Playlist implements Parcelable {
     }
 
     protected Playlist(Parcel in) {
-        playlistId = in.readInt();
+        playlistId = in.readString();
         name = in.readString();
         image_url = in.readString();
         description = in.readString();
@@ -88,7 +85,7 @@ public class Playlist implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(playlistId);
+        dest.writeString(playlistId);
         dest.writeString(name);
         dest.writeString(image_url);
         dest.writeString(description);
