@@ -14,9 +14,9 @@ public class Playlist extends TrackContainer implements Parcelable {
     String description;
     @SerializedName("images")
     List<GenericImage> playlistImgList;
+    List<Track> trackList;
 
-
-    public Playlist(String playlistId, String name, String image_url, String description, List<GenericImage> playlistImageList) {
+    public Playlist(String playlistId, String name, String description, List<GenericImage> playlistImageList) {
         this.playlistId = playlistId;
         this.name = name;
         this.playlistImgList = playlistImageList;
@@ -49,7 +49,12 @@ public class Playlist extends TrackContainer implements Parcelable {
 
     @Override
     public List<Track> getTrackList() {
-        return null;
+        return trackList;
+    }
+
+    @Override
+    public void setTrackList(List<Track> trackList) {
+        this.trackList = trackList;
     }
 
     public void setName(String name) {

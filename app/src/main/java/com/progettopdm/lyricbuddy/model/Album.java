@@ -32,7 +32,7 @@ public class Album extends TrackContainer implements Parcelable {
 
     @Override
     public List<Track> getTrackList() {
-        return null;
+        return trackList;
     }
 
     public void setImgList(List<GenericImage> genericImageList) {

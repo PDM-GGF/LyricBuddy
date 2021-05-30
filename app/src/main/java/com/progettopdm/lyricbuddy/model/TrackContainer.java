@@ -7,4 +7,5 @@ public abstract class TrackContainer {
     public abstract String getName();
     public abstract List<GenericImage> getImgList();
     public abstract List<Track> getTrackList();
+    public abstract void setTrackList(List<Track> trackList);
 }
