@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.progettopdm.lyricbuddy.R;
 import com.progettopdm.lyricbuddy.model.TrackContainer;
 
-import java.io.IOException;
 import java.util.List;
 
 public class HomeCardRecyclerViewAdapter extends RecyclerView.Adapter<HomeCardRecyclerViewAdapter.NewReleasesViewHolder> {

@@ -1,5 +1,6 @@
 package com.progettopdm.lyricbuddy.model;
 
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -13,6 +14,7 @@ public class Track implements Parcelable {
     String name;
     int duration_ms;
     String lyrics;
+    Album album;
 
     public Track(String trackId, String name, int duration_ms, String lyrics) {
         this.trackId = trackId;
@@ -39,6 +41,14 @@ public class Track implements Parcelable {
             return new Track[size];
         }
     };
+
+    public Album getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(Album album) {
+        this.album = album;
+    }
 
     public String getTrackId() {
         return trackId;
