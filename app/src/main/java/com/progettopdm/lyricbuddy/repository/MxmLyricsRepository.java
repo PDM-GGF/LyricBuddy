@@ -11,7 +11,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MxmLyricsRepository implements IMxmLyricsRepository {
+public class MxmLyricsRepository {
 
     private MxmLyricsService mxmLyricsService;
     private MxmLyricsCallback mxmLyricsCallback;
@@ -21,7 +21,7 @@ public class MxmLyricsRepository implements IMxmLyricsRepository {
         this.mxmLyricsCallback = mxmLyricsCallback;
     }
 
-    @Override
+
     public void fetchLyrics() {
         int id = 215778095;
         Call<MxmTrack> call = mxmLyricsService.getTrack(Constants.MXM_API_KEY, id);
