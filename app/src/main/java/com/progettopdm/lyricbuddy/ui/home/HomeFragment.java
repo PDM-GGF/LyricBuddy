@@ -12,8 +12,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,6 +42,7 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -49,7 +54,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        HomeViewModel homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
 
         TextView featuredText = view.findViewById(R.id.featured_text);
 
@@ -63,7 +68,9 @@ public class HomeFragment extends Fragment {
                         @Override
                         public void onItemClick(TrackContainer trackContainer) {
                             Log.d("Album", trackContainer.getName());
-
+                            homeViewModel.setmClickedTrackContainer(trackContainer);
+                            NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                            navController.navigate(R.id.action_global_navigation_tracklist);
                             Log.d("Tracklist: ", "");
                             for(Track t : trackContainer.getTrackList()){
                                 Log.d("", t.getName());
@@ -92,7 +99,7 @@ public class HomeFragment extends Fragment {
                         Log.d("Playlist", trackContainer.getName());
                         }
                     });
-                    featuredText.setText(homeViewModel.featuredMessage);
+                    featuredText.setText(homeViewModel.mFeaturedMessage);
                     featuredPlaylistsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),  1,
                             GridLayoutManager.HORIZONTAL, false));
                     featuredPlaylistsRecyclerView.setAdapter(playlistRecyclerViewAdapter);

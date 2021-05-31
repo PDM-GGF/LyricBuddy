@@ -31,12 +31,46 @@ public class HomeViewModel extends AndroidViewModel {
 
     private MutableLiveData<List<Album>> mNewReleases;
     private MutableLiveData<List<Playlist>> mFeaturedPlaylists;
-    String featuredMessage;
+    String mFeaturedMessage;
+    MutableLiveData<TrackContainer> mClickedTrackContainer;
+    MutableLiveData<String> spotiToken;
 
     public HomeViewModel(@NonNull Application application) {
         super(application);
     }
 
+    public LiveData<TrackContainer> getmClickedTrackContainer() {
+        return mClickedTrackContainer;
+    }
+
+    public void setmClickedTrackContainer(TrackContainer mClickedTrackContainer) {
+        this.mClickedTrackContainer = new MutableLiveData<>(mClickedTrackContainer);
+    }
+
+    public String getmFeaturedMessage() {
+        return mFeaturedMessage;
+    }
+
+    public void setmFeaturedMessage(String mFeaturedMessage) {
+        this.mFeaturedMessage = mFeaturedMessage;
+    }
+
+
+    public LiveData<List<Album>> getmNewReleases() {
+        return mNewReleases;
+    }
+
+    public void setmNewReleases(MutableLiveData<List<Album>> mNewReleases) {
+        this.mNewReleases = mNewReleases;
+    }
+
+    public LiveData<List<Playlist>> getmFeaturedPlaylists() {
+        return mFeaturedPlaylists;
+    }
+
+    public void setmFeaturedPlaylists(MutableLiveData<List<Playlist>> mFeaturedPlaylists) {
+        this.mFeaturedPlaylists = mFeaturedPlaylists;
+    }
 
     public LiveData<List<Album>> getNewReleases() throws IOException {
         if(mNewReleases == null) {
@@ -69,6 +103,7 @@ public class HomeViewModel extends AndroidViewModel {
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
                 TrackListResponse response = new Gson().fromJson(bufferedReader, TrackListResponse.class);
                 tc.setTrackList(response.getTrackList());
+
             } catch (IOException e) {
                 //e.printStackTrace();
             }finally {
@@ -106,7 +141,7 @@ public class HomeViewModel extends AndroidViewModel {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
             FeaturedResponse response = new Gson().fromJson(bufferedReader, FeaturedResponse.class);
             Log.d("PLAYLIST RESPONSE: ", response.getPlaylistWrapper().getPlaylistList().get(0).getName());
-            featuredMessage = response.getMessage();
+            mFeaturedMessage = response.getMessage();
             mFeaturedPlaylists.setValue(response.getPlaylistWrapper().getPlaylistList());
             loadImagesFromUrl(mFeaturedPlaylists.getValue());
         } catch (IOException e) {
