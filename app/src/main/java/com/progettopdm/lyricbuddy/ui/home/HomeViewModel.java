@@ -20,6 +20,8 @@ import com.progettopdm.lyricbuddy.model.response.FeaturedResponse;
 import com.progettopdm.lyricbuddy.model.response.NewReleaseResponse;
 import com.progettopdm.lyricbuddy.model.response.TrackListResponse;
 import com.progettopdm.lyricbuddy.repository.CCAuthRepository;
+import com.progettopdm.lyricbuddy.repository.SpotifyRepository;
+import com.progettopdm.lyricbuddy.repository.callback.SpotifyCallback;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -33,7 +35,15 @@ public class HomeViewModel extends AndroidViewModel {
     private MutableLiveData<List<Playlist>> mFeaturedPlaylists;
     String mFeaturedMessage;
     MutableLiveData<TrackContainer> mClickedTrackContainer;
-    MutableLiveData<String> spotiToken;
+    String spotiToken;
+
+    public String getSpotiToken() {
+        return spotiToken;
+    }
+
+    public void setSpotiToken(String spotiToken) {
+        this.spotiToken = spotiToken;
+    }
 
     public HomeViewModel(@NonNull Application application) {
         super(application);
@@ -56,10 +66,6 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
 
-    public LiveData<List<Album>> getmNewReleases() {
-        return mNewReleases;
-    }
-
     public void setmNewReleases(MutableLiveData<List<Album>> mNewReleases) {
         this.mNewReleases = mNewReleases;
     }
@@ -72,14 +78,13 @@ public class HomeViewModel extends AndroidViewModel {
         this.mFeaturedPlaylists = mFeaturedPlaylists;
     }
 
-    public LiveData<List<Album>> getNewReleases() throws IOException {
+    public LiveData<List<Album>> getmNewReleases() throws IOException {
         if(mNewReleases == null) {
             mNewReleases = new MutableLiveData<List<Album>>();
             loadNewReleases();
+            loadImagesFromUrl(mNewReleases.getValue());
+            loadTrackList(mNewReleases.getValue());
         }
-        loadImagesFromUrl(mNewReleases.getValue());
-        //servirà per implementazione api (per ora prendiamo la tracklist del primo album di new releases da tracklist.json)
-        loadTrackList(mNewReleases.getValue());
         return mNewReleases;
     }
 
@@ -115,6 +120,9 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
     private void loadNewReleases() throws IOException {
+
+
+
         InputStream fileInputStream = null;
         JsonReader jsonReader = null;
         try {

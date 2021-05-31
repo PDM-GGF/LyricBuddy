@@ -1,10 +1,12 @@
 package com.progettopdm.lyricbuddy.repository;
 
+import android.app.Application;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import com.progettopdm.lyricbuddy.model.response.AuthResponse;
+import com.progettopdm.lyricbuddy.repository.callback.CCAuthCallback;
 import com.progettopdm.lyricbuddy.services.CCAuthService;
 import com.progettopdm.lyricbuddy.utils.ServiceLocator;
 
@@ -15,10 +17,11 @@ import com.progettopdm.lyricbuddy.utils.Constants;
 public class CCAuthRepository {
 
     CCAuthService ccAuthService;
-    CCAuthCallback ccAuthCallback;
+    private final CCAuthCallback ccAuthCallback;
 
-    public CCAuthRepository() {
+    public CCAuthRepository(CCAuthCallback ccAuthCallback, Application application) {
         this.ccAuthService = ServiceLocator.getInstance().getCCAuthServiceWithRetrofit();
+        this.ccAuthCallback = ccAuthCallback;
     }
 
     public void authorize(){
@@ -29,13 +32,15 @@ public class CCAuthRepository {
         call.enqueue(new Callback<AuthResponse>() {
             @Override
             public void onResponse(@NonNull Call<AuthResponse> call, @NonNull retrofit2.Response<AuthResponse> response) {
-                if (response.body() != null && response.isSuccessful())
-                Log.d("TOKEN: ", response.body().getAccessToken());
+                if (response.body() != null && response.isSuccessful()) {
+                    String token = response.body().getAccessToken();
+                    ccAuthCallback.onAuthResponse(token);
+                }
             }
 
             @Override
             public void onFailure(@NonNull Call<AuthResponse> call, @NonNull Throwable t) {
-                Log.d("FAIL: ", t.getMessage());
+                ccAuthCallback.onAuthFailure(t.getMessage());
             }
         });
 

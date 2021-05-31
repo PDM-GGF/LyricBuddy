@@ -2,6 +2,7 @@ package com.progettopdm.lyricbuddy.utils;
 
 import com.progettopdm.lyricbuddy.services.MxmLyricsService;
 import com.progettopdm.lyricbuddy.services.CCAuthService;
+import com.progettopdm.lyricbuddy.services.SpotifyService;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -26,6 +27,12 @@ public class ServiceLocator {
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://accounts.spotify.com").
                 addConverterFactory(GsonConverterFactory.create()).build();
         return retrofit.create(CCAuthService.class);
+    }
+
+    public SpotifyService getSpotifyServiceWithRetrofit() {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://api.spotify.com/v1/").
+                addConverterFactory(GsonConverterFactory.create()).build();
+        return retrofit.create((SpotifyService.class));
     }
 
     public MxmLyricsService getMxmLyricsServiceWithRetrofit() {
