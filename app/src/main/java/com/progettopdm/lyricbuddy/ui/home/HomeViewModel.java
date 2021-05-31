@@ -33,6 +33,7 @@ public class HomeViewModel extends AndroidViewModel {
     private MutableLiveData<List<Playlist>> mFeaturedPlaylists;
     String mFeaturedMessage;
     MutableLiveData<TrackContainer> mClickedTrackContainer;
+    MutableLiveData<String> spotiToken;
 
     public HomeViewModel(@NonNull Application application) {
         super(application);
