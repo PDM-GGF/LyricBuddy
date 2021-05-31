@@ -1,5 +1,6 @@
 package com.progettopdm.lyricbuddy.utils;
 
+import com.progettopdm.lyricbuddy.services.MxmMatcherService;
 import com.progettopdm.lyricbuddy.services.MxmLyricsService;
 import com.progettopdm.lyricbuddy.services.CCAuthService;
 
@@ -28,9 +29,14 @@ public class ServiceLocator {
         return retrofit.create(CCAuthService.class);
     }
 
-    public MxmLyricsService getMxmLyricsServiceWithRetrofit() {
+    public MxmLyricsService getMxmServiceWithRetrofit() {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.MXM_BASE_URL).
                 addConverterFactory(GsonConverterFactory.create()).build();
         return retrofit.create(MxmLyricsService.class);
+    }
+    public MxmMatcherService getMxmMatcherServiceWithRetrofit() {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.MXM_BASE_URL).
+                addConverterFactory(GsonConverterFactory.create()).build();
+        return retrofit.create(MxmMatcherService.class);
     }
 }

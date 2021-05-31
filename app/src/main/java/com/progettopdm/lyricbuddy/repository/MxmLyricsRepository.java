@@ -17,7 +17,7 @@ public class MxmLyricsRepository {
     private MxmLyricsCallback mxmLyricsCallback;
 
     public MxmLyricsRepository(MxmLyricsCallback mxmLyricsCallback) {
-        this.mxmLyricsService = ServiceLocator.getInstance().getMxmLyricsServiceWithRetrofit();
+        this.mxmLyricsService = ServiceLocator.getInstance().getMxmServiceWithRetrofit();
         this.mxmLyricsCallback = mxmLyricsCallback;
     }
 

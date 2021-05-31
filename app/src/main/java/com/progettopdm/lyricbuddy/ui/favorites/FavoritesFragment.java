@@ -1,6 +1,7 @@
 package com.progettopdm.lyricbuddy.ui.favorites;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,22 +16,27 @@ import androidx.lifecycle.ViewModelProvider;
 import com.progettopdm.lyricbuddy.R;
 import com.progettopdm.lyricbuddy.repository.MxmLyricsCallback;
 import com.progettopdm.lyricbuddy.repository.MxmLyricsRepository;
+import com.progettopdm.lyricbuddy.repository.MxmMatcherCallback;
+import com.progettopdm.lyricbuddy.repository.MxmMatcherRepository;
 
-public class FavoritesFragment extends Fragment implements MxmLyricsCallback {
+public class FavoritesFragment extends Fragment implements MxmLyricsCallback, MxmMatcherCallback {
 
     private FavoritesViewModel favoritesViewModel;
 
     private MxmLyricsRepository mxmLyricsRepository;
+    private MxmMatcherRepository mxmMatcherRepository;
     private String track;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         mxmLyricsRepository = new MxmLyricsRepository(this);
+        //mxmMatcherRepository = new MxmMatcherRepository(this);
 
         track = new String();
 
         mxmLyricsRepository.fetchLyrics();
+        //mxmMatcherRepository.fetchTrackId();
 
         favoritesViewModel =
                 new ViewModelProvider(this).get(FavoritesViewModel.class);
@@ -47,7 +53,7 @@ public class FavoritesFragment extends Fragment implements MxmLyricsCallback {
 
     @Override
     public void onResponse(String track) {
-
+        Log.d("TRACK dal fragment: ", track.toString());
     }
 
     @Override
