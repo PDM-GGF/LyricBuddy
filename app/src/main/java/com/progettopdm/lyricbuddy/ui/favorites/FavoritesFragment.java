@@ -29,8 +29,8 @@ public class FavoritesFragment extends Fragment implements MxmLyricsCallback {
         mxmLyricsRepository = new MxmLyricsRepository(this);
 
         track = new String();
-        mxmLyricsRepository.fetchLyrics();
 
+        mxmLyricsRepository.fetchLyrics();
 
         favoritesViewModel =
                 new ViewModelProvider(this).get(FavoritesViewModel.class);

@@ -1,5 +1,6 @@
 package com.progettopdm.lyricbuddy.utils;
 
+import com.progettopdm.lyricbuddy.services.MxmLyricsService;
 import com.progettopdm.lyricbuddy.services.CCAuthService;
 
 import retrofit2.Retrofit;
@@ -9,11 +10,12 @@ public class ServiceLocator {
 
     private static ServiceLocator instance = null;
 
-    private ServiceLocator() {}
+    private ServiceLocator() {
+    }
 
     public static ServiceLocator getInstance() {
         if (instance == null) {
-            synchronized(ServiceLocator.class) {
+            synchronized (ServiceLocator.class) {
                 instance = new ServiceLocator();
             }
         }
@@ -23,7 +25,12 @@ public class ServiceLocator {
     public CCAuthService getCCAuthServiceWithRetrofit() {
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://accounts.spotify.com").
                 addConverterFactory(GsonConverterFactory.create()).build();
-
         return retrofit.create(CCAuthService.class);
+    }
+
+    public MxmLyricsService getMxmLyricsServiceWithRetrofit() {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.MXM_BASE_URL).
+                addConverterFactory(GsonConverterFactory.create()).build();
+        return retrofit.create(MxmLyricsService.class);
     }
 }

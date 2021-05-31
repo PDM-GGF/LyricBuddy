@@ -5,6 +5,7 @@ import android.util.Log;
 import com.progettopdm.lyricbuddy.model.MxmTrack;
 import com.progettopdm.lyricbuddy.services.MxmLyricsService;
 import com.progettopdm.lyricbuddy.utils.Constants;
+import com.progettopdm.lyricbuddy.utils.ServiceLocator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
