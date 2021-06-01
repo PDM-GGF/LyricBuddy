@@ -10,7 +10,7 @@ import retrofit2.http.Query;
 
 public interface SpotifyService {
 
-    @GET("/browse/new-releases")
+    @GET("browse/new-releases")
     Call<NewReleaseResponse> getNewReleases(@Query("country") String country,
                                 @Query("limit") int limit,
                                 @Header("Authorization") String authToken);

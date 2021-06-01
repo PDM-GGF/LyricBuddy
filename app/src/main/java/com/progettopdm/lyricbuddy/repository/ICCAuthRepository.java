@@ -1,5 +1,7 @@
 package com.progettopdm.lyricbuddy.repository;
 
+import androidx.lifecycle.MutableLiveData;
+
 public interface ICCAuthRepository {
-    void authorize();
+    MutableLiveData<String> authorize();
 }

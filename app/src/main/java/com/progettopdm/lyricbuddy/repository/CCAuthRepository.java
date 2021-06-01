@@ -4,6 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
 
 import com.progettopdm.lyricbuddy.model.response.AuthResponse;
 import com.progettopdm.lyricbuddy.repository.callback.CCAuthCallback;
@@ -14,17 +15,20 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import com.progettopdm.lyricbuddy.utils.Constants;
 
-public class CCAuthRepository {
+public class CCAuthRepository implements ICCAuthRepository {
 
+    private final Application application;
     CCAuthService ccAuthService;
-    private final CCAuthCallback ccAuthCallback;
 
-    public CCAuthRepository(CCAuthCallback ccAuthCallback, Application application) {
+    private final MutableLiveData<String> spotiTokenLiveData;
+
+    public CCAuthRepository(Application application) {
         this.ccAuthService = ServiceLocator.getInstance().getCCAuthServiceWithRetrofit();
-        this.ccAuthCallback = ccAuthCallback;
+        this.application = application;
+        this.spotiTokenLiveData = new MutableLiveData<>();
     }
 
-    public void authorize(){
+    public MutableLiveData<String> authorize(){
 
         Call<AuthResponse> call = ccAuthService.getToken("client_credentials",
                 "Basic " +  Constants.SPOTIFY_CLIENT_ID);
@@ -34,15 +38,16 @@ public class CCAuthRepository {
             public void onResponse(@NonNull Call<AuthResponse> call, @NonNull retrofit2.Response<AuthResponse> response) {
                 if (response.body() != null && response.isSuccessful()) {
                     String token = response.body().getAccessToken();
-                    ccAuthCallback.onAuthResponse(token);
+                    spotiTokenLiveData.postValue(token);
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<AuthResponse> call, @NonNull Throwable t) {
-                ccAuthCallback.onAuthFailure(t.getMessage());
+                Log.d("FAILED: ", "SPOTI TOKEN FETCH");
             }
         });
 
+        return spotiTokenLiveData;
     }
 }

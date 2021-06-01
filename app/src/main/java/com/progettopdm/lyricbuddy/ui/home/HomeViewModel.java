@@ -20,6 +20,8 @@ import com.progettopdm.lyricbuddy.model.response.FeaturedResponse;
 import com.progettopdm.lyricbuddy.model.response.NewReleaseResponse;
 import com.progettopdm.lyricbuddy.model.response.TrackListResponse;
 import com.progettopdm.lyricbuddy.repository.CCAuthRepository;
+import com.progettopdm.lyricbuddy.repository.ICCAuthRepository;
+import com.progettopdm.lyricbuddy.repository.ISpotifyRepository;
 import com.progettopdm.lyricbuddy.repository.SpotifyRepository;
 import com.progettopdm.lyricbuddy.repository.callback.SpotifyCallback;
 
@@ -31,73 +33,51 @@ import java.util.List;
 
 public class HomeViewModel extends AndroidViewModel {
 
-    private MutableLiveData<List<Album>> mNewReleases;
-    private MutableLiveData<List<Playlist>> mFeaturedPlaylists;
+    private MutableLiveData<NewReleaseResponse> mNewReleasesLiveData;
+    private MutableLiveData<FeaturedResponse> mFeaturedPlaylistsLiveData;
     String mFeaturedMessage;
     MutableLiveData<TrackContainer> mClickedTrackContainer;
-    String spotiToken;
+    MutableLiveData<String> spotiToken;
 
-    public String getSpotiToken() {
+    private ISpotifyRepository iSpotifyRepository;
+    private ICCAuthRepository iccAuthRepository;
+
+    public HomeViewModel(@NonNull Application application, ISpotifyRepository iSpotifyRepository, ICCAuthRepository iccAuthRepository ) {
+        super(application);
+        this.iSpotifyRepository = iSpotifyRepository;
+        this.iccAuthRepository = iccAuthRepository;
+    }
+
+    public MutableLiveData<String> getSpotiToken() {
+        loadSpotiToken();
         return spotiToken;
     }
 
-    public void setSpotiToken(String spotiToken) {
-        this.spotiToken = spotiToken;
-    }
 
-    public HomeViewModel(@NonNull Application application) {
-        super(application);
-    }
 
     public LiveData<TrackContainer> getmClickedTrackContainer() {
         return mClickedTrackContainer;
     }
 
-    public void setmClickedTrackContainer(TrackContainer mClickedTrackContainer) {
-        this.mClickedTrackContainer = new MutableLiveData<>(mClickedTrackContainer);
-    }
+    public LiveData<NewReleaseResponse> getmNewReleases(String token) {
+        if(mNewReleasesLiveData == null) {
+            mNewReleasesLiveData = new MutableLiveData<>();
+            loadNewReleases(token);
 
-    public String getmFeaturedMessage() {
-        return mFeaturedMessage;
-    }
-
-    public void setmFeaturedMessage(String mFeaturedMessage) {
-        this.mFeaturedMessage = mFeaturedMessage;
-    }
-
-
-    public void setmNewReleases(MutableLiveData<List<Album>> mNewReleases) {
-        this.mNewReleases = mNewReleases;
-    }
-
-    public LiveData<List<Playlist>> getmFeaturedPlaylists() {
-        return mFeaturedPlaylists;
-    }
-
-    public void setmFeaturedPlaylists(MutableLiveData<List<Playlist>> mFeaturedPlaylists) {
-        this.mFeaturedPlaylists = mFeaturedPlaylists;
-    }
-
-    public LiveData<List<Album>> getmNewReleases() throws IOException {
-        if(mNewReleases == null) {
-            mNewReleases = new MutableLiveData<List<Album>>();
-            loadNewReleases();
-            loadImagesFromUrl(mNewReleases.getValue());
-            loadTrackList(mNewReleases.getValue());
         }
-        return mNewReleases;
+        return mNewReleasesLiveData;
     }
 
-    public LiveData<List<Playlist>> getFeaturedPlaylists() throws IOException {
-        if(mFeaturedPlaylists == null) {
-            mFeaturedPlaylists = new MutableLiveData<List<Playlist>>();
+    /*public LiveData<FeaturedResponse> getFeaturedPlaylists() throws IOException {
+        if(mFeaturedPlaylistsLiveData == null) {
+            mFeaturedPlaylistsLiveData = new MutableLiveData<>();
             loadFeaturedPlaylists();
         }
-        loadImagesFromUrl(mFeaturedPlaylists.getValue());
-        return mFeaturedPlaylists;
-    }
+        loadImagesFromUrl(mFeaturedPlaylistsLiveData.getValue().getPlaylistWrapper().getPlaylistList());
+        return mFeaturedPlaylistsLiveData;
+    }*/
 
-    private void loadTrackList(List<? extends TrackContainer> trackContainer) throws IOException {
+    public void loadTrackList(List<? extends TrackContainer> trackContainer) throws IOException {
         InputStream fileInputStream = null;
         JsonReader jsonReader = null;
 
@@ -119,28 +99,15 @@ public class HomeViewModel extends AndroidViewModel {
 
     }
 
-    private void loadNewReleases() throws IOException {
-
-
-
-        InputStream fileInputStream = null;
-        JsonReader jsonReader = null;
-        try {
-            fileInputStream = getApplication().getAssets().open("newreleases.json");
-            jsonReader = new JsonReader(new InputStreamReader(fileInputStream, "UTF-8"));
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
-            NewReleaseResponse response = new Gson().fromJson(bufferedReader, NewReleaseResponse.class);
-            mNewReleases.setValue(response.getAlbumList());
-        } catch (IOException e) {
-            //e.printStackTrace();
-        }finally {
-            jsonReader.close();
-            fileInputStream.close();
-        }
-
+    private void loadSpotiToken() {
+        spotiToken = iccAuthRepository.authorize();
     }
 
-    private void loadFeaturedPlaylists() throws IOException {
+    private void loadNewReleases(String token) {
+        mNewReleasesLiveData = iSpotifyRepository.fetchNewReleases(token);
+    }
+
+    /*private void loadFeaturedPlaylists() throws IOException {
         InputStream fileInputStream = null;
         JsonReader jsonReader = null;
         try {
@@ -158,9 +125,10 @@ public class HomeViewModel extends AndroidViewModel {
             jsonReader.close();
             fileInputStream.close();
         }
-    }
+    }*/
 
-    private void loadImagesFromUrl(List<? extends TrackContainer> tcList){
+
+    public void loadImagesFromUrl(List<? extends TrackContainer> tcList){
 
         for(TrackContainer tc : tcList){
             for(GenericImage i : tc.getImgList()){
