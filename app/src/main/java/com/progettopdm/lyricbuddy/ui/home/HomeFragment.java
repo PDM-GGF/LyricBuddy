@@ -42,7 +42,10 @@ public class HomeFragment extends Fragment {
 
 
     List<Album> mNewReleasesList;
-    TrackContainer clickedTrackContainer;
+    List<Playlist> mFeaturedList;
+    String featuredText;
+
+    HomeViewModel homeViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -57,81 +60,113 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         mNewReleasesList = new ArrayList<>();
+        mFeaturedList = new ArrayList<>();
 
-        TextView featuredText = view.findViewById(R.id.featured_text);
+        TextView featuredTextView = view.findViewById(R.id.featured_text);
 
+        //NEW RELEASES RECYCLER VIEW
         RecyclerView newReleasesRecyclerView = view.findViewById(R.id.new_releases_list);
-
         newReleasesAdapter = new HomeCardRecyclerViewAdapter(mNewReleasesList, new HomeCardRecyclerViewAdapter.OnItemClickListener() {
             //Click su elemento lista "Nuove Uscite"
             @Override
             public void onItemClick(TrackContainer trackContainer) {
-                Log.d("Album", trackContainer.getName());
-                clickedTrackContainer = trackContainer;
+                homeViewModel.mClickedTrackContainer = trackContainer;
                 NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
                 navController.navigate(R.id.action_global_navigation_tracklist);
-                Log.d("Tracklist: ", "");
-                for(Track t : trackContainer.getTrackList()){
-                    Log.d("", t.getName());
-                }
             }
         });
         newReleasesRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),  1,
                 GridLayoutManager.HORIZONTAL, false));
         newReleasesRecyclerView.setAdapter(newReleasesAdapter);
 
+        //FEATURED PLAYLISTS RECYCLER VIEW
+        RecyclerView featuredPlaylistsRecyclerView = view.findViewById(R.id.featured_playlist_list);
+        featuredPlaylistsAdapter = new HomeCardRecyclerViewAdapter(mFeaturedList, new HomeCardRecyclerViewAdapter.OnItemClickListener() {
+            //Click su elemento lista "Featured"
+            @Override
+            public void onItemClick(TrackContainer trackContainer) {
+                Log.d("Playlist", trackContainer.getName());
+            }
+        });
+        featuredPlaylistsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),  1,
+                GridLayoutManager.HORIZONTAL, false));
+        featuredPlaylistsRecyclerView.setAdapter(featuredPlaylistsAdapter);
+
+
+
+        //DATA FETCH FROM VIEWMODEL
         ISpotifyRepository spotifyRepository =
                 new SpotifyRepository(requireActivity().getApplication());
 
         ICCAuthRepository iccAuthRepository =
                 new CCAuthRepository(requireActivity().getApplication());
 
-        HomeViewModel homeViewModel = new ViewModelProvider(this, new HomeViewModelFactory(
+        homeViewModel = new ViewModelProvider(requireActivity(), new HomeViewModelFactory(
                 requireActivity().getApplication(), spotifyRepository, iccAuthRepository)).get(HomeViewModel.class);
 
-        //Get token then newreleases
+
+        //Get token then new releases
         homeViewModel.getSpotiToken().observe(getViewLifecycleOwner(), token ->{
             homeViewModel.getmNewReleases(token).observe(getViewLifecycleOwner(), response ->{
 
                 if (response != null) {
+                    List<Album> albumList = response.getAlbumWrapper().getAlbumList();
+
                     //carica immagini
-                    homeViewModel.loadImagesFromUrl(response.getAlbumWrapper().getAlbumList());
+                    homeViewModel.loadImagesFromUrl(albumList);
 
                     //carica tracklists
-                    //homeViewModel.loadTrackList(response.getAlbumWrapper().getAlbumList());
+                    homeViewModel.loadAlbumTrackLists(albumList, token);
 
-                    updateUIForNewReleasesSuccess(response.getAlbumWrapper().getAlbumList());
+                    updateUIForNewReleasesSuccess(albumList);
                 }else{
                     Log.d("FAILED: ", "HOME FRAGMENT COULDN'T FETCH");
                 }
             });
         });
 
-       /* RecyclerView featuredPlaylistsRecyclerView = view.findViewById(R.id.featured_playlist_list);
-        try {
-            homeViewModel.getFeaturedPlaylists().observe(this.getViewLifecycleOwner(), new Observer<List<Playlist>>() {
-                @Override
-                public void onChanged(List<Playlist> playlistList) {
-                    HomeCardRecyclerViewAdapter playlistRecyclerViewAdapter = new HomeCardRecyclerViewAdapter(playlistList, new HomeCardRecyclerViewAdapter.OnItemClickListener() {
-                        //Click su elemento lista "Featured"
-                        @Override
-                        public void onItemClick(TrackContainer trackContainer) {
-                        Log.d("Playlist", trackContainer.getName());
-                        }
-                    });
-                    featuredText.setText(homeViewModel.mFeaturedMessage);
-                    featuredPlaylistsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),  1,
-                            GridLayoutManager.HORIZONTAL, false));
-                    featuredPlaylistsRecyclerView.setAdapter(playlistRecyclerViewAdapter);
+        //Get token then featured playlists
+        homeViewModel.getSpotiToken().observe(getViewLifecycleOwner(), token ->{
+            homeViewModel.getmFeaturedPlaylists(token).observe(getViewLifecycleOwner(), response ->{
+
+                if (response != null) {
+                    List<Playlist> playlistList = response.getPlaylistWrapper().getPlaylistList();
+
+                    featuredText = response.getMessage();
+
+                    featuredTextView.setText(featuredText);
+
+                    //carica immagini
+                    homeViewModel.loadImagesFromUrl(playlistList);
+
+                    //carica tracklists
+                    //homeViewModel.loadAlbumTrackLists(response.getPlaylistWrapper().getPlaylistList(), token);
+
+                    updateUIForFeaturedSuccess(playlistList);
+                }else{
+                    Log.d("FAILED: ", "HOME FRAGMENT COULDN'T FETCH");
                 }
             });
-        } catch (IOException e) {
-           //e.printStackTrace();
-        }*/
+        });
+
+
 
     }
 
+    private void updateUIForFeaturedSuccess(List<Playlist> playlistList) {
+        mFeaturedList.clear();
+        mFeaturedList.addAll(playlistList);
+
+        requireActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                featuredPlaylistsAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
     private void updateUIForNewReleasesSuccess(List<Album> albumList) {
+        mNewReleasesList.clear();
         mNewReleasesList.addAll(albumList);
         requireActivity().runOnUiThread(new Runnable() {
             @Override
