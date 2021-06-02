@@ -7,16 +7,14 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        >
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/left_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_baseline_music_note_24" />
+            android:src="@drawable/logo1" />
 
         <TextView
             android:id="@+id/toolbar_title"

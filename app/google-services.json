@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "973492071117",
+    "project_id": "lyricbuddy-4f42b",
+    "storage_bucket": "lyricbuddy-4f42b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:973492071117:android:ed52bb58ee183207419784",
+        "android_client_info": {
+          "package_name": "com.progettopdm.lyricbuddy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "973492071117-0q8s01tr918bmc5790ebre9u647oqsv7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwK7uXb5xXBUQw8uy0a5mI25S94nNKwuY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "973492071117-0q8s01tr918bmc5790ebre9u647oqsv7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
