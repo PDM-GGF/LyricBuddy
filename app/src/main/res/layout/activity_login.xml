@@ -54,7 +54,7 @@
             android:ems="10"
             android:foregroundTint="#fff"
             android:hint="@string/password"
-            android:inputType="textPersonName"
+            android:inputType="textPassword"
             android:textColorHint="#B6B2B2" />
 
         <Button

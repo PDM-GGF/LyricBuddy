@@ -1,13 +1,20 @@
 package com.progettopdm.lyricbuddy.login;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.progettopdm.lyricbuddy.MainActivity;
 import com.progettopdm.lyricbuddy.R;
 
 public class Register extends AppCompatActivity {
@@ -62,26 +69,22 @@ public class Register extends AppCompatActivity {
                     registerConfirmPassword.setError("Password Do not Match.");
                 }
 
+                // register the user using firebase
+                fAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        //send user to the next page
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        finish();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(Register.this, e.getMessage(),Toast.LENGTH_SHORT).show();
+                    }
+                });
+
             }
-
-            // register the user using firebase
-            /*
-             fAuth.createUserWithEmailAndPassword(email,password).addOnSuccessListener(New OnSuccessListener<AuthResult>(){
-                @Override
-                public void onSuccess(AuthResult authResult){
-                    //send user to the next page
-                    startActivity(new Intent(getApplicationContent(), MainActivity.class));
-                    finish();
-                }
-             }).addOnFailureListener(new OnFailureListener(){
-                @Override
-                public void onFailure(@NonNull Exception e){
-                    Toast.makeText
-                }
-             }
-            */
-
-
 
 
 
