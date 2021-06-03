@@ -26,9 +26,9 @@
 
     <fragment
         android:id="@+id/navigation_userprofile"
-        android:name="com.progettopdm.lyricbuddy.ui.userprofile.UserProfileFragment"
+        android:name="com.progettopdm.lyricbuddy.ui.track.TrackFragment"
         android:label="@string/title_userprofile"
-        tools:layout="@layout/fragment_userprofile" />
+        tools:layout="@layout/fragment_track" />
 
     <fragment
         android:id="@+id/navigation_tracklist"

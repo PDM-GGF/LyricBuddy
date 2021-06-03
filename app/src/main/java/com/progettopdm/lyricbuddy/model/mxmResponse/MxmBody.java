@@ -5,5 +5,10 @@ public class MxmBody {
         return lyrics;
     }
 
+    public MxmTrack getTrack() {
+        return track;
+    }
+
     private MxmLyrics lyrics;
+    private MxmTrack track;
 }

@@ -3,6 +3,22 @@
     <string name="title_search">Search</string>
     <string name="title_favorites">Favorites</string>
     <string name="title_home" translatable="false">Home</string>
+
+
+    <string name="login" translatable="false">Login</string>
+    <string name="username" translatable="false">Username</string>
+    <string name="password" translatable="false">Password</string>
+    <string name="signup" translatable="false">Sign Up</string>
+    <string name="full_name" translatable="false">Full Name</string>
+    <string name="email_address" translatable="false">Email Address</string>
+    <string name="confirm_password" translatable="false">Confirm Password</string>
+    <string name="skip" translatable="false">Skip Registration</string>
+
+
+
+
+
+
     <string name="recommended_home" translatable="true">Recommended for you</string>
     <string name="new_home" translatable="true">New Hits</string>
     <string name="best_home" translatable="true">All time best</string>

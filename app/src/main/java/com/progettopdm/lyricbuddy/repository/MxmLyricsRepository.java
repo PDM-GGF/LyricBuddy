@@ -11,17 +11,17 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MxmLyricsRepository implements IMxmLyricsRepository {
+public class MxmLyricsRepository {
 
     private MxmLyricsService mxmLyricsService;
     private MxmLyricsCallback mxmLyricsCallback;
 
     public MxmLyricsRepository(MxmLyricsCallback mxmLyricsCallback) {
-        this.mxmLyricsService = ServiceLocator.getInstance().getMxmLyricsServiceWithRetrofit();
+        this.mxmLyricsService = ServiceLocator.getInstance().getMxmServiceWithRetrofit();
         this.mxmLyricsCallback = mxmLyricsCallback;
     }
 
-    @Override
+
     public void fetchLyrics() {
         int id = 215778095;
         Call<MxmTrack> call = mxmLyricsService.getTrack(Constants.MXM_API_KEY, id);
@@ -31,8 +31,7 @@ public class MxmLyricsRepository implements IMxmLyricsRepository {
             public void onResponse(Call<MxmTrack> call, Response<MxmTrack> response) {
                 if(response.body() != null && response.isSuccessful()){
                     response.body().setId(id);
-                    Log.d("TRACK: ", response.body().getLyrics());
-                    mxmLyricsCallback.onResponse(response.body().toString());
+                    mxmLyricsCallback.onLyricsGet(response.body().getLyrics());
                 }
             }
 
