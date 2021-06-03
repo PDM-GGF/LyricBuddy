@@ -34,23 +34,24 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback{
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        Log.d("TRACKFRAGMENT", "Creato il fragment di track");
-        mxmLyricsRepository = new MxmLyricsRepository(this);
 
-        mxmLyricsRepository.fetchLyrics();
-
-        trackViewModel =
-                new ViewModelProvider(this).get(TrackViewModel.class);
         View root = inflater.inflate(R.layout.fragment_track, container, false);
         return root;
 
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         trackViewModel = new ViewModelProvider(this).get(TrackViewModel.class);
-        // TODO: Use the ViewModel
+
+        TextView lyricsTextView = view.findViewById(R.id.track_lyrics);
+
+        Log.d("TRACKFRAGMENT", "Creato il fragment di track");
+        mxmLyricsRepository = new MxmLyricsRepository(this);
+
+        mxmLyricsRepository.fetchLyrics();
+
     }
 
     @Override

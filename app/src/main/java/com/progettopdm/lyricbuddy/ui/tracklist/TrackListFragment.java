@@ -39,7 +39,6 @@ public class TrackListFragment extends Fragment {
 
         HomeViewModel viewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
 
-
         TrackContainer tc = viewModel.getmClickedTrackContainer();
 
         TextView tlName = view.findViewById(R.id.tracklist_name);
