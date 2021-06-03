@@ -31,8 +31,7 @@ public class MxmLyricsRepository {
             public void onResponse(Call<MxmTrack> call, Response<MxmTrack> response) {
                 if(response.body() != null && response.isSuccessful()){
                     response.body().setId(id);
-                    Log.d("TRACK: ", response.body().getLyrics());
-                    mxmLyricsCallback.onResponse(response.body().toString());
+                    mxmLyricsCallback.onLyricsGet(response.body().getLyrics());
                 }
             }
 

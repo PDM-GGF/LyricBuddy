@@ -19,24 +19,13 @@ import com.progettopdm.lyricbuddy.repository.MxmLyricsRepository;
 import com.progettopdm.lyricbuddy.repository.MxmMatcherCallback;
 import com.progettopdm.lyricbuddy.repository.MxmMatcherRepository;
 
-public class FavoritesFragment extends Fragment implements MxmLyricsCallback, MxmMatcherCallback {
+public class FavoritesFragment extends Fragment {
 
     private FavoritesViewModel favoritesViewModel;
-
-    private MxmLyricsRepository mxmLyricsRepository;
-    private MxmMatcherRepository mxmMatcherRepository;
     private String track;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
-        mxmLyricsRepository = new MxmLyricsRepository(this);
-        //mxmMatcherRepository = new MxmMatcherRepository(this);
-
-        track = new String();
-
-        mxmLyricsRepository.fetchLyrics();
-        //mxmMatcherRepository.fetchTrackId();
 
         favoritesViewModel =
                 new ViewModelProvider(this).get(FavoritesViewModel.class);
@@ -51,13 +40,4 @@ public class FavoritesFragment extends Fragment implements MxmLyricsCallback, Mx
         return root;
     }
 
-    @Override
-    public void onResponse(String track) {
-        Log.d("TRACK dal fragment: ", track.toString());
-    }
-
-    @Override
-    public void onFailure(String msg) {
-
-    }
 }

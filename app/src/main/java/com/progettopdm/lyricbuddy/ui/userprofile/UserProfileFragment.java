@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.progettopdm.lyricbuddy.R;
 
 public class UserProfileFragment extends Fragment {
+
     private UserProfileViewModel userProfileViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
