@@ -11,4 +11,7 @@
     <color name="color_background">#181717</color>
     <color name="color_foreground">#272525</color>
     <color name="color_text_login">#B6B2B2</color>
+    <color name="circleBorder">#50FFFFFF</color>
+    <color name="solidCircle">#AAFFFFFF</color>
+    <color name="grey">#E5E5E5</color>
 </resources>

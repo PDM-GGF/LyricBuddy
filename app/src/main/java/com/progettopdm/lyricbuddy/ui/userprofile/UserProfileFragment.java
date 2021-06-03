@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,12 +20,10 @@ public class UserProfileFragment extends Fragment {
 
     private UserProfileViewModel userProfileViewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        userProfileViewModel =
-                new ViewModelProvider(this).get(UserProfileViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        userProfileViewModel = new ViewModelProvider(this).get(UserProfileViewModel.class);
         View root = inflater.inflate(R.layout.fragment_userprofile, container, false);
-        final TextView textView = root.findViewById(R.id.text_userprofile);
+       final TextView textView = root.findViewById(R.id.text_userprofile);
         userProfileViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -33,4 +32,11 @@ public class UserProfileFragment extends Fragment {
         });
         return root;
     }
+
+    /*@Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Button logout =
+    }*/
 }
