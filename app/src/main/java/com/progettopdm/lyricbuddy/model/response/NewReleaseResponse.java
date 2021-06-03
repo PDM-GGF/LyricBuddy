@@ -16,8 +16,9 @@ public class NewReleaseResponse implements Parcelable {
     @SerializedName(value = "albums")
     private AlbumWrapper albumWrapper;
 
-    public NewReleaseResponse(AlbumWrapper albumWrapper) {
-        this.albumWrapper = albumWrapper;
+
+    protected NewReleaseResponse(Parcel in) {
+        albumWrapper = in.readParcelable(AlbumWrapper.class.getClassLoader());
     }
 
     public AlbumWrapper getAlbumWrapper() {
@@ -26,10 +27,6 @@ public class NewReleaseResponse implements Parcelable {
 
     public void setAlbumWrapper(AlbumWrapper albumWrapper) {
         this.albumWrapper = albumWrapper;
-    }
-
-    protected NewReleaseResponse(Parcel in) {
-        albumWrapper = in.readParcelable(AlbumWrapper.class.getClassLoader());
     }
 
     public static final Creator<NewReleaseResponse> CREATOR = new Creator<NewReleaseResponse>() {

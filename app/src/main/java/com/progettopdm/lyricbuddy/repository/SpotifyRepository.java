@@ -6,16 +6,12 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
-import com.progettopdm.lyricbuddy.model.Album;
-import com.progettopdm.lyricbuddy.model.Track;
 import com.progettopdm.lyricbuddy.model.response.FeaturedResponse;
 import com.progettopdm.lyricbuddy.model.response.NewReleaseResponse;
-import com.progettopdm.lyricbuddy.model.response.TrackListResponse;
-import com.progettopdm.lyricbuddy.repository.callback.SpotifyCallback;
+import com.progettopdm.lyricbuddy.model.response.AlbumTrackListResponse;
+import com.progettopdm.lyricbuddy.model.response.PlaylistTrackListResponse;
 import com.progettopdm.lyricbuddy.services.SpotifyService;
 import com.progettopdm.lyricbuddy.utils.ServiceLocator;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,7 +25,8 @@ public class SpotifyRepository implements ISpotifyRepository{
 
     private final MutableLiveData<NewReleaseResponse> mNewReleaseLiveData;
     private final MutableLiveData<FeaturedResponse> mFeaturedPlaylistsLiveData;
-    private final MutableLiveData<TrackListResponse> mTrackListLiveData;
+    private final MutableLiveData<AlbumTrackListResponse> mAlbumTrackListLiveData;
+    private final MutableLiveData<PlaylistTrackListResponse> mPlaylistTrackListLiveData;
 
 
     public SpotifyRepository(Application application) {
@@ -37,7 +34,8 @@ public class SpotifyRepository implements ISpotifyRepository{
         this.spotifyService = ServiceLocator.getInstance().getSpotifyServiceWithRetrofit();
         this.mNewReleaseLiveData = new MutableLiveData<>();
         this.mFeaturedPlaylistsLiveData = new MutableLiveData<>();
-        this.mTrackListLiveData = new MutableLiveData<>();
+        this.mAlbumTrackListLiveData = new MutableLiveData<>();
+        this.mPlaylistTrackListLiveData = new MutableLiveData<PlaylistTrackListResponse>();
         this.ccAuthRepository = new CCAuthRepository(application);
     }
 
@@ -66,29 +64,29 @@ public class SpotifyRepository implements ISpotifyRepository{
     }
 
     @Override
-    public MutableLiveData<TrackListResponse> fetchAlbumTrackList(String albumId, String token) {
+    public MutableLiveData<AlbumTrackListResponse> fetchAlbumTrackList(String albumId, String token) {
 
-        Call<TrackListResponse> call = spotifyService.getAlbumTrackList(albumId,
+        Call<AlbumTrackListResponse> call = spotifyService.getAlbumTrackList(albumId,
                 "IT",
                 50,
                 "Bearer " + token);
 
-        call.enqueue(new Callback<TrackListResponse>() {
+        call.enqueue(new Callback<AlbumTrackListResponse>() {
             @Override
-            public void onResponse(@NonNull Call<TrackListResponse> call, @NonNull retrofit2.Response<TrackListResponse> response) {
+            public void onResponse(@NonNull Call<AlbumTrackListResponse> call, @NonNull retrofit2.Response<AlbumTrackListResponse> response) {
                 if (response.body() != null && response.isSuccessful()) {
-                    mTrackListLiveData.postValue(response.body());
+                    mAlbumTrackListLiveData.postValue(response.body());
                 }
             }
 
             @Override
-            public void onFailure(Call<TrackListResponse> call, Throwable t) {
+            public void onFailure(Call<AlbumTrackListResponse> call, Throwable t) {
                 Log.d("FAILED: ", "NEW RELEASE FETCH " + t.getMessage());
             }
 
         });
 
-        return mTrackListLiveData;
+        return mAlbumTrackListLiveData;
     }
 
     @Override
@@ -113,5 +111,31 @@ public class SpotifyRepository implements ISpotifyRepository{
         });
 
         return mFeaturedPlaylistsLiveData;
+    }
+
+    @Override
+    public MutableLiveData<PlaylistTrackListResponse> fetchPlaylistTracklist(String playlistId, String token) {
+
+        Call<PlaylistTrackListResponse> call = spotifyService.getPlaylistTrackList(playlistId,
+                "IT",
+                "Bearer " + token);
+
+        call.enqueue(new Callback<PlaylistTrackListResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<PlaylistTrackListResponse> call, @NonNull retrofit2.Response<PlaylistTrackListResponse> response) {
+                if (response.body() != null && response.isSuccessful()) {
+                    mPlaylistTrackListLiveData.postValue(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PlaylistTrackListResponse> call, Throwable t) {
+                Log.d("FAILED: ", "PLAYLIST TRACKLIST FETCH " + t.getMessage());
+            }
+
+        });
+
+        return mPlaylistTrackListLiveData;
+
     }
 }

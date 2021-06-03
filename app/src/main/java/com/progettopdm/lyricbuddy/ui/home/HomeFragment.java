@@ -85,7 +85,9 @@ public class HomeFragment extends Fragment {
             //Click su elemento lista "Featured"
             @Override
             public void onItemClick(TrackContainer trackContainer) {
-                Log.d("Playlist", trackContainer.getName());
+                homeViewModel.mClickedTrackContainer = trackContainer;
+                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                navController.navigate(R.id.action_global_navigation_tracklist);
             }
         });
         featuredPlaylistsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),  1,
@@ -140,7 +142,7 @@ public class HomeFragment extends Fragment {
                     homeViewModel.loadImagesFromUrl(playlistList);
 
                     //carica tracklists
-                    //homeViewModel.loadAlbumTrackLists(response.getPlaylistWrapper().getPlaylistList(), token);
+                    homeViewModel.loadPlaylistTracklist(response.getPlaylistWrapper().getPlaylistList(), token);
 
                     updateUIForFeaturedSuccess(playlistList);
                 }else{

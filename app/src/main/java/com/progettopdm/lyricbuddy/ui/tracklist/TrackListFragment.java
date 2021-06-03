@@ -47,7 +47,7 @@ public class TrackListFragment extends Fragment {
         ImageView tlImage = view.findViewById(R.id.tracklist_img);
 
         tlName.setText(tc.getName());
-        tlDescription.setText("Descrizione");
+        tlDescription.setText(tc.getDescription());
         tc.getImgList().get(0).getImg().into(tlImage);
 
         RecyclerView newReleasesRecyclerView = view.findViewById(R.id.tracklist_recycler_view);
