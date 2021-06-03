@@ -19,7 +19,7 @@ import com.progettopdm.lyricbuddy.R;
 
 public class Register extends AppCompatActivity {
     EditText registerFullName, registerEmail, registerPassword, registerConfirmPassword;
-    Button createAccountButton /*, goToLogin*/ ;
+    Button createAccountButton, backToLogin ;
     FirebaseAuth fAuth;
 
     @Override
@@ -33,10 +33,16 @@ public class Register extends AppCompatActivity {
         registerConfirmPassword = findViewById(R.id.confirm_password);
 
         createAccountButton = findViewById(R.id.button_register);
-        //goToLogin = findViewById(R.id.button_goToLogin);
+        backToLogin = findViewById(R.id.button_backLogin);
+        backToLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),Login.class));
+                finish();
+            }
+        });
 
         fAuth = FirebaseAuth.getInstance();
-
 
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
