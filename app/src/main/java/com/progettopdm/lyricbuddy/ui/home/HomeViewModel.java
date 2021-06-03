@@ -1,16 +1,14 @@
 package com.progettopdm.lyricbuddy.ui.home;
 
 import android.app.Application;
-import android.util.JsonReader;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
 import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
 import com.progettopdm.lyricbuddy.model.Album;
 import com.progettopdm.lyricbuddy.model.GenericImage;
 import com.progettopdm.lyricbuddy.model.Playlist;
@@ -18,142 +16,101 @@ import com.progettopdm.lyricbuddy.model.Track;
 import com.progettopdm.lyricbuddy.model.TrackContainer;
 import com.progettopdm.lyricbuddy.model.response.FeaturedResponse;
 import com.progettopdm.lyricbuddy.model.response.NewReleaseResponse;
-import com.progettopdm.lyricbuddy.model.response.TrackListResponse;
-import com.progettopdm.lyricbuddy.repository.CCAuthRepository;
+import com.progettopdm.lyricbuddy.model.response.AlbumTrackListResponse;
+import com.progettopdm.lyricbuddy.model.response.PlaylistTrackListResponse;
+import com.progettopdm.lyricbuddy.model.response.wrappers.TrackWrapper;
+import com.progettopdm.lyricbuddy.repository.ICCAuthRepository;
+import com.progettopdm.lyricbuddy.repository.ISpotifyRepository;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeViewModel extends AndroidViewModel {
 
-    private MutableLiveData<List<Album>> mNewReleases;
-    private MutableLiveData<List<Playlist>> mFeaturedPlaylists;
-    String mFeaturedMessage;
-    MutableLiveData<TrackContainer> mClickedTrackContainer;
+    private MutableLiveData<NewReleaseResponse> mNewReleasesLiveData;
+    private MutableLiveData<FeaturedResponse> mFeaturedPlaylistsLiveData;
+    TrackContainer mClickedTrackContainer;
     MutableLiveData<String> spotiToken;
 
-    public HomeViewModel(@NonNull Application application) {
+    private ISpotifyRepository iSpotifyRepository;
+    private ICCAuthRepository iccAuthRepository;
+
+    public HomeViewModel(@NonNull Application application, ISpotifyRepository iSpotifyRepository, ICCAuthRepository iccAuthRepository ) {
         super(application);
+        this.iSpotifyRepository = iSpotifyRepository;
+        this.iccAuthRepository = iccAuthRepository;
     }
 
-    public LiveData<TrackContainer> getmClickedTrackContainer() {
+    public MutableLiveData<String> getSpotiToken() {
+        loadSpotiToken();
+        return spotiToken;
+    }
+
+
+
+    public TrackContainer getmClickedTrackContainer() {
         return mClickedTrackContainer;
     }
 
-    public void setmClickedTrackContainer(TrackContainer mClickedTrackContainer) {
-        this.mClickedTrackContainer = new MutableLiveData<>(mClickedTrackContainer);
-    }
+    public LiveData<NewReleaseResponse> getmNewReleases(String token) {
+        if(mNewReleasesLiveData == null) {
+            mNewReleasesLiveData = new MutableLiveData<>();
+            loadNewReleases(token);
 
-    public String getmFeaturedMessage() {
-        return mFeaturedMessage;
-    }
-
-    public void setmFeaturedMessage(String mFeaturedMessage) {
-        this.mFeaturedMessage = mFeaturedMessage;
-    }
-
-
-    public LiveData<List<Album>> getmNewReleases() {
-        return mNewReleases;
-    }
-
-    public void setmNewReleases(MutableLiveData<List<Album>> mNewReleases) {
-        this.mNewReleases = mNewReleases;
-    }
-
-    public LiveData<List<Playlist>> getmFeaturedPlaylists() {
-        return mFeaturedPlaylists;
-    }
-
-    public void setmFeaturedPlaylists(MutableLiveData<List<Playlist>> mFeaturedPlaylists) {
-        this.mFeaturedPlaylists = mFeaturedPlaylists;
-    }
-
-    public LiveData<List<Album>> getNewReleases() throws IOException {
-        if(mNewReleases == null) {
-            mNewReleases = new MutableLiveData<List<Album>>();
-            loadNewReleases();
         }
-        loadImagesFromUrl(mNewReleases.getValue());
-        //servirà per implementazione api (per ora prendiamo la tracklist del primo album di new releases da tracklist.json)
-        loadTrackList(mNewReleases.getValue());
-        return mNewReleases;
+        return mNewReleasesLiveData;
     }
 
-    public LiveData<List<Playlist>> getFeaturedPlaylists() throws IOException {
-        if(mFeaturedPlaylists == null) {
-            mFeaturedPlaylists = new MutableLiveData<List<Playlist>>();
-            loadFeaturedPlaylists();
+    public LiveData<FeaturedResponse> getmFeaturedPlaylists(String token) {
+        if(mFeaturedPlaylistsLiveData == null) {
+            mFeaturedPlaylistsLiveData = new MutableLiveData<>();
+            loadFeaturedPlaylists(token);
         }
-        loadImagesFromUrl(mFeaturedPlaylists.getValue());
-        return mFeaturedPlaylists;
+        return mFeaturedPlaylistsLiveData;
     }
 
-    private void loadTrackList(List<? extends TrackContainer> trackContainer) throws IOException {
-        InputStream fileInputStream = null;
-        JsonReader jsonReader = null;
-
-        for (TrackContainer tc : trackContainer){
-            try {
-                fileInputStream = getApplication().getAssets().open("tracklist.json");
-                jsonReader = new JsonReader(new InputStreamReader(fileInputStream, "UTF-8"));
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
-                TrackListResponse response = new Gson().fromJson(bufferedReader, TrackListResponse.class);
-                tc.setTrackList(response.getTrackList());
-
-            } catch (IOException e) {
-                //e.printStackTrace();
-            }finally {
-                jsonReader.close();
-                fileInputStream.close();
-            }
-        }
-
-    }
-
-    private void loadNewReleases() throws IOException {
-        InputStream fileInputStream = null;
-        JsonReader jsonReader = null;
-        try {
-            fileInputStream = getApplication().getAssets().open("newreleases.json");
-            jsonReader = new JsonReader(new InputStreamReader(fileInputStream, "UTF-8"));
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
-            NewReleaseResponse response = new Gson().fromJson(bufferedReader, NewReleaseResponse.class);
-            mNewReleases.setValue(response.getAlbumList());
-        } catch (IOException e) {
-            //e.printStackTrace();
-        }finally {
-            jsonReader.close();
-            fileInputStream.close();
-        }
-
-    }
-
-    private void loadFeaturedPlaylists() throws IOException {
-        InputStream fileInputStream = null;
-        JsonReader jsonReader = null;
-        try {
-            fileInputStream = getApplication().getAssets().open("featured.json");
-            jsonReader = new JsonReader(new InputStreamReader(fileInputStream, "UTF-8"));
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
-            FeaturedResponse response = new Gson().fromJson(bufferedReader, FeaturedResponse.class);
-            Log.d("PLAYLIST RESPONSE: ", response.getPlaylistWrapper().getPlaylistList().get(0).getName());
-            mFeaturedMessage = response.getMessage();
-            mFeaturedPlaylists.setValue(response.getPlaylistWrapper().getPlaylistList());
-            loadImagesFromUrl(mFeaturedPlaylists.getValue());
-        } catch (IOException e) {
-            //e.printStackTrace();
-        }finally {
-            jsonReader.close();
-            fileInputStream.close();
+    public void loadAlbumTrackLists(List<Album> albumList, String token) {
+        for(Album a : albumList) {
+            iSpotifyRepository.fetchAlbumTrackList(a.getId(), token).observeForever(new Observer<AlbumTrackListResponse>() {
+                @Override
+                public void onChanged(AlbumTrackListResponse albumTrackListResponse) {
+                    for(Track t : albumTrackListResponse.getTrackList()) {
+                        t.setAlbum(a.getId());
+                    }
+                    a.setTrackList(albumTrackListResponse.getTrackList());
+                }
+            });
         }
     }
 
-    private void loadImagesFromUrl(List<? extends TrackContainer> tcList){
+    public void loadPlaylistTracklist(List<Playlist> playlistList, String token) {
+        for(Playlist p : playlistList) {
+            iSpotifyRepository.fetchPlaylistTracklist(p.getId(), token).observeForever(new Observer<PlaylistTrackListResponse>() {
+                @Override
+                public void onChanged(PlaylistTrackListResponse playlistTrackListResponse) {
+                    List<Track> trackList = new ArrayList<>();
+                    for(TrackWrapper tw : playlistTrackListResponse.getTrackWrapperList()) {
+                        trackList.add(tw.getTrack());
+                    }
+                    p.setTrackList(trackList);
+                }
+            });
+        }
+    }
 
+    private void loadSpotiToken() {
+        spotiToken = iccAuthRepository.authorize();
+    }
+
+    private void loadNewReleases(String token) {
+        mNewReleasesLiveData = iSpotifyRepository.fetchNewReleases(token);
+    }
+
+    private void loadFeaturedPlaylists(String token){
+        mFeaturedPlaylistsLiveData = iSpotifyRepository.fetchFeaturedPlaylists(token);
+    }
+
+    public void loadImagesFromUrl(List<? extends TrackContainer> tcList){
         for(TrackContainer tc : tcList){
             for(GenericImage i : tc.getImgList()){
                 i.setImg(Glide.with(getApplication().getApplicationContext()).load(i.getImgUrl()));

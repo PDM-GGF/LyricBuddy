@@ -1,7 +1,6 @@
 package com.progettopdm.lyricbuddy.ui.home;
 
 import android.os.Bundle;
-import android.util.JsonReader;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,38 +14,44 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
 import com.progettopdm.lyricbuddy.R;
 import com.progettopdm.lyricbuddy.model.Album;
-import com.progettopdm.lyricbuddy.model.GenericImage;
 import com.progettopdm.lyricbuddy.model.Playlist;
 import com.progettopdm.lyricbuddy.model.Track;
 import com.progettopdm.lyricbuddy.model.TrackContainer;
-import com.progettopdm.lyricbuddy.model.response.FeaturedResponse;
-import com.progettopdm.lyricbuddy.model.response.NewReleaseResponse;
-import com.progettopdm.lyricbuddy.model.response.TrackListResponse;
+import com.progettopdm.lyricbuddy.repository.ICCAuthRepository;
+import com.progettopdm.lyricbuddy.repository.ISpotifyRepository;
+import com.progettopdm.lyricbuddy.repository.SpotifyRepository;
+import com.progettopdm.lyricbuddy.repository.callback.CCAuthCallback;
 import com.progettopdm.lyricbuddy.repository.CCAuthRepository;
+import com.progettopdm.lyricbuddy.repository.callback.SpotifyCallback;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
 
+    HomeCardRecyclerViewAdapter newReleasesAdapter;
+    HomeCardRecyclerViewAdapter featuredPlaylistsAdapter;
+
+
+    List<Album> mNewReleasesList;
+    List<Playlist> mFeaturedList;
+    String featuredText;
+
+    HomeViewModel homeViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+
         return root;
     }
 
@@ -54,60 +59,122 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        HomeViewModel homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
+        mNewReleasesList = new ArrayList<>();
+        mFeaturedList = new ArrayList<>();
 
-        TextView featuredText = view.findViewById(R.id.featured_text);
+        TextView featuredTextView = view.findViewById(R.id.featured_text);
 
+        //NEW RELEASES RECYCLER VIEW
         RecyclerView newReleasesRecyclerView = view.findViewById(R.id.new_releases_list);
-        try {
-            homeViewModel.getNewReleases().observe(this.getViewLifecycleOwner(), new Observer<List<Album>>() {
-                @Override
-                public void onChanged(List<Album> albumList) {
-                    HomeCardRecyclerViewAdapter homeCardRecyclerViewAdapter = new HomeCardRecyclerViewAdapter(albumList, new HomeCardRecyclerViewAdapter.OnItemClickListener() {
-                        //Click su elemento lista "Nuove Uscite"
-                        @Override
-                        public void onItemClick(TrackContainer trackContainer) {
-                            Log.d("Album", trackContainer.getName());
-                            homeViewModel.setmClickedTrackContainer(trackContainer);
-                            NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-                            navController.navigate(R.id.action_global_navigation_tracklist);
-                            Log.d("Tracklist: ", "");
-                            for(Track t : trackContainer.getTrackList()){
-                                Log.d("", t.getName());
-                            }
-                        }
-                    });
-                    newReleasesRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),  1,
-                            GridLayoutManager.HORIZONTAL, false));
-                    newReleasesRecyclerView.setAdapter(homeCardRecyclerViewAdapter);
-                }
-            });
-        } catch (IOException e) {
-            //e.printStackTrace();
-        }
+        newReleasesAdapter = new HomeCardRecyclerViewAdapter(mNewReleasesList, new HomeCardRecyclerViewAdapter.OnItemClickListener() {
+            //Click su elemento lista "Nuove Uscite"
+            @Override
+            public void onItemClick(TrackContainer trackContainer) {
+                homeViewModel.mClickedTrackContainer = trackContainer;
+                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                navController.navigate(R.id.action_global_navigation_tracklist);
+            }
+        });
+        newReleasesRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),  1,
+                GridLayoutManager.HORIZONTAL, false));
+        newReleasesRecyclerView.setAdapter(newReleasesAdapter);
 
-
+        //FEATURED PLAYLISTS RECYCLER VIEW
         RecyclerView featuredPlaylistsRecyclerView = view.findViewById(R.id.featured_playlist_list);
-        try {
-            homeViewModel.getFeaturedPlaylists().observe(this.getViewLifecycleOwner(), new Observer<List<Playlist>>() {
-                @Override
-                public void onChanged(List<Playlist> playlistList) {
-                    HomeCardRecyclerViewAdapter playlistRecyclerViewAdapter = new HomeCardRecyclerViewAdapter(playlistList, new HomeCardRecyclerViewAdapter.OnItemClickListener() {
-                        //Click su elemento lista "Featured"
-                        @Override
-                        public void onItemClick(TrackContainer trackContainer) {
-                        Log.d("Playlist", trackContainer.getName());
-                        }
-                    });
-                    featuredText.setText(homeViewModel.mFeaturedMessage);
-                    featuredPlaylistsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),  1,
-                            GridLayoutManager.HORIZONTAL, false));
-                    featuredPlaylistsRecyclerView.setAdapter(playlistRecyclerViewAdapter);
+        featuredPlaylistsAdapter = new HomeCardRecyclerViewAdapter(mFeaturedList, new HomeCardRecyclerViewAdapter.OnItemClickListener() {
+            //Click su elemento lista "Featured"
+            @Override
+            public void onItemClick(TrackContainer trackContainer) {
+                homeViewModel.mClickedTrackContainer = trackContainer;
+                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                navController.navigate(R.id.action_global_navigation_tracklist);
+            }
+        });
+        featuredPlaylistsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),  1,
+                GridLayoutManager.HORIZONTAL, false));
+        featuredPlaylistsRecyclerView.setAdapter(featuredPlaylistsAdapter);
+
+
+
+        //DATA FETCH FROM VIEWMODEL
+        ISpotifyRepository spotifyRepository =
+                new SpotifyRepository(requireActivity().getApplication());
+
+        ICCAuthRepository iccAuthRepository =
+                new CCAuthRepository(requireActivity().getApplication());
+
+        homeViewModel = new ViewModelProvider(requireActivity(), new HomeViewModelFactory(
+                requireActivity().getApplication(), spotifyRepository, iccAuthRepository)).get(HomeViewModel.class);
+
+
+        //Get token then new releases
+        homeViewModel.getSpotiToken().observe(getViewLifecycleOwner(), token ->{
+            homeViewModel.getmNewReleases(token).observe(getViewLifecycleOwner(), response ->{
+
+                if (response != null) {
+                    List<Album> albumList = response.getAlbumWrapper().getAlbumList();
+
+                    //carica immagini
+                    homeViewModel.loadImagesFromUrl(albumList);
+
+                    //carica tracklists
+                    homeViewModel.loadAlbumTrackLists(albumList, token);
+
+                    updateUIForNewReleasesSuccess(albumList);
+                }else{
+                    Log.d("FAILED: ", "HOME FRAGMENT COULDN'T FETCH");
                 }
             });
-        } catch (IOException e) {
-           //e.printStackTrace();
-        }
+        });
 
+        //Get token then featured playlists
+        homeViewModel.getSpotiToken().observe(getViewLifecycleOwner(), token ->{
+            homeViewModel.getmFeaturedPlaylists(token).observe(getViewLifecycleOwner(), response ->{
+
+                if (response != null) {
+                    List<Playlist> playlistList = response.getPlaylistWrapper().getPlaylistList();
+
+                    featuredText = response.getMessage();
+
+                    featuredTextView.setText(featuredText);
+
+                    //carica immagini
+                    homeViewModel.loadImagesFromUrl(playlistList);
+
+                    //carica tracklists
+                    homeViewModel.loadPlaylistTracklist(response.getPlaylistWrapper().getPlaylistList(), token);
+
+                    updateUIForFeaturedSuccess(playlistList);
+                }else{
+                    Log.d("FAILED: ", "HOME FRAGMENT COULDN'T FETCH");
+                }
+            });
+        });
+
+
+
+    }
+
+    private void updateUIForFeaturedSuccess(List<Playlist> playlistList) {
+        mFeaturedList.clear();
+        mFeaturedList.addAll(playlistList);
+
+        requireActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                featuredPlaylistsAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    private void updateUIForNewReleasesSuccess(List<Album> albumList) {
+        mNewReleasesList.clear();
+        mNewReleasesList.addAll(albumList);
+        requireActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                newReleasesAdapter.notifyDataSetChanged();
+            }
+        });
     }
 }

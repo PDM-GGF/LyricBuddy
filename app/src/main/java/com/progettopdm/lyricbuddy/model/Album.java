@@ -9,12 +9,14 @@ import java.util.List;
 
 public class Album extends TrackContainer implements Parcelable {
 
+    @SerializedName("id")
     String albumId;
     @SerializedName("name")
     String name;
     @SerializedName("images")
     List<GenericImage> genericImageList;
     List<Track> trackList;
+    List<Artist> artists;
 
 
     public Album(String name, List<GenericImage> genericImageList) {
@@ -28,6 +30,27 @@ public class Album extends TrackContainer implements Parcelable {
 
     public void setTrackList(List<Track> trackList) {
         this.trackList = trackList;
+    }
+
+
+    public List<Artist> getArtists() {
+        return artists;
+    }
+
+    public void setArtists(List<Artist> artists) {
+        this.artists = artists;
+    }
+
+    @Override
+    public String getDescription() {
+        String artistList = "";
+        for(Artist a : artists){
+            if(a.equals(artists.get(0)))
+                artistList += a.getName();
+            else
+                artistList += ", " + a.getName();
+        }
+        return artistList;
     }
 
     @Override

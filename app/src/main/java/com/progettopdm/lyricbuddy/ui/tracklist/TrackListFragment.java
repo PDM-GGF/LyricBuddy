@@ -20,6 +20,7 @@ import com.progettopdm.lyricbuddy.model.Track;
 import com.progettopdm.lyricbuddy.model.TrackContainer;
 import com.progettopdm.lyricbuddy.ui.home.HomeCardRecyclerViewAdapter;
 import com.progettopdm.lyricbuddy.ui.home.HomeViewModel;
+import com.progettopdm.lyricbuddy.ui.home.HomeViewModelFactory;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -35,17 +36,18 @@ public class TrackListFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+
         HomeViewModel viewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
 
 
-        TrackContainer tc = viewModel.getmClickedTrackContainer().getValue();
+        TrackContainer tc = viewModel.getmClickedTrackContainer();
 
         TextView tlName = view.findViewById(R.id.tracklist_name);
         TextView tlDescription = view.findViewById(R.id.tracklist_description);
         ImageView tlImage = view.findViewById(R.id.tracklist_img);
 
         tlName.setText(tc.getName());
-        tlDescription.setText("Descrizione");
+        tlDescription.setText(tc.getDescription());
         tc.getImgList().get(0).getImg().into(tlImage);
 
         RecyclerView newReleasesRecyclerView = view.findViewById(R.id.tracklist_recycler_view);
