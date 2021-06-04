@@ -13,7 +13,7 @@
     <string name="email_address" translatable="false">Email Address</string>
     <string name="confirm_password" translatable="false">Confirm Password</string>
     <string name="skip" translatable="false">Skip Registration</string>
-    <string name="songs" translatable="false">My Song:</string>
+    <string name="songs" translatable="false">My Songs:</string>
     <string name="logout" translatable="false">Logout</string>
 
 

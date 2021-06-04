@@ -14,31 +14,23 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.progettopdm.lyricbuddy.R;
 
-public class UserProfileFragment extends Fragment {
+public class UserProfileDisabledFragment extends Fragment {
 
-    private UserProfileViewModel userProfileViewModel;
+    private UserProfileDisabledViewModel userProfileDisabledViewModel;
     //Button logout;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        userProfileViewModel = new ViewModelProvider(this).get(UserProfileViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_userprofile_active, container, false);
+        userProfileDisabledViewModel = new ViewModelProvider(this).get(UserProfileDisabledViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_userprofile_disabled, container, false);
 
 
-       final TextView password = root.findViewById(R.id.text_userprofile);
-        userProfileViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        final TextView message = root.findViewById(R.id.userprofile_message);
+        userProfileDisabledViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                password.setText(s);
+                message.setText(s);
             }
         });
         return root;
     }
-
-    /*
-    Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        logout =
-    }*/
 }

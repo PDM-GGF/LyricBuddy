@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="70dp"
             android:background="@drawable/circle_border">
 
             <ImageView
@@ -45,17 +45,6 @@
             android:textColor="@color/white"
             android:textSize="32sp" />
 
-
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="15dp"
-            android:adjustViewBounds="true"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_baseline_settings" />
-
     </RelativeLayout>
 
     <LinearLayout
@@ -73,7 +62,7 @@
             android:background="@color/white"
             android:gravity="center"
             android:paddingBottom="5dp"
-            android:paddingTop="5dp">
+            android:paddingTop="1dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -93,7 +82,7 @@
             android:background="@color/white"
             android:gravity="center"
             android:paddingBottom="5dp"
-            android:paddingTop="5dp">
+            android:paddingTop="1dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -118,7 +107,7 @@
             android:layout_centerInParent="true"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="50dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -137,7 +126,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
-                    android:text="emailProfilo@gmail.com"
+                    android:text=""
                     android:textColor="@color/white"
                     android:textSize="18sp" />
 
@@ -240,7 +229,7 @@
                 android:id="@+id/button_logout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="35dp"
                 android:layout_gravity="center"
                 android:text="@string/logout"/>
 
