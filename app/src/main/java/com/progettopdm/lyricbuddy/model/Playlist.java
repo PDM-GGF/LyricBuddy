@@ -9,6 +9,7 @@ import java.util.List;
 
 public class Playlist extends TrackContainer implements Parcelable {
 
+    @SerializedName("id")
     String playlistId;
     String name;
     String description;

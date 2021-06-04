@@ -14,7 +14,7 @@ public class Track implements Parcelable {
     String name;
     int duration_ms;
     String lyrics;
-    Album album;
+    String albumId;
 
     public Track(String trackId, String name, int duration_ms, String lyrics) {
         this.trackId = trackId;
@@ -42,12 +42,12 @@ public class Track implements Parcelable {
         }
     };
 
-    public Album getAlbum() {
-        return album;
+    public String getAlbum() {
+        return albumId;
     }
 
-    public void setAlbum(Album album) {
-        this.album = album;
+    public void setAlbum(String album) {
+        this.albumId = album;
     }
 
     public String getTrackId() {

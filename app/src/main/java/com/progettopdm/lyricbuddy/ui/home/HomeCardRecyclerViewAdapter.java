@@ -60,7 +60,9 @@ public class HomeCardRecyclerViewAdapter extends RecyclerView.Adapter<HomeCardRe
 
         public void bind(TrackContainer trackContainer) {
             nameTextView.setText(trackContainer.getName());
-            trackContainer.getImgList().get(0).getImg().into(tcImageView);
+
+            if(trackContainer.getImgList() != null)
+                trackContainer.getImgList().get(0).getImg().into(tcImageView);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {

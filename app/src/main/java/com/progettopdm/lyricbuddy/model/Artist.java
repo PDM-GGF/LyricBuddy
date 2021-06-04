@@ -3,14 +3,17 @@ package com.progettopdm.lyricbuddy.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Artist implements Parcelable {
 
-    int artistId;
+    @SerializedName("id")
+    String artistId;
     String name;
     String country;
     String age;
 
-    public Artist(int artistId, String name, String country, String age) {
+    public Artist(String artistId, String name, String country, String age) {
         this.artistId = artistId;
         this.name = name;
         this.country = country;
@@ -20,7 +23,7 @@ public class Artist implements Parcelable {
     public Artist() {
     }
 
-    public int getArtistId() {
+    public String getArtistId() {
         return artistId;
     }
 
@@ -36,7 +39,7 @@ public class Artist implements Parcelable {
         return age;
     }
 
-    public void setArtistId(int artistId) {
+    public void setArtistId(String artistId) {
         this.artistId = artistId;
     }
 
@@ -69,14 +72,14 @@ public class Artist implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(artistId);
+        dest.writeString(artistId);
         dest.writeString(name);
         dest.writeString(country);
         dest.writeString(age);
     }
 
     protected Artist(Parcel in) {
-        artistId = in.readInt();
+        artistId = in.readString();
         name = in.readString();
         country = in.readString();
         age = in.readString();

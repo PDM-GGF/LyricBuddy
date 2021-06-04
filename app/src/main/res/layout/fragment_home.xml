@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
             android:gravity="center"
-            android:text="@string/new_releases"
+            android:text="@string/featured_playlists"
             android:textSize="24sp" />
 
         <androidx.recyclerview.widget.RecyclerView

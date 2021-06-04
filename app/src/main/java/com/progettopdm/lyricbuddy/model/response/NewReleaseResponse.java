@@ -6,36 +6,27 @@ import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
 import com.progettopdm.lyricbuddy.model.Album;
+import com.progettopdm.lyricbuddy.model.response.wrappers.AlbumWrapper;
 
 
 import java.util.List;
 
 public class NewReleaseResponse implements Parcelable {
 
-    @SerializedName(value = "items")
-    private List<Album> albumList;
+    @SerializedName(value = "albums")
+    private AlbumWrapper albumWrapper;
 
-    public NewReleaseResponse(List<Album> albumList) {
-        this.albumList = albumList;
-        Log.d("Lista album:", "CREATA");
-    }
-
-    public void readFromParcel(Parcel source) {
-        this.albumList = source.createTypedArrayList(Album.CREATOR);
-    }
 
     protected NewReleaseResponse(Parcel in) {
-        this.albumList = in.createTypedArrayList(Album.CREATOR);
+        albumWrapper = in.readParcelable(AlbumWrapper.class.getClassLoader());
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeTypedList(this.albumList);
+    public AlbumWrapper getAlbumWrapper() {
+        return albumWrapper;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public void setAlbumWrapper(AlbumWrapper albumWrapper) {
+        this.albumWrapper = albumWrapper;
     }
 
     public static final Creator<NewReleaseResponse> CREATOR = new Creator<NewReleaseResponse>() {
@@ -50,19 +41,13 @@ public class NewReleaseResponse implements Parcelable {
         }
     };
 
-    public List<Album> getAlbumList() {
-        return albumList;
-    }
-
-    public void setAlbumList(List<Album> albumList) {
-        this.albumList = albumList;
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     @Override
-    public String toString() {
-        return "NewReleaseResponse{" +
-                ", albumList=" + albumList +
-                '}';
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(albumWrapper, flags);
     }
-
 }

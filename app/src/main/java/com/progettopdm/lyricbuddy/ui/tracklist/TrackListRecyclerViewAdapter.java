@@ -56,13 +56,11 @@ public class TrackListRecyclerViewAdapter extends RecyclerView.Adapter<TrackList
     public class TrackListViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView nameTextView;
-        private final ImageView trackImageView;
 
 
         public TrackListViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.track_name);
-            trackImageView = itemView.findViewById(R.id.track_img);
         }
 
         public void bind(Track track) {

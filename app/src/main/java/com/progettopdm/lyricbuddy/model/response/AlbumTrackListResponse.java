@@ -8,27 +8,27 @@ import com.progettopdm.lyricbuddy.model.Track;
 
 import java.util.List;
 
-public class TrackListResponse implements Parcelable {
+public class AlbumTrackListResponse implements Parcelable {
     @SerializedName("items")
     List<Track> trackList;
 
-    public TrackListResponse(List<Track> trackList) {
+    public AlbumTrackListResponse(List<Track> trackList) {
         this.trackList = trackList;
     }
 
-    protected TrackListResponse(Parcel in) {
+    protected AlbumTrackListResponse(Parcel in) {
         trackList = in.createTypedArrayList(Track.CREATOR);
     }
 
-    public static final Creator<TrackListResponse> CREATOR = new Creator<TrackListResponse>() {
+    public static final Creator<AlbumTrackListResponse> CREATOR = new Creator<AlbumTrackListResponse>() {
         @Override
-        public TrackListResponse createFromParcel(Parcel in) {
-            return new TrackListResponse(in);
+        public AlbumTrackListResponse createFromParcel(Parcel in) {
+            return new AlbumTrackListResponse(in);
         }
 
         @Override
-        public TrackListResponse[] newArray(int size) {
-            return new TrackListResponse[size];
+        public AlbumTrackListResponse[] newArray(int size) {
+            return new AlbumTrackListResponse[size];
         }
     };
 
