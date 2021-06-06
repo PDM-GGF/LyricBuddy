@@ -1,6 +1,7 @@
 package com.progettopdm.lyricbuddy.ui.tracklist;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,9 +25,13 @@ import com.progettopdm.lyricbuddy.ui.home.HomeViewModelFactory;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TrackListFragment extends Fragment {
+
+    TrackListRecyclerViewAdapter trackListAdapter;
+
 
     @Override
     public View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
@@ -36,6 +41,7 @@ public class TrackListFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+
 
         HomeViewModel viewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
 
@@ -50,9 +56,15 @@ public class TrackListFragment extends Fragment {
         tc.getImgList().get(0).getImg().into(tlImage);
 
         RecyclerView newReleasesRecyclerView = view.findViewById(R.id.tracklist_recycler_view);
-        TrackListRecyclerViewAdapter trackListRecyclerViewAdapter = new TrackListRecyclerViewAdapter(tc.getTrackList());
+
+        trackListAdapter = new TrackListRecyclerViewAdapter(tc.getTrackList(), new TrackListRecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Track track) {
+                Log.d("CLICKED", String.valueOf(track));
+            }
+        });
         newReleasesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        newReleasesRecyclerView.setAdapter(trackListRecyclerViewAdapter);
+        newReleasesRecyclerView.setAdapter(trackListAdapter);
     }
 
 }
