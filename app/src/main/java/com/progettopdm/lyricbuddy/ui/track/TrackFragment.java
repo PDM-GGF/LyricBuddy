@@ -25,9 +25,7 @@ import com.progettopdm.lyricbuddy.repository.MxmMatcherRepository;
 import com.progettopdm.lyricbuddy.ui.favorites.FavoritesViewModel;
 import com.progettopdm.lyricbuddy.ui.userprofile.UserProfileViewModel;
 
-public class TrackFragment extends Fragment implements MxmLyricsCallback {
-
-    private TrackViewModel trackViewModel;
+public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMatcherCallback {
 
     private MxmLyricsRepository mxmLyricsRepository;
     private MxmMatcherRepository mxmMatcherRepository;
@@ -44,13 +42,24 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+        String q_track = "Formidable";
+        String q_artist = "Twenty One Pilots";
+
+        TextView trackName = root.findViewById(R.id.track_name);
+        TextView trackArtist = root.findViewById(R.id.track_artist);
+
+        trackName.setText(q_track);
+        trackArtist.setText(q_artist);
+
+        int id = 215778095;
         super.onActivityCreated(savedInstanceState);
-        trackViewModel = new ViewModelProvider(this).get(TrackViewModel.class);
 
+        mxmMatcherRepository = new MxmMatcherRepository(this);
+        mxmMatcherRepository.fetchTrackId(q_track, q_artist);
 
-        mxmLyricsRepository = new MxmLyricsRepository(this);
-        mxmLyricsRepository.fetchLyrics();
     }
+
 
     @Override
     public void onLyricsGet(String lyrics) {
@@ -59,7 +68,19 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback {
     }
 
     @Override
-    public void onFailure(String msg) {
+    public void onLyricsFailure(String msg) {
 
     }
+
+    @Override
+    public void onIdGet(int id) {
+        mxmLyricsRepository = new MxmLyricsRepository(this);
+        mxmLyricsRepository.fetchLyrics(id);
+    }
+
+    @Override
+    public void onMatcherFailure(String msg) {
+
+    }
+
 }

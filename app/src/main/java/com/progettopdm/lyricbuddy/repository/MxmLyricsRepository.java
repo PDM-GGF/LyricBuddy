@@ -24,8 +24,7 @@ public class MxmLyricsRepository {
     }
 
 
-    public void fetchLyrics() {
-        int id = 215778095;
+    public void fetchLyrics(int id) {
         Call<MxmTrack> call = mxmLyricsService.getTrack(Constants.MXM_API_KEY, id);
 
         call.enqueue(new Callback<MxmTrack>() {
@@ -40,7 +39,7 @@ public class MxmLyricsRepository {
             @Override
             public void onFailure(@NotNull Call<MxmTrack> call, @NotNull Throwable t) {
                 Log.d("MXM ERROR: ", t.getMessage());
-                mxmLyricsCallback.onFailure(t.getMessage());
+                mxmLyricsCallback.onLyricsFailure(t.getMessage());
             }
         });
     }
