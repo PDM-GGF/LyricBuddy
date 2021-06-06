@@ -7,6 +7,8 @@ import com.progettopdm.lyricbuddy.services.MxmLyricsService;
 import com.progettopdm.lyricbuddy.utils.Constants;
 import com.progettopdm.lyricbuddy.utils.ServiceLocator;
 
+import org.jetbrains.annotations.NotNull;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,15 +30,15 @@ public class MxmLyricsRepository {
 
         call.enqueue(new Callback<MxmTrack>() {
             @Override
-            public void onResponse(Call<MxmTrack> call, Response<MxmTrack> response) {
+            public void onResponse(@NotNull Call<MxmTrack> call, @NotNull Response<MxmTrack> response) {
                 if(response.body() != null && response.isSuccessful()){
                     response.body().setId(id);
-                    mxmLyricsCallback.onLyricsGet(response.body().getLyrics());
+                    mxmLyricsCallback.onLyricsGet((response.body().getLyrics()));
                 }
             }
 
             @Override
-            public void onFailure(Call<MxmTrack> call, Throwable t) {
+            public void onFailure(@NotNull Call<MxmTrack> call, @NotNull Throwable t) {
                 Log.d("MXM ERROR: ", t.getMessage());
                 mxmLyricsCallback.onFailure(t.getMessage());
             }

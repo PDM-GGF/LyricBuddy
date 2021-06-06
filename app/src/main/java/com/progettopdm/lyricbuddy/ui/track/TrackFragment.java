@@ -25,17 +25,19 @@ import com.progettopdm.lyricbuddy.repository.MxmMatcherRepository;
 import com.progettopdm.lyricbuddy.ui.favorites.FavoritesViewModel;
 import com.progettopdm.lyricbuddy.ui.userprofile.UserProfileViewModel;
 
-public class TrackFragment extends Fragment implements MxmLyricsCallback{
+public class TrackFragment extends Fragment implements MxmLyricsCallback {
 
     private TrackViewModel trackViewModel;
 
     private MxmLyricsRepository mxmLyricsRepository;
     private MxmMatcherRepository mxmMatcherRepository;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    private View root;
 
-        View root = inflater.inflate(R.layout.fragment_track, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        root = inflater.inflate(R.layout.fragment_track, container, false);
+
         return root;
 
     }
@@ -45,18 +47,15 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback{
         super.onActivityCreated(savedInstanceState);
         trackViewModel = new ViewModelProvider(this).get(TrackViewModel.class);
 
-        TextView lyricsTextView = view.findViewById(R.id.track_lyrics);
 
-        Log.d("TRACKFRAGMENT", "Creato il fragment di track");
         mxmLyricsRepository = new MxmLyricsRepository(this);
-
         mxmLyricsRepository.fetchLyrics();
-
     }
 
     @Override
     public void onLyricsGet(String lyrics) {
-        Log.d("Lyrics DAL FRAGMENT", lyrics);
+        TextView trackLyrics = root.findViewById(R.id.track_lyrics);
+        trackLyrics.setText(lyrics);
     }
 
     @Override
