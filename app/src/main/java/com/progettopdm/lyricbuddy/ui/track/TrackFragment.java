@@ -46,9 +46,10 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
         trackListViewModel = new ViewModelProvider(requireActivity()).get(TrackListViewModel.class);
 
 
-        String q_track = trackListViewModel.getmClickedTrack().getName();
-        String q_artist = trackListViewModel.getmClickedArtist();
-
+        //String q_track = trackListViewModel.getmClickedTrack().getName();
+        //String q_artist = trackListViewModel.getmClickedArtist();
+        String q_track = "mastroianni";
+        String q_artist = "sottotono";
 
         TextView trackName = root.findViewById(R.id.track_name);
         TextView trackArtist = root.findViewById(R.id.track_artist);
@@ -67,6 +68,8 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
 
     @Override
     public void onLyricsGet(String lyrics) {
+        lyrics = lyrics.substring(0, lyrics.indexOf("****"));
+
         TextView trackLyrics = root.findViewById(R.id.track_lyrics);
         trackLyrics.setText(lyrics);
     }
