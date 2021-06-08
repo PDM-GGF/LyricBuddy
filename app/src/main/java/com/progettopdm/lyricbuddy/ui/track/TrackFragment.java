@@ -57,7 +57,6 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
 
     }
 
-
     @Override
     public void onLyricsGet(String lyrics) {
         TextView trackLyrics = root.findViewById(R.id.track_lyrics);

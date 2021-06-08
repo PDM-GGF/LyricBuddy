@@ -12,21 +12,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.progettopdm.lyricbuddy.R;
 import com.progettopdm.lyricbuddy.model.Track;
 import com.progettopdm.lyricbuddy.model.TrackContainer;
-import com.progettopdm.lyricbuddy.ui.home.HomeCardRecyclerViewAdapter;
 import com.progettopdm.lyricbuddy.ui.home.HomeViewModel;
-import com.progettopdm.lyricbuddy.ui.home.HomeViewModelFactory;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class TrackListFragment extends Fragment {
 
@@ -60,7 +55,8 @@ public class TrackListFragment extends Fragment {
         trackListAdapter = new TrackListRecyclerViewAdapter(tc.getTrackList(), new TrackListRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Track track) {
-                Log.d("CLICKED", String.valueOf(track));
+
+                Log.d("CLICKED", track.getName());
             }
         });
         newReleasesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
