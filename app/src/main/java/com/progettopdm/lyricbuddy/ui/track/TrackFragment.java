@@ -23,6 +23,8 @@ import com.progettopdm.lyricbuddy.repository.MxmLyricsRepository;
 import com.progettopdm.lyricbuddy.repository.MxmMatcherCallback;
 import com.progettopdm.lyricbuddy.repository.MxmMatcherRepository;
 import com.progettopdm.lyricbuddy.ui.favorites.FavoritesViewModel;
+import com.progettopdm.lyricbuddy.ui.home.HomeViewModel;
+import com.progettopdm.lyricbuddy.ui.tracklist.TrackListViewModel;
 import com.progettopdm.lyricbuddy.ui.userprofile.UserProfileViewModel;
 
 public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMatcherCallback {
@@ -31,6 +33,7 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
     private MxmMatcherRepository mxmMatcherRepository;
 
     private View root;
+    private TrackListViewModel trackListViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_track, container, false);
@@ -39,9 +42,13 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        trackListViewModel = new ViewModelProvider(requireActivity()).get(TrackListViewModel.class);
 
-        String q_track = "Formidable";
-        String q_artist = "Twenty One Pilots";
+
+        String q_track = trackListViewModel.getmClickedTrack().getName();
+        String q_artist = trackListViewModel.getmClickedArtist();
+        //String q_track = "Formidable";
+        //String q_artist = "Twenty One Pilots";
 
         TextView trackName = root.findViewById(R.id.track_name);
         TextView trackArtist = root.findViewById(R.id.track_artist);
