@@ -95,7 +95,6 @@ public class HomeFragment extends Fragment {
         featuredPlaylistsRecyclerView.setAdapter(featuredPlaylistsAdapter);
 
 
-
         //DATA FETCH FROM VIEWMODEL
         ISpotifyRepository spotifyRepository =
                 new SpotifyRepository(requireActivity().getApplication());
@@ -106,6 +105,16 @@ public class HomeFragment extends Fragment {
         homeViewModel = new ViewModelProvider(requireActivity(), new HomeViewModelFactory(
                 requireActivity().getApplication(), spotifyRepository, iccAuthRepository)).get(HomeViewModel.class);
 
+
+        //TEST SEARCH
+        homeViewModel.getSpotiToken().observe(getViewLifecycleOwner(), token ->{
+            homeViewModel.getmSearchedTracksLiveData("kanye", token).observe(getViewLifecycleOwner(), tracks ->{
+                List<Track> trackList = tracks.getTrackWrapper().getTrackList();
+                for(Track t : trackList) {
+                    Log.d("SEARCHED TRACK: ", t.getName());
+                }
+            });
+        });
 
         //Get token then new releases
         homeViewModel.getSpotiToken().observe(getViewLifecycleOwner(), token ->{
