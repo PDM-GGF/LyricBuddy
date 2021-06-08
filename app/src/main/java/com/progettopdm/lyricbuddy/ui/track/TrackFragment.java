@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.progettopdm.lyricbuddy.R;
@@ -47,16 +48,16 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
 
         String q_track = trackListViewModel.getmClickedTrack().getName();
         String q_artist = trackListViewModel.getmClickedArtist();
-        //String q_track = "Formidable";
-        //String q_artist = "Twenty One Pilots";
+
 
         TextView trackName = root.findViewById(R.id.track_name);
         TextView trackArtist = root.findViewById(R.id.track_artist);
+        ImageView trackImage = root.findViewById(R.id.track_img);
 
         trackName.setText(q_track);
         trackArtist.setText(q_artist);
+        trackListViewModel.getmClickedImage().getImg().into(trackImage);
 
-        int id = 215778095;
         super.onActivityCreated(savedInstanceState);
 
         mxmMatcherRepository = new MxmMatcherRepository(this);
@@ -83,7 +84,8 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
 
     @Override
     public void onMatcherFailure(String msg) {
-
+        TextView trackLyrics = root.findViewById(R.id.track_lyrics);
+        trackLyrics.setText("Ci dispiace, abbiamo incontrato un errore :(");
     }
 
 }

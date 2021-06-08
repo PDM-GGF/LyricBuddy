@@ -32,6 +32,8 @@ public class MxmMatcherRepository {
                 if(response.body() != null && response.isSuccessful()){
                     mxmMatcherCallback.onIdGet(response.body().getMessage().getBody().getTrack().getTrack_id());
 
+                }else{
+                    Log.d("MATCHER ERROR", String.valueOf(response.body().getMessage()));
                 }
             }
 

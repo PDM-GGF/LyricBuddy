@@ -61,7 +61,9 @@ public class TrackListFragment extends Fragment {
             @Override
             public void onItemClick(Track track) {
                 trackListViewModel.mClickedTrack = track;
-                trackListViewModel.mClickedArtist = homeViewModel.getmClickedTrackContainer().getDescription();
+                trackListViewModel.mClickedArtist = tc.getDescription();
+                trackListViewModel.mClickedImage = tc.getImgList().get(0);
+
 
                 NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
                 navController.navigate(R.id.action_global_navigation_track);
