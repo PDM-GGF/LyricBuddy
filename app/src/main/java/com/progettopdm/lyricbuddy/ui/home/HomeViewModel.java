@@ -1,6 +1,7 @@
 package com.progettopdm.lyricbuddy.ui.home;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -29,6 +30,7 @@ public class HomeViewModel extends AndroidViewModel {
 
     private MutableLiveData<NewReleaseResponse> mNewReleasesLiveData;
     private MutableLiveData<FeaturedResponse> mFeaturedPlaylistsLiveData;
+    private MutableLiveData<AlbumTrackListResponse> mAlbumTracklistLiveData;
     TrackContainer mClickedTrackContainer;
     MutableLiveData<String> spotiToken;
 
@@ -69,18 +71,13 @@ public class HomeViewModel extends AndroidViewModel {
         return mFeaturedPlaylistsLiveData;
     }
 
-    public void loadAlbumTrackLists(List<Album> albumList, String token) {
-        for(Album a : albumList) {
-            iSpotifyRepository.fetchAlbumTrackList(a.getId(), token).observeForever(new Observer<AlbumTrackListResponse>() {
-                @Override
-                public void onChanged(AlbumTrackListResponse albumTrackListResponse) {
-                    for(Track t : albumTrackListResponse.getTrackList()) {
-                        t.setAlbum(a.getId());
-                    }
-                    a.setTrackList(albumTrackListResponse.getTrackList());
-                }
-            });
-        }
+    public LiveData<AlbumTrackListResponse> getmAlbumTracklistLiveData(Album album, String token) {
+        loadAlbumTrackList(album, token);
+        return mAlbumTracklistLiveData;
+    }
+
+    private void loadAlbumTrackList(Album album, String token) {
+        mAlbumTracklistLiveData = iSpotifyRepository.fetchAlbumTrackList(album.getId(), token);
     }
 
     public void loadPlaylistTracklist(List<Playlist> playlistList, String token) {

@@ -71,8 +71,20 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemClick(TrackContainer trackContainer) {
                 homeViewModel.mClickedTrackContainer = trackContainer;
-                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-                navController.navigate(R.id.action_global_navigation_tracklist);
+
+                //GET TRACKLIST
+                homeViewModel.getSpotiToken().observe(getViewLifecycleOwner(), token -> {
+                            homeViewModel.getmAlbumTracklistLiveData((Album) trackContainer, token).observe(getViewLifecycleOwner(), tracks ->{
+                                Log.d("ALBUM: ", trackContainer.getName());
+                                Log.d("TRACKS: ", tracks.getTrackList().get(0).getName());
+                                trackContainer.setTrackList(tracks.getTrackList());
+                                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                                navController.navigate(R.id.action_global_navigation_tracklist);
+                            });
+
+                        });
+
+
             }
         });
         newReleasesRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),  1,
@@ -117,9 +129,6 @@ public class HomeFragment extends Fragment {
                     //carica immagini
                     homeViewModel.loadImagesFromUrl(albumList);
 
-                    //carica tracklists
-                    homeViewModel.loadAlbumTrackLists(albumList, token);
-
                     updateUIForNewReleasesSuccess(albumList);
                 }else{
                     Log.d("FAILED: ", "HOME FRAGMENT COULDN'T FETCH");
@@ -142,7 +151,7 @@ public class HomeFragment extends Fragment {
                     homeViewModel.loadImagesFromUrl(playlistList);
 
                     //carica tracklists
-                    homeViewModel.loadPlaylistTracklist(response.getPlaylistWrapper().getPlaylistList(), token);
+                    //homeViewModel.loadPlaylistTracklist(response.getPlaylistWrapper().getPlaylistList(), token);
 
                     updateUIForFeaturedSuccess(playlistList);
                 }else{
