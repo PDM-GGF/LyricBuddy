@@ -106,16 +106,6 @@ public class HomeFragment extends Fragment {
                 requireActivity().getApplication(), spotifyRepository, iccAuthRepository)).get(HomeViewModel.class);
 
 
-        //TEST SEARCH
-        homeViewModel.getSpotiToken().observe(getViewLifecycleOwner(), token ->{
-            homeViewModel.getmSearchedTracksLiveData("kanye", token).observe(getViewLifecycleOwner(), tracks ->{
-                List<Track> trackList = tracks.getTrackWrapper().getTrackList();
-                for(Track t : trackList) {
-                    Log.d("SEARCHED TRACK: ", t.getName());
-                }
-            });
-        });
-
         //Get token then new releases
         homeViewModel.getSpotiToken().observe(getViewLifecycleOwner(), token ->{
             homeViewModel.getmNewReleases(token).observe(getViewLifecycleOwner(), response ->{
@@ -159,9 +149,6 @@ public class HomeFragment extends Fragment {
                 }
             });
         });
-
-
-
     }
 
     private void updateUIForFeaturedSuccess(List<Playlist> playlistList) {
