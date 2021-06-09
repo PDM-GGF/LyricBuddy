@@ -14,13 +14,18 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.progettopdm.lyricbuddy.MainActivity;
 import com.progettopdm.lyricbuddy.R;
 
+import static com.progettopdm.lyricbuddy.utils.Constants.FIREBASE_REALTIME_DB;
+
 public class Register extends AppCompatActivity {
-    EditText registerFullName, registerEmail, registerPassword, registerConfirmPassword;
+    EditText registerFullName, registerPhoneNumber, registerEmail, registerPassword, registerConfirmPassword;
     Button createAccountButton, backToLogin ;
     FirebaseAuth fAuth;
+    DatabaseReference fDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +33,15 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         registerFullName = findViewById(R.id.full_name);
+        registerPhoneNumber = findViewById(R.id.phone);
         registerEmail = findViewById(R.id.email_address);
         registerPassword = findViewById(R.id.password);
         registerConfirmPassword = findViewById(R.id.confirm_password);
 
         createAccountButton = findViewById(R.id.button_register);
         backToLogin = findViewById(R.id.button_backLogin);
+
+        //on click tasto login
         backToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,13 +51,15 @@ public class Register extends AppCompatActivity {
         });
 
         fAuth = FirebaseAuth.getInstance();
-
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // extract the data from form
 
+                fDatabase = FirebaseDatabase.getInstance(FIREBASE_REALTIME_DB).getReference();
+
+                // extract the data from form
                 String fullName = registerFullName.getText().toString();
+                String phoneNumber = registerPhoneNumber.getText().toString();
                 String email = registerEmail.getText().toString();
                 String password = registerPassword.getText().toString();
                 String confirmPassword = registerConfirmPassword.getText().toString();
@@ -58,6 +68,12 @@ public class Register extends AppCompatActivity {
                     registerFullName.setError("Full Name is Required");
                     return;
                 }
+
+                if(phoneNumber.isEmpty()){
+                    registerPhoneNumber.setError("Full Name is Required");
+                    return;
+                }
+
                 if(email.isEmpty()){
                     registerEmail.setError("Email is Required");
                     return;
@@ -75,8 +91,15 @@ public class Register extends AppCompatActivity {
                     registerConfirmPassword.setError("Password Do not Match.");
                 }
 
+                User user = new User(fullName, phoneNumber, email);
+                fDatabase.child(phoneNumber).setValue(user);
+
+
+
+
                 // register the user using firebase
                 fAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+
                     @Override
                     public void onSuccess(AuthResult authResult) {
                         //send user to the next page

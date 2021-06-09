@@ -7,4 +7,6 @@ public class Constants {
 
     public static final String MXM_BASE_URL = "https://api.musixmatch.com/ws/1.1/";
     public static final String MXM_API_KEY = "9171ef9b4bd2d0044b685eb054acde4b";
+
+    public static final String FIREBASE_REALTIME_DB = "https://lyricbuddy-4f42b-default-rtdb.europe-west1.firebasedatabase.app/";
 }

@@ -15,7 +15,7 @@
     <string name="skip" translatable="false">Skip Registration</string>
     <string name="songs" translatable="false">My Songs:</string>
     <string name="logout" translatable="false">Logout</string>
-
+    <string name="phone" translatable="false"> Phone Number </string>
 
 
 
