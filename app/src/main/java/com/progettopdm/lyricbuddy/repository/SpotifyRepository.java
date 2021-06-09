@@ -10,6 +10,7 @@ import com.progettopdm.lyricbuddy.model.response.FeaturedResponse;
 import com.progettopdm.lyricbuddy.model.response.NewReleaseResponse;
 import com.progettopdm.lyricbuddy.model.response.AlbumTrackListResponse;
 import com.progettopdm.lyricbuddy.model.response.PlaylistTrackListResponse;
+import com.progettopdm.lyricbuddy.model.response.SearchTracksResponse;
 import com.progettopdm.lyricbuddy.services.SpotifyService;
 import com.progettopdm.lyricbuddy.utils.ServiceLocator;
 
@@ -27,6 +28,7 @@ public class SpotifyRepository implements ISpotifyRepository{
     private final MutableLiveData<FeaturedResponse> mFeaturedPlaylistsLiveData;
     private final MutableLiveData<AlbumTrackListResponse> mAlbumTrackListLiveData;
     private final MutableLiveData<PlaylistTrackListResponse> mPlaylistTrackListLiveData;
+    private final MutableLiveData<SearchTracksResponse> mSearchedTrackListLiveData;
 
 
     public SpotifyRepository(Application application) {
@@ -35,7 +37,8 @@ public class SpotifyRepository implements ISpotifyRepository{
         this.mNewReleaseLiveData = new MutableLiveData<>();
         this.mFeaturedPlaylistsLiveData = new MutableLiveData<>();
         this.mAlbumTrackListLiveData = new MutableLiveData<>();
-        this.mPlaylistTrackListLiveData = new MutableLiveData<PlaylistTrackListResponse>();
+        this.mPlaylistTrackListLiveData = new MutableLiveData<>();
+        this.mSearchedTrackListLiveData = new MutableLiveData<>();
         this.ccAuthRepository = new CCAuthRepository(application);
     }
 
@@ -136,6 +139,32 @@ public class SpotifyRepository implements ISpotifyRepository{
         });
 
         return mPlaylistTrackListLiveData;
+
+    }
+
+    @Override
+    public MutableLiveData<SearchTracksResponse> fetchSearchedTracks(String query, String token) {
+
+        Call<SearchTracksResponse> call = spotifyService.getSearchedTracks(query,
+                "track",
+                "Bearer " + token);
+
+        call.enqueue(new Callback<SearchTracksResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<SearchTracksResponse> call, @NonNull retrofit2.Response<SearchTracksResponse> response) {
+                if (response.body() != null && response.isSuccessful()) {
+                    mSearchedTrackListLiveData.postValue(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SearchTracksResponse> call, Throwable t) {
+                Log.d("FAILED: ", "PLAYLIST TRACKLIST FETCH " + t.getMessage());
+            }
+
+        });
+
+        return mSearchedTrackListLiveData;
 
     }
 }
