@@ -5,16 +5,20 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.progettopdm.lyricbuddy.repository.CCAuthRepository;
+import com.progettopdm.lyricbuddy.ui.userprofile.UserProfileDisabledFragment;
 
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
@@ -55,7 +59,12 @@ public class MainActivity extends AppCompatActivity {
 
         // Handle item selection
         if (item.getItemId() == R.id.toolbar_menu_userprofile) {
-            navController.navigate(R.id.action_global_navigation_userprofile);
+            if(FirebaseAuth.getInstance().getCurrentUser()!=null){
+                navController.navigate(R.id.action_global_navigation_userprofile_active);
+            }else{
+                navController.navigate(R.id.action_global_navigation_userprofile_disabled);
+            }
+           // navController.navigate(R.id.action_global_navigation_userprofile_active);
             Log.d("USERPROFILE: ", "Cliccato UserProfile");
             return true;
         }

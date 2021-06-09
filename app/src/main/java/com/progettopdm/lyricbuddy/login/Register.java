@@ -92,7 +92,7 @@ public class Register extends AppCompatActivity {
                 }
 
                 User user = new User(fullName, phoneNumber, email);
-                fDatabase.child(phoneNumber).setValue(user);
+                fDatabase.push().setValue(user);
 
 
 

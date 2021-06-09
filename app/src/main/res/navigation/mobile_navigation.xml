@@ -25,7 +25,7 @@
         tools:layout="@layout/fragment_favorites" />
 
     <fragment
-        android:id="@+id/navigation_userprofile"
+        android:id="@+id/navigation_userprofile_active"
         android:name="com.progettopdm.lyricbuddy.ui.userprofile.UserProfileFragment"
         android:label="@string/title_userprofile"
         tools:layout="@layout/fragment_userprofile_active" />
@@ -36,12 +36,24 @@
         android:label="Track List"
         tools:layout="@layout/fragment_tracklist" />
 
+    <fragment
+        android:id="@+id/navigation_userprofile_disable"
+        android:name="com.progettopdm.lyricbuddy.ui.userprofile.UserProfileDisabledFragment"
+        tools:layout="@layout/fragment_userprofile_disabled" />
+
     <action
         android:id="@+id/action_global_navigation_tracklist"
         app:destination="@id/navigation_tracklist"/>
 
     <action
-        android:id="@+id/action_global_navigation_userprofile"
-        app:destination="@id/navigation_userprofile"/>
+        android:id="@+id/action_global_navigation_userprofile_active"
+        app:destination="@id/navigation_userprofile_active"/>
+
+    <action
+        android:id="@+id/action_global_navigation_userprofile_disabled"
+        app:destination="@id/navigation_userprofile_disable"/>
+
+
+
 
 </navigation>
