@@ -31,7 +31,6 @@ public class MxmLyricsRepository {
             @Override
             public void onResponse(@NotNull Call<MxmTrack> call, @NotNull Response<MxmTrack> response) {
                 if(response.body() != null && response.isSuccessful()){
-                    response.body().setId(id);
                     mxmLyricsCallback.onLyricsGet((response.body().getLyrics()));
                 }
             }
