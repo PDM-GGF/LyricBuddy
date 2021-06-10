@@ -12,6 +12,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +25,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.progettopdm.lyricbuddy.R;
+import com.progettopdm.lyricbuddy.model.Artist;
 import com.progettopdm.lyricbuddy.model.Playlist;
 import com.progettopdm.lyricbuddy.model.Track;
 import com.progettopdm.lyricbuddy.repository.CCAuthRepository;
@@ -33,6 +36,8 @@ import com.progettopdm.lyricbuddy.ui.home.HomeViewModel;
 import com.progettopdm.lyricbuddy.ui.home.HomeViewModelFactory;
 import com.progettopdm.lyricbuddy.ui.search.SearchViewModel;
 import com.progettopdm.lyricbuddy.ui.tracklist.TrackListRecyclerViewAdapter;
+import com.progettopdm.lyricbuddy.ui.tracklist.TrackListViewModel;
+import com.progettopdm.lyricbuddy.ui.tracklist.TrackListViewModelFactory;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -42,6 +47,8 @@ import java.util.List;
 public class SearchFragment extends Fragment {
 
     List<Track> mSearchResultsList = new ArrayList<>();
+
+    TrackListViewModel trackListViewModel;
 
     private HomeViewModel homeViewModel;
 
@@ -58,6 +65,7 @@ public class SearchFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        trackListViewModel = new ViewModelProvider(requireActivity(), new TrackListViewModelFactory()).get(TrackListViewModel.class);
 
         //DATA FETCH FROM VIEWMODEL
         ISpotifyRepository spotifyRepository =
@@ -71,7 +79,14 @@ public class SearchFragment extends Fragment {
 
         RecyclerView searchResultsRecyclerView = view.findViewById(R.id.results_recycler);
         searchResultsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        trackListRecyclerViewAdapter = new TrackListRecyclerViewAdapter(mSearchResultsList);
+        trackListRecyclerViewAdapter = new TrackListRecyclerViewAdapter(mSearchResultsList, new TrackListRecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Track track) {
+                trackListViewModel.setmClickedTrack(track);
+                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                navController.navigate(R.id.action_global_navigation_track);
+            }
+        });
         searchResultsRecyclerView.setAdapter(trackListRecyclerViewAdapter);
 
         SearchView searchBar = view.findViewById(R.id.search_bar);

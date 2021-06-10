@@ -19,6 +19,10 @@ public class TrackListViewModel extends ViewModel {
         return mClickedTrack;
     }
 
+    public void setmClickedTrack(Track track) {
+        this.mClickedTrack = track;
+    }
+
     public String getmClickedArtist() {
         return mClickedArtist;
     }
