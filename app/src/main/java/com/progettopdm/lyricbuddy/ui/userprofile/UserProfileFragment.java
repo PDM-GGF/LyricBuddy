@@ -37,11 +37,30 @@ public class UserProfileFragment extends Fragment {
         userProfileViewModel = new ViewModelProvider(this).get(UserProfileViewModel.class);
         View root = inflater.inflate(R.layout.fragment_userprofile_active, container, false);
 
-       final TextView password = root.findViewById(R.id.text_userprofile);
-        userProfileViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        //fullName
+        final TextView name = root.findViewById(R.id.text_fullName);
+        userProfileViewModel.getfullName().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                password.setText(s);
+                name.setText(s);
+            }
+        });
+
+        //email
+        final TextView eAddress = root.findViewById(R.id.text_email_address);
+        userProfileViewModel.getEmail().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                eAddress.setText(s);
+            }
+        });
+
+        //phoneNumber
+       final TextView pNumber = root.findViewById(R.id.text_phoneNumber);
+        userProfileViewModel.getPhoneNumber().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                pNumber.setText(s);
             }
         });
         return root;
