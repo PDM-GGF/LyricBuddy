@@ -9,4 +9,5 @@
     <string name="new_releases">Nuove Uscite</string>
     <string name="featured_playlists">In primo piano</string>
     <string name="title_track">Traccia</string>
+    <string name="search_hint">cerca una traccia</string>
 </resources>
