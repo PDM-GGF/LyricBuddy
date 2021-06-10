@@ -55,7 +55,7 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                fDatabase = FirebaseDatabase.getInstance(FIREBASE_REALTIME_DB).getReference();
+                fDatabase = FirebaseDatabase.getInstance(FIREBASE_REALTIME_DB).getReference().child("users");
 
                 // extract the data from form
                 String fullName = registerFullName.getText().toString();
@@ -70,7 +70,12 @@ public class Register extends AppCompatActivity {
                 }
 
                 if(phoneNumber.isEmpty()){
-                    registerPhoneNumber.setError("Full Name is Required");
+                    registerPhoneNumber.setError("Phone Number is Required");
+                    return;
+                }
+
+                if(phoneNumber.length() != 10){
+                    registerPhoneNumber.setError("It is Not a Phone Number");
                     return;
                 }
 
