@@ -27,4 +27,5 @@
     <string name="featured_playlists">Featured</string>
     <string name="title_track">Track</string>
     <string name="search_hint">search for a song</string>
+    <string name="lyrics">Lyrics</string>
 </resources>

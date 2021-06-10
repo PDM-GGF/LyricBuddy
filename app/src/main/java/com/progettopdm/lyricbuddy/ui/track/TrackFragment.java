@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.progettopdm.lyricbuddy.R;
 import com.progettopdm.lyricbuddy.model.GenericImage;
 import com.progettopdm.lyricbuddy.model.Track;
@@ -49,8 +50,7 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
 
         String q_track = trackListViewModel.getmClickedTrack().getName();
         String q_artist = trackListViewModel.getmClickedTrack().getArtists().get(0).getName();
-        //GenericImage track_artwork = trackListViewModel.getmClickedTrack().getAlbum().getImgList().get(0);
-        //Log.d("IMMAGINE", String.valueOf(track_artwork.getImg()));
+        GenericImage track_artwork = trackListViewModel.getmClickedTrack().getAlbum().getImgList().get(0);
 
         TextView trackName = root.findViewById(R.id.track_name);
         TextView trackArtist = root.findViewById(R.id.track_artist);
@@ -58,6 +58,7 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
 
         trackName.setText(q_track);
         trackArtist.setText(q_artist);
+        Glide.with(view).load(track_artwork.getImgUrl()).into(trackImage);
         //track_artwork.getImg().into(trackImage);
 
         super.onActivityCreated(savedInstanceState);

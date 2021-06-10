@@ -9,29 +9,29 @@
     <androidx.constraintlayout.widget.ConstraintLayout
 
         android:layout_width="match_parent"
-        android:paddingLeft="16dp"
+        android:paddingStart="16dp"
         android:paddingTop="70dp"
         android:paddingBottom="70dp"
         tools:context=".ui.search.SearchFragment"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        tools:ignore="RtlSymmetry">
 
         <ImageView
             android:id="@+id/track_img"
             android:layout_width="125dp"
             android:layout_height="125dp"
             android:background="@color/white"
-            tools:ignore="MissingConstraints"
+            tools:ignore="ContentDescription,MissingConstraints"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="16dp" />
 
         <TextView
             android:id="@+id/track_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="152dp"
             android:foregroundGravity="center"
-            android:text="Track Name"
-            android:textAlignment="center"
+            android:text="@string/title_track"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="20sp"
@@ -46,8 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Artist"
-            android:textAlignment="center"
+            android:text=""
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="20sp"
@@ -61,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Lyrics"
+            android:text="@string/lyrics"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/track_img"
