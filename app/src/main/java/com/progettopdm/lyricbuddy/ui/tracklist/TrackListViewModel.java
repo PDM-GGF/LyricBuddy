@@ -11,12 +11,14 @@ public class TrackListViewModel extends ViewModel {
 
     Track mClickedTrack;
     String mClickedArtist;
-
-
     GenericImage mClickedImage;
 
     public Track getmClickedTrack() {
         return mClickedTrack;
+    }
+
+    public void setmClickedTrack(Track track) {
+        this.mClickedTrack = track;
     }
 
     public String getmClickedArtist() {

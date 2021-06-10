@@ -159,7 +159,7 @@ public class SpotifyRepository implements ISpotifyRepository{
 
             @Override
             public void onFailure(Call<SearchTracksResponse> call, Throwable t) {
-                Log.d("FAILED: ", "PLAYLIST TRACKLIST FETCH " + t.getMessage());
+                Log.d("FAILED: ", "Search FETCH " + t.getMessage());
             }
 
         });

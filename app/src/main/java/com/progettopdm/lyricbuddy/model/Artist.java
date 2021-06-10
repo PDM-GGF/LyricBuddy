@@ -10,14 +10,10 @@ public class Artist implements Parcelable {
     @SerializedName("id")
     String artistId;
     String name;
-    String country;
-    String age;
 
     public Artist(String artistId, String name, String country, String age) {
         this.artistId = artistId;
         this.name = name;
-        this.country = country;
-        this.age = age;
     }
 
     public Artist() {
@@ -31,13 +27,6 @@ public class Artist implements Parcelable {
         return name;
     }
 
-    public String getCountry() {
-        return country;
-    }
-
-    public String getAge() {
-        return age;
-    }
 
     public void setArtistId(String artistId) {
         this.artistId = artistId;
@@ -47,23 +36,6 @@ public class Artist implements Parcelable {
         this.name = name;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public void setAge(String age) {
-        this.age = age;
-    }
-
-    @Override
-    public String toString() {
-        return "Artist{" +
-                "artistId=" + artistId +
-                ", name='" + name + '\'' +
-                ", country='" + country + '\'' +
-                ", age='" + age + '\'' +
-                '}';
-    }
 
     @Override
     public int describeContents() {
@@ -74,15 +46,11 @@ public class Artist implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(artistId);
         dest.writeString(name);
-        dest.writeString(country);
-        dest.writeString(age);
     }
 
     protected Artist(Parcel in) {
         artistId = in.readString();
         name = in.readString();
-        country = in.readString();
-        age = in.readString();
     }
 
     public static final Creator<Artist> CREATOR = new Creator<Artist>() {

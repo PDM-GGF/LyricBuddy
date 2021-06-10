@@ -7,6 +7,8 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class Track implements Parcelable {
 
     @SerializedName("id")
@@ -15,6 +17,8 @@ public class Track implements Parcelable {
     int duration_ms;
     String lyrics;
     String albumId;
+    Album album;
+    List<Artist> artists;
 
     public Track(String trackId, String name, int duration_ms, String lyrics) {
         this.trackId = trackId;
@@ -42,10 +46,6 @@ public class Track implements Parcelable {
         }
     };
 
-    public String getAlbum() {
-        return albumId;
-    }
-
     public void setAlbum(String album) {
         this.albumId = album;
     }
@@ -70,16 +70,20 @@ public class Track implements Parcelable {
         return duration_ms;
     }
 
-    public void setDuration_ms(int duration_ms) {
-        this.duration_ms = duration_ms;
-    }
-
     public String getLyrics() {
         return lyrics;
     }
 
     public void setLyrics(String lyrics) {
         this.lyrics = lyrics;
+    }
+
+    public List<Artist> getArtists() {
+        return artists;
+    }
+
+    public Album getAlbum() {
+        return album;
     }
 
     @Override
