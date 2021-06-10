@@ -17,12 +17,15 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.progettopdm.lyricbuddy.R;
+import com.progettopdm.lyricbuddy.model.Artist;
 import com.progettopdm.lyricbuddy.model.GenericImage;
 import com.progettopdm.lyricbuddy.repository.MxmLyricsCallback;
 import com.progettopdm.lyricbuddy.repository.MxmLyricsRepository;
 import com.progettopdm.lyricbuddy.repository.MxmMatcherCallback;
 import com.progettopdm.lyricbuddy.repository.MxmMatcherRepository;
 import com.progettopdm.lyricbuddy.ui.tracklist.TrackListViewModel;
+
+import java.util.List;
 
 public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMatcherCallback {
 
@@ -50,7 +53,22 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
         TextView trackArtist = root.findViewById(R.id.track_artist);
 
         trackName.setText(q_track);
-        trackArtist.setText(q_artist);
+
+        List<Artist> artists = trackListViewModel.getmClickedTrack().getArtists();
+
+        //Generate string "artists", this part puts the artists separated by a comma if needed
+        String string_artists;
+        if(artists.size() > 1){
+            string_artists = "";
+            for( Artist artist : artists){
+                string_artists += artist.getName() + ", ";
+            }
+            string_artists = string_artists.substring(0, string_artists.length() - 2);
+        }else{
+            string_artists = artists.get(0).getName();
+        }
+
+        trackArtist.setText(string_artists);
 
         //Check if the album is set
         if(trackListViewModel.getmClickedTrack().getAlbum() != null){
