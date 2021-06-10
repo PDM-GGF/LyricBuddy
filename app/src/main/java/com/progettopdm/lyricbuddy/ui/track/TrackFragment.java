@@ -49,8 +49,8 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
 
         String q_track = trackListViewModel.getmClickedTrack().getName();
         String q_artist = trackListViewModel.getmClickedTrack().getArtists().get(0).getName();
-        GenericImage track_artwork = trackListViewModel.getmClickedTrack().getAlbum().getImgList().get(0);
-        Log.d("IMMAGINE", String.valueOf(track_artwork.getImg()));
+        //GenericImage track_artwork = trackListViewModel.getmClickedTrack().getAlbum().getImgList().get(0);
+        //Log.d("IMMAGINE", String.valueOf(track_artwork.getImg()));
 
         TextView trackName = root.findViewById(R.id.track_name);
         TextView trackArtist = root.findViewById(R.id.track_artist);
