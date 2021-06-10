@@ -80,6 +80,7 @@ public class Login extends AppCompatActivity {
             }
         });
 
+        //skip registration button
         skipRegistrationButton = findViewById(R.id.button_skip);
         skipRegistrationButton.setOnClickListener(new View.OnClickListener() {
             @Override

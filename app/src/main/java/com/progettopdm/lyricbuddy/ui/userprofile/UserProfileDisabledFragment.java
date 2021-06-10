@@ -48,12 +48,11 @@ public class UserProfileDisabledFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 goToLogin();
-               /* NavHostFragment.findNavController(UserProfileDisabledFragment.this).
-                        navigate(R.id.action_UserProfileFragment_to_LoginActivity);*/
-            }
+                  }
         });
     }
 
+    //from user profile disable to login activity
     public void goToLogin() {
         Intent intent = new Intent(getActivity(), Login.class);
         startActivity(intent);

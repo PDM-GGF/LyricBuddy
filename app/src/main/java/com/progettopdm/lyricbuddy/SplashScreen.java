@@ -8,6 +8,7 @@ import android.os.Handler;
 
 import com.progettopdm.lyricbuddy.login.Login;
 
+//splash screen activity
 public class SplashScreen extends AppCompatActivity {
 
     @Override
@@ -18,6 +19,7 @@ public class SplashScreen extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                //from splash screen to login activity
                 Intent i = new Intent(SplashScreen.this, Login.class);
                 startActivity(i);
                 finish();

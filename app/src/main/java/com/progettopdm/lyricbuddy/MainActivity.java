@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
             }else{
                 navController.navigate(R.id.action_global_navigation_userprofile_disabled);
             }
-           // navController.navigate(R.id.action_global_navigation_userprofile_active);
             Log.d("USERPROFILE: ", "Cliccato UserProfile");
             return true;
         }

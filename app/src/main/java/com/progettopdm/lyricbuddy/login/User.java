@@ -1,5 +1,6 @@
 package com.progettopdm.lyricbuddy.login;
 
+//classe per gestione user in real time database
 public class User {
     String fullName, phoneNumber, email;
 

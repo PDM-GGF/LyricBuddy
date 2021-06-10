@@ -61,7 +61,7 @@ public class UserProfileFragment extends Fragment {
         });
     }
 
-
+    //from user profile to login activity
     public void goToLogin() {
         Intent intent = new Intent(getActivity(), Login.class);
         startActivity(intent);
