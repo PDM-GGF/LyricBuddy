@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
         // Handle item selection
         if (item.getItemId() == R.id.toolbar_menu_userprofile) {
             navController.navigate(R.id.action_global_navigation_userprofile);
-            Log.d("USERPROFILE: ", "Cliccato UserProfile");
             return true;
         }
         return true;

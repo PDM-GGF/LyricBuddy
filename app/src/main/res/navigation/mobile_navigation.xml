@@ -9,8 +9,7 @@
         android:id="@+id/navigation_home"
         android:name="com.progettopdm.lyricbuddy.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" >
-    </fragment>
+        tools:layout="@layout/fragment_home"></fragment>
 
     <fragment
         android:id="@+id/navigation_search"
@@ -36,12 +35,22 @@
         android:label="Track List"
         tools:layout="@layout/fragment_tracklist" />
 
+    <fragment
+        android:id="@+id/navigation_track"
+        android:name="com.progettopdm.lyricbuddy.ui.track.TrackFragment"
+        android:label="@string/title_track"
+        tools:layout="@layout/fragment_track" />
+
     <action
         android:id="@+id/action_global_navigation_tracklist"
-        app:destination="@id/navigation_tracklist"/>
+        app:destination="@id/navigation_tracklist" />
 
     <action
         android:id="@+id/action_global_navigation_userprofile"
-        app:destination="@id/navigation_userprofile"/>
+        app:destination="@id/navigation_userprofile" />
+
+    <action
+        android:id="@+id/action_global_navigation_track"
+        app:destination="@+id/navigation_track" />
 
 </navigation>

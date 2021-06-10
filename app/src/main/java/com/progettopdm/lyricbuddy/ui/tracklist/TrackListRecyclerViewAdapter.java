@@ -16,14 +16,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class TrackListRecyclerViewAdapter extends RecyclerView.Adapter<TrackListRecyclerViewAdapter.TrackListViewHolder>{
+public class TrackListRecyclerViewAdapter extends RecyclerView.Adapter<TrackListRecyclerViewAdapter.TrackListViewHolder> {
 
     private List<Track> trackList;
     OnItemClickListener onItemClickListener;
-
-    public TrackListRecyclerViewAdapter(List<Track> trackList) {
-        this.trackList = trackList;
-    }
 
     public interface OnItemClickListener {
         void onItemClick(Track track);
@@ -67,8 +63,9 @@ public class TrackListRecyclerViewAdapter extends RecyclerView.Adapter<TrackList
             nameTextView.setText(track.getName());
 
             itemView.setOnClickListener(new View.OnClickListener() {
-                @Override public void onClick(View v) {
-
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.onItemClick(track);
                 }
             });
         }

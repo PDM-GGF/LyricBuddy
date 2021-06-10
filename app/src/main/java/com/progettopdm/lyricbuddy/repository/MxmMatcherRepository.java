@@ -13,34 +13,34 @@ import retrofit2.Response;
 
 public class MxmMatcherRepository {
 
-    private MxmMatcherService MxmMatcherService;
-    private MxmLyricsCallback MxmMatcherCallback;
+    private MxmMatcherService mxmMatcherService;
+    private MxmMatcherCallback mxmMatcherCallback;
 
-    public MxmMatcherRepository(MxmLyricsCallback mxmMatcherCallback) {
-        this.MxmMatcherService = ServiceLocator.getInstance().getMxmMatcherServiceWithRetrofit();
-        this.MxmMatcherCallback = MxmMatcherCallback;
+    public MxmMatcherRepository(MxmMatcherCallback mxmMatcherCallback) {
+        this.mxmMatcherService = ServiceLocator.getInstance().getMxmMatcherServiceWithRetrofit();
+        this.mxmMatcherCallback = mxmMatcherCallback;
     }
 
 
-    public void fetchTrackId() {
-        String q_track = "paraocchi";
-        String q_artist = "blanco";
+    public void fetchTrackId(String q_track, String q_artist) {
 
-        Call<MxmTrack> call = MxmMatcherService.getTrackId(Constants.MXM_API_KEY, q_track, q_artist);
+        Call<MxmTrack> call = mxmMatcherService.getTrackId(Constants.MXM_API_KEY, q_track, q_artist);
 
         call.enqueue(new Callback<MxmTrack>() {
             @Override
             public void onResponse(Call<MxmTrack> call, Response<MxmTrack> response) {
                 if(response.body() != null && response.isSuccessful()){
-                    Log.d("ID: ", String.valueOf(response.body().getMessage().getBody().getTrack().getTrack_id()));
-                    //MxmMatcherCallback.onResponse(String.valueOf(response.body().getMessage().getBody().getTrack().getTrack_id()));
+                    mxmMatcherCallback.onIdGet(response.body().getMessage().getBody().getTrack().getTrack_id());
+
+                }else{
+                    Log.d("MATCHER ERROR", String.valueOf(response.body().getMessage()));
                 }
             }
 
             @Override
             public void onFailure(Call<MxmTrack> call, Throwable t) {
                 Log.d("MXM ERROR: ", t.getMessage());
-                MxmMatcherCallback.onFailure(t.getMessage());
+                mxmMatcherCallback.onMatcherFailure(t.getMessage());
             }
         });
     }

@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.progettopdm.lyricbuddy.R;
@@ -23,43 +24,69 @@ import com.progettopdm.lyricbuddy.repository.MxmLyricsRepository;
 import com.progettopdm.lyricbuddy.repository.MxmMatcherCallback;
 import com.progettopdm.lyricbuddy.repository.MxmMatcherRepository;
 import com.progettopdm.lyricbuddy.ui.favorites.FavoritesViewModel;
+import com.progettopdm.lyricbuddy.ui.home.HomeViewModel;
+import com.progettopdm.lyricbuddy.ui.tracklist.TrackListViewModel;
 import com.progettopdm.lyricbuddy.ui.userprofile.UserProfileViewModel;
 
-public class TrackFragment extends Fragment implements MxmLyricsCallback{
-
-    private TrackViewModel trackViewModel;
+public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMatcherCallback {
 
     private MxmLyricsRepository mxmLyricsRepository;
     private MxmMatcherRepository mxmMatcherRepository;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        Log.d("TRACKFRAGMENT", "Creato il fragment di track");
-        mxmLyricsRepository = new MxmLyricsRepository(this);
+    private View root;
+    private TrackListViewModel trackListViewModel;
 
-        mxmLyricsRepository.fetchLyrics();
-
-        trackViewModel =
-                new ViewModelProvider(this).get(TrackViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_track, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        root = inflater.inflate(R.layout.fragment_track, container, false);
         return root;
-
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        trackListViewModel = new ViewModelProvider(requireActivity()).get(TrackListViewModel.class);
+
+
+        String q_track = trackListViewModel.getmClickedTrack().getName();
+        String q_artist = trackListViewModel.getmClickedArtist();
+
+        TextView trackName = root.findViewById(R.id.track_name);
+        TextView trackArtist = root.findViewById(R.id.track_artist);
+        ImageView trackImage = root.findViewById(R.id.track_img);
+
+        trackName.setText(q_track);
+        trackArtist.setText(q_artist);
+        trackListViewModel.getmClickedImage().getImg().into(trackImage);
+
         super.onActivityCreated(savedInstanceState);
-        trackViewModel = new ViewModelProvider(this).get(TrackViewModel.class);
-        // TODO: Use the ViewModel
+
+        mxmMatcherRepository = new MxmMatcherRepository(this);
+        mxmMatcherRepository.fetchTrackId(q_track, q_artist);
+
     }
 
     @Override
     public void onLyricsGet(String lyrics) {
-        Log.d("Lyrics DAL FRAGMENT", lyrics);
+        lyrics = lyrics.substring(0, lyrics.indexOf("****"));
+
+        TextView trackLyrics = root.findViewById(R.id.track_lyrics);
+        trackLyrics.setText(lyrics);
     }
 
     @Override
-    public void onFailure(String msg) {
+    public void onLyricsFailure(String msg) {
 
     }
+
+    @Override
+    public void onIdGet(int id) {
+        mxmLyricsRepository = new MxmLyricsRepository(this);
+        mxmLyricsRepository.fetchLyrics(id);
+    }
+
+    @Override
+    public void onMatcherFailure(String msg) {
+        TextView trackLyrics = root.findViewById(R.id.track_lyrics);
+        trackLyrics.setText("Ci dispiace, abbiamo incontrato un errore :(");
+    }
+
 }

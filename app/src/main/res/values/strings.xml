@@ -25,5 +25,6 @@
     <string name="title_userprofile"> User Profile </string>
     <string name="new_releases">New Releases</string>
     <string name="featured_playlists">Featured</string>
+    <string name="title_track">Track</string>
     <string name="search_hint">search for a song</string>
 </resources>
