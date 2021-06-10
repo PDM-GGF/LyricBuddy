@@ -1,9 +1,7 @@
 package com.progettopdm.lyricbuddy.ui.track;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,15 +18,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.progettopdm.lyricbuddy.R;
 import com.progettopdm.lyricbuddy.model.GenericImage;
-import com.progettopdm.lyricbuddy.model.Track;
 import com.progettopdm.lyricbuddy.repository.MxmLyricsCallback;
 import com.progettopdm.lyricbuddy.repository.MxmLyricsRepository;
 import com.progettopdm.lyricbuddy.repository.MxmMatcherCallback;
 import com.progettopdm.lyricbuddy.repository.MxmMatcherRepository;
-import com.progettopdm.lyricbuddy.ui.favorites.FavoritesViewModel;
-import com.progettopdm.lyricbuddy.ui.home.HomeViewModel;
 import com.progettopdm.lyricbuddy.ui.tracklist.TrackListViewModel;
-import com.progettopdm.lyricbuddy.ui.userprofile.UserProfileViewModel;
 
 public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMatcherCallback {
 
@@ -50,16 +44,22 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
 
         String q_track = trackListViewModel.getmClickedTrack().getName();
         String q_artist = trackListViewModel.getmClickedTrack().getArtists().get(0).getName();
-        GenericImage track_artwork = trackListViewModel.getmClickedTrack().getAlbum().getImgList().get(0);
+
 
         TextView trackName = root.findViewById(R.id.track_name);
         TextView trackArtist = root.findViewById(R.id.track_artist);
-        ImageView trackImage = root.findViewById(R.id.track_img);
 
         trackName.setText(q_track);
         trackArtist.setText(q_artist);
-        Glide.with(view).load(track_artwork.getImgUrl()).into(trackImage);
-        //track_artwork.getImg().into(trackImage);
+
+        //Check if the album is set
+        if(trackListViewModel.getmClickedTrack().getAlbum() != null){
+            GenericImage track_artwork = trackListViewModel.getmClickedTrack().getAlbum().getImgList().get(0);
+            ImageView trackImage = root.findViewById(R.id.track_img);
+            Glide.with(view).load(track_artwork.getImgUrl()).into(trackImage);
+        }else{
+            Log.d("AlbumError" , "Can't load the album artwork");
+        }
 
         super.onActivityCreated(savedInstanceState);
 
@@ -70,7 +70,7 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
 
     @Override
     public void onLyricsGet(String lyrics) {
-        lyrics = lyrics.substring(0, lyrics.indexOf("****"));
+        lyrics = lyrics.substring(0, lyrics.indexOf("*"));
 
         TextView trackLyrics = root.findViewById(R.id.track_lyrics);
         trackLyrics.setText(lyrics);
