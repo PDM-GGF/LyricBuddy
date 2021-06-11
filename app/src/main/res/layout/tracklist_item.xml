@@ -35,6 +35,17 @@
             android:textSize="10sp"
             android:textStyle="bold" />
 
+        <View
+            android:id="@+id/track_item_divider"
+            android:layout_width="409dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="7dp"
+            android:layout_weight="1"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tracklist_description" />
+
     </LinearLayout>
 
 </LinearLayout>
