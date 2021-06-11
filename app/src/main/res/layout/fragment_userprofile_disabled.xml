@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.progettopdm.lyricbuddy.ui.userprofile.UserProfileFragment"
+    tools:context="com.progettopdm.lyricbuddy.ui.userprofile.UserProfileActiveFragment"
     android:id="@+id/fragment_userprofile_disable">
 
     <TextView

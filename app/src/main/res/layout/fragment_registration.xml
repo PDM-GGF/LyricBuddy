@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
-    android:orientation="vertical"
-    tools:context=".login.Register">
+    tools:context=".authentication.RegistrationFragment">
 
     <TextView
         android:id="@+id/textView"
@@ -17,7 +16,7 @@
         android:text="@string/app_name"
         android:textAllCaps="true"
         android:textColor="#fff"
-        android:textSize="32sp"
+        android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="32dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,83 +34,82 @@
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <EditText
-            android:id="@+id/full_name"
+            android:id="@+id/fullName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:backgroundTint="#fff"
             android:ems="10"
             android:foregroundTint="#fff"
             android:hint="@string/full_name"
             android:inputType="textPersonName"
-            android:textColorHint="@color/color_text_login" />
+            android:textColorHint="@color/grey" />
 
         <EditText
-            android:id="@+id/phone"
+            android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:backgroundTint="#fff"
-            android:ems="10"
-            android:foregroundTint="#fff"
-            android:hint="@string/phone"
-            android:inputType="number"
-            android:textColorHint="@color/color_text_login" />
-
-        <EditText
-            android:id="@+id/email_address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:backgroundTint="#fff"
             android:ems="10"
             android:foregroundTint="#fff"
             android:hint="@string/email_address"
             android:inputType="textPersonName"
-            android:textColorHint="@color/color_text_login" />
+            android:textColorHint="@color/grey" />
+
+        <EditText
+            android:id="@+id/phoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:backgroundTint="#fff"
+            android:ems="10"
+            android:foregroundTint="#fff"
+            android:hint="@string/phone"
+            android:inputType="phone"
+            android:textColorHint="@color/grey" />
 
         <EditText
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:backgroundTint="#fff"
             android:ems="10"
             android:foregroundTint="#fff"
             android:hint="@string/password"
             android:inputType="textPassword"
-            android:textColorHint="@color/color_text_login" />
+            android:textColorHint="@color/grey" />
 
         <EditText
-            android:id="@+id/confirm_password"
+            android:id="@+id/confPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:backgroundTint="#fff"
             android:ems="10"
             android:foregroundTint="#fff"
             android:hint="@string/confirm_password"
             android:inputType="textPassword"
-            android:textColorHint="@color/color_text_login" />
+            android:textColorHint="@color/grey" />
 
         <Button
-            android:id="@+id/button_register"
+            android:id="@+id/button_createAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
             android:background="@drawable/button_white"
-            android:text="Create Account"
+            android:text="@string/createAccount"
             android:textColor="@color/black"/>
+
         <Button
-            android:id="@+id/button_backLogin"
+            android:id="@+id/backtologin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
-            android:background="@drawable/button_transparent"
-            android:text="Back To Login"
-            android:textColor="@color/white"/>
-    </LinearLayout>
+            android:background="@drawable/button_white"
+            android:text="@string/backtologin"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/button_createAccount"/>
 
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

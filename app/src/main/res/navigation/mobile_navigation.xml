@@ -26,20 +26,19 @@
 
     <fragment
         android:id="@+id/navigation_userprofile_active"
-        android:name="com.progettopdm.lyricbuddy.ui.userprofile.UserProfileFragment"
+        android:name="com.progettopdm.lyricbuddy.ui.userprofile.UserProfileActiveFragment"
         android:label="@string/title_userprofile"
-        tools:layout="@layout/fragment_userprofile_active" />
+        tools:layout="@layout/fragment_userprofile_active">
+    <action
+        android:id="@+id/action_userProfile_to_LoginFragment"
+        app:destination="@+id/loginFragment"/>
 
+    </fragment>
     <fragment
         android:id="@+id/navigation_tracklist"
         android:name="com.progettopdm.lyricbuddy.ui.tracklist.TrackListFragment"
         android:label="Track List"
-        tools:layout="@layout/fragment_tracklist" />
-
-    <fragment
-        android:id="@+id/navigation_userprofile_disable"
-        android:name="com.progettopdm.lyricbuddy.ui.userprofile.UserProfileDisabledFragment"
-        tools:layout="@layout/fragment_userprofile_disabled" />
+        tools:layout="@layout/fragment_tracklist"/>
 
     <action
         android:id="@+id/action_global_navigation_tracklist"
@@ -49,9 +48,7 @@
         android:id="@+id/action_global_navigation_userprofile_active"
         app:destination="@id/navigation_userprofile_active"/>
 
-    <action
-        android:id="@+id/action_global_navigation_userprofile_disabled"
-        app:destination="@id/navigation_userprofile_disable"/>
+
 
 
 
