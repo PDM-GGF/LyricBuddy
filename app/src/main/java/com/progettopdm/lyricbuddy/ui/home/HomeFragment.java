@@ -25,6 +25,7 @@ import com.progettopdm.lyricbuddy.model.Playlist;
 import com.progettopdm.lyricbuddy.model.Track;
 import com.progettopdm.lyricbuddy.model.TrackContainer;
 import com.progettopdm.lyricbuddy.model.response.AlbumTrackListResponse;
+import com.progettopdm.lyricbuddy.model.response.PlaylistTrackListResponse;
 import com.progettopdm.lyricbuddy.repository.ICCAuthRepository;
 import com.progettopdm.lyricbuddy.repository.ISpotifyRepository;
 import com.progettopdm.lyricbuddy.repository.SpotifyRepository;
@@ -88,13 +89,13 @@ public class HomeFragment extends Fragment {
                     public void onChanged(AlbumTrackListResponse albumTrackListResponse) {
 
                         if (albumTrackListResponse != null) {
-                            HomeFragmentDirections.ActionNavigationHomeToNavigationTracklist action =
-                                    HomeFragmentDirections.actionNavigationHomeToNavigationTracklist(albumTrackListResponse);
+                            HomeFragmentDirections.ActionNavigationHomeToNavigationAlbumTracklist action =
+                                    HomeFragmentDirections.actionNavigationHomeToNavigationAlbumTracklist(albumTrackListResponse);
 
                             Navigation.findNavController(view).navigate(action);
 
                             homeViewModel.setTokenToNull();
-                            homeViewModel.setTrackListToNull();
+                            homeViewModel.setTrackListToNull(0);
                         }
                     }
                 });
@@ -111,14 +112,26 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemClick(TrackContainer trackContainer) {
                 homeViewModel.mClickedTrackContainer = trackContainer;
-                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-                navController.navigate(R.id.action_global_navigation_tracklist);
+                homeViewModel.getmPlaylistTracklistLiveData((Playlist) trackContainer, homeViewModel.getSpotiToken().getValue()).observe(getViewLifecycleOwner(), new Observer<PlaylistTrackListResponse>() {
+                    @Override
+                    public void onChanged(PlaylistTrackListResponse playlistTrackListResponse) {
+
+                        if (playlistTrackListResponse != null) {
+                            HomeFragmentDirections.ActionNavigationHomeToNavigationPlaylistTracklist action =
+                                    HomeFragmentDirections.actionNavigationHomeToNavigationPlaylistTracklist(playlistTrackListResponse);
+
+                            Navigation.findNavController(view).navigate(action);
+
+                            homeViewModel.setTokenToNull();
+                            homeViewModel.setTrackListToNull(1);
+                        }
+                    }
+                });
             }
         });
         featuredPlaylistsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),  1,
                 GridLayoutManager.HORIZONTAL, false));
         featuredPlaylistsRecyclerView.setAdapter(featuredPlaylistsAdapter);
-
 
 
 
@@ -152,9 +165,6 @@ public class HomeFragment extends Fragment {
 
                     //carica immagini
                     homeViewModel.loadImagesFromUrl(playlistList);
-
-                    //carica tracklists
-                    //homeViewModel.loadPlaylistTracklist(response.getPlaylistWrapper().getPlaylistList(), token);
 
                     updateUIForFeaturedSuccess(playlistList);
                 }else{

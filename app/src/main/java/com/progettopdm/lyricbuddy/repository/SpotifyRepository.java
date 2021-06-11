@@ -123,24 +123,29 @@ public class SpotifyRepository implements ISpotifyRepository{
     @Override
     public MutableLiveData<PlaylistTrackListResponse> fetchPlaylistTracklist(String playlistId, String token) {
 
-        Call<PlaylistTrackListResponse> call = spotifyService.getPlaylistTrackList(playlistId,
-                "IT",
-                "Bearer " + token);
+        if (playlistId != null && token != null) {
+            Call<PlaylistTrackListResponse> call = spotifyService.getPlaylistTrackList(playlistId,
+                    "IT",
+                    "Bearer " + token);
 
-        call.enqueue(new Callback<PlaylistTrackListResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<PlaylistTrackListResponse> call, @NonNull retrofit2.Response<PlaylistTrackListResponse> response) {
-                if (response.body() != null && response.isSuccessful()) {
-                    mPlaylistTrackListLiveData.postValue(response.body());
+            call.enqueue(new Callback<PlaylistTrackListResponse>() {
+                @Override
+                public void onResponse(@NonNull Call<PlaylistTrackListResponse> call, @NonNull retrofit2.Response<PlaylistTrackListResponse> response) {
+                    if (response.body() != null && response.isSuccessful()) {
+                        mPlaylistTrackListLiveData.postValue(response.body());
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<PlaylistTrackListResponse> call, Throwable t) {
-                Log.d("FAILED: ", "PLAYLIST TRACKLIST FETCH " + t.getMessage());
-            }
+                @Override
+                public void onFailure(Call<PlaylistTrackListResponse> call, Throwable t) {
+                    Log.d("FAILED: ", "PLAYLIST TRACKLIST FETCH " + t.getMessage());
+                }
 
-        });
+            });
+
+        } else {
+            mPlaylistTrackListLiveData.postValue(null);
+        }
 
         return mPlaylistTrackListLiveData;
 

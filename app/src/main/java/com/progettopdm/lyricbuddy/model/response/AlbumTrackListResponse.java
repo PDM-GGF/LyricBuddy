@@ -32,7 +32,7 @@ public class AlbumTrackListResponse implements Parcelable {
         }
     };
 
-    public List<Track> getTrackList() {
+    public List<Track> getAlbumTrackList() {
         return trackList;
     }
 
