@@ -66,7 +66,40 @@ public class RegistrationFragment extends Fragment {
             String phoneNumber = phoneNumberEditText.getText().toString();
             String password = passwordEditText.getText().toString();
             String confPassword = confPasswordEditText.getText().toString();
+
+            if(fullName.isEmpty()){
+                fullNameEditText.setError("Full Name is Required");
+                return;
+            }
+
+            if(phoneNumber.isEmpty()){
+                phoneNumberEditText.setError("Phone Number is Required");
+                return;
+            }
+
+            if(phoneNumber.length() != 10){
+                phoneNumberEditText.setError("It is Not a Phone Number");
+                return;
+            }
+
+            if(email.isEmpty()){
+                emailEditText.setError("Email is Required");
+                return;
+            }
+            if(password.isEmpty()){
+                passwordEditText.setError("Password is Required");
+                return;
+            }
+            if(confPassword.isEmpty()){
+                confPasswordEditText.setError("Confirm Password is Required");
+                return;
+            }
+
+            if(!password.equals(confPassword)){
+                confPasswordEditText.setError("Password Do not Match.");
+            }
             register(fullName, email, phoneNumber, password, confPassword );
+
         });
 
         backToLogin.setOnClickListener(v ->{

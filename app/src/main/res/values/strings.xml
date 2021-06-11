@@ -13,9 +13,6 @@
     <string name="full_name" translatable="false">Full Name</string>
     <string name="email_address" translatable="false">Email Address</string>
     <string name="confirm_password" translatable="false">Confirm Password</string>
-    <string name="skip" translatable="false">Skip Registration</string>
-    <string name="songs" translatable="false">My Songs:</string>
-    <string name= "notlogged" translatable="false"> you are not logged</string>
     <string name="logout" translatable="false">Logout</string>
     <string name="phone" translatable="false"> Phone Number </string>
     <string name="backtologin" translatable="false">Back To Login</string>
