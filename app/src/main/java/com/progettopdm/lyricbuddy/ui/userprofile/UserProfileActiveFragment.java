@@ -17,16 +17,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.progettopdm.lyricbuddy.R;
 import com.progettopdm.lyricbuddy.authentication.LoginFragment;
 import com.progettopdm.lyricbuddy.authentication.RegistrationFragment;
+import com.progettopdm.lyricbuddy.authentication.WelcomeActivity;
 import com.progettopdm.lyricbuddy.login.User;
+import com.progettopdm.lyricbuddy.repository.user.UserRepository;
 import com.progettopdm.lyricbuddy.ui.search.SearchViewModel;
 
 import static android.content.ContentValues.TAG;
@@ -62,11 +58,15 @@ public class UserProfileActiveFragment extends Fragment {
         logout = view.findViewById(R.id.button_logout);
         logout.setOnClickListener(v ->{
             FirebaseAuth.getInstance().signOut();
-            NavHostFragment.findNavController(UserProfileActiveFragment.this).
-                    navigate(R.id.action_userProfile_to_LoginFragment);
+            goToLogin();
+
         });
     }
 
+    public void goToLogin() {
+        Intent intent = new Intent(getActivity(), WelcomeActivity.class);
+        startActivity(intent);
+    }
 }
 
 

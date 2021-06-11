@@ -50,6 +50,15 @@ public class LoginFragment extends Fragment {
         loginButton.setOnClickListener(v -> {
             String email = emailEditText.getText().toString();
             String password = passwordEditText.getText().toString();
+
+            if(email.isEmpty()){
+                emailEditText.setError("Email Address is Required");
+                return;
+            }
+            if(password.isEmpty()){
+                passwordEditText.setError("Password is Required");
+                return;
+            }
             login(email, password);
             NavHostFragment.findNavController(LoginFragment.this).
                     navigate(R.id.action_loginFragment_to_mainActivity);

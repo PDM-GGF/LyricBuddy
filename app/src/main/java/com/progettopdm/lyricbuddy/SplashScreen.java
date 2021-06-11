@@ -28,21 +28,21 @@ public class SplashScreen extends AppCompatActivity {
         userViewModel = new ViewModelProvider(this,
                 new UserViewModelFactory(getApplication(), userRepository)).get(UserViewModel.class);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (userViewModel.getAuthenticationToken() != null) {
-                    //from splash screen to login activity
-                    Intent i = new Intent(SplashScreen.this, MainActivity.class);
-                    startActivity(i);
-                    finish();
-                } else {
+        if (userViewModel.getAuthenticationToken() == null){
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
                     Intent intent = new Intent(SplashScreen.this, WelcomeActivity.class);
                     startActivity(intent);
                     finish();
                 }
-            }
-        },4000);
+            },4000);
+        } else{
+            Intent intent = new Intent(SplashScreen.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
         /*if (userViewModel.getAuthenticationToken() != null) {
             Intent intent = new Intent(SplashScreen.this, MainActivity.class);
             startActivity(intent);
