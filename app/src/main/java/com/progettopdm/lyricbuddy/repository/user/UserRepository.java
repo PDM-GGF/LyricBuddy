@@ -3,12 +3,15 @@ package com.progettopdm.lyricbuddy.repository.user;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,8 +38,26 @@ public class UserRepository implements IUserRepository{
 
     public MutableLiveData<LoginResponse> login(String email, String password) {
         loginResultMutableLiveData = new MutableLiveData<>();
+        LoginResponse loginResponse = new LoginResponse();
 
-        mAuth.signInWithEmailAndPassword(email, password)
+        mAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+            @Override
+            public void onSuccess(AuthResult authResult) {
+                FirebaseUser user = mAuth.getCurrentUser();
+                setAuthenticationToken(user.getIdToken(false).getResult().getToken());
+                setUserId(user.getUid());
+                loginResponse.setSuccess(true);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                loginResponse.setSuccess(false);
+            }
+        });
+
+
+
+        /*mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(ContextCompat.getMainExecutor(application), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -51,7 +72,7 @@ public class UserRepository implements IUserRepository{
                         }
                         loginResultMutableLiveData.postValue(loginResponse);
                     }
-                });
+                   });*/
         return loginResultMutableLiveData;
     }
 
