@@ -69,25 +69,29 @@ public class SpotifyRepository implements ISpotifyRepository{
     @Override
     public MutableLiveData<AlbumTrackListResponse> fetchAlbumTrackList(String albumId, String token) {
 
-        Call<AlbumTrackListResponse> call = spotifyService.getAlbumTrackList(albumId,
-                "IT",
-                50,
-                "Bearer " + token);
+        if(albumId != null && token != null) {
+            Call<AlbumTrackListResponse> call = spotifyService.getAlbumTrackList(albumId,
+                    "IT",
+                    50,
+                    "Bearer " + token);
 
-        call.enqueue(new Callback<AlbumTrackListResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<AlbumTrackListResponse> call, @NonNull retrofit2.Response<AlbumTrackListResponse> response) {
-                if (response.body() != null && response.isSuccessful()) {
-                    mAlbumTrackListLiveData.postValue(response.body());
+            call.enqueue(new Callback<AlbumTrackListResponse>() {
+                @Override
+                public void onResponse(@NonNull Call<AlbumTrackListResponse> call, @NonNull retrofit2.Response<AlbumTrackListResponse> response) {
+                    if (response.body() != null && response.isSuccessful()) {
+                        mAlbumTrackListLiveData.postValue(response.body());
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<AlbumTrackListResponse> call, Throwable t) {
-                Log.d("FAILED: ", "NEW RELEASE FETCH " + t.getMessage());
-            }
+                @Override
+                public void onFailure(Call<AlbumTrackListResponse> call, Throwable t) {
+                    Log.d("FAILED: ", "NEW RELEASE FETCH " + t.getMessage());
+                }
+            });
+        } else {
+            mAlbumTrackListLiveData.postValue(null);
+        }
 
-        });
 
         return mAlbumTrackListLiveData;
     }

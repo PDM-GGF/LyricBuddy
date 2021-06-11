@@ -9,7 +9,11 @@
         android:id="@+id/navigation_home"
         android:name="com.progettopdm.lyricbuddy.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home"></fragment>
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_tracklist"
+            app:destination="@id/navigation_tracklist" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_search"
@@ -33,7 +37,11 @@
         android:id="@+id/navigation_tracklist"
         android:name="com.progettopdm.lyricbuddy.ui.tracklist.TrackListFragment"
         android:label="Track List"
-        tools:layout="@layout/fragment_tracklist" />
+        tools:layout="@layout/fragment_tracklist" >
+        <argument
+            android:name="trackList"
+            app:argType="com.progettopdm.lyricbuddy.model.response.AlbumTrackListResponse" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_track"

@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.progettopdm.lyricbuddy.R;
 import com.progettopdm.lyricbuddy.model.Track;
 import com.progettopdm.lyricbuddy.model.TrackContainer;
+import com.progettopdm.lyricbuddy.model.response.AlbumTrackListResponse;
 import com.progettopdm.lyricbuddy.ui.home.HomeViewModel;
 import com.progettopdm.lyricbuddy.ui.home.HomeViewModelFactory;
 
@@ -41,8 +42,67 @@ public class TrackListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
 
-
         HomeViewModel homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
+        trackListViewModel = new ViewModelProvider(requireActivity(), new TrackListViewModelFactory()).get(TrackListViewModel.class);
+
+        TrackContainer tc = homeViewModel.getmClickedTrackContainer();
+
+        AlbumTrackListResponse albumTrackListResponse =
+                TrackListFragmentArgs.fromBundle(getArguments()).getTrackList();
+
+
+        TextView tlName = view.findViewById(R.id.tracklist_name);
+        TextView tlDescription = view.findViewById(R.id.tracklist_description);
+        ImageView tlImage = view.findViewById(R.id.tracklist_img);
+
+        tlName.setText(tc.getName());
+        tlDescription.setText(tc.getDescription());
+        tc.getImgList().get(0).getImg().into(tlImage);
+
+        RecyclerView newReleasesRecyclerView = view.findViewById(R.id.tracklist_recycler_view);
+        TrackListRecyclerViewAdapter trackListRecyclerViewAdapter = new TrackListRecyclerViewAdapter(albumTrackListResponse.getTrackList(), new TrackListRecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Track track) {
+                trackListViewModel.mClickedTrack = track;
+                trackListViewModel.mClickedImage = tc.getImgList().get(0);
+
+                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                navController.navigate(R.id.action_global_navigation_track);
+            }
+        });
+        newReleasesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        newReleasesRecyclerView.setAdapter(trackListRecyclerViewAdapter);
+
+        /*HomeViewModel viewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
+
+        TrackContainer tc = viewModel.getmClickedTrackContainer();
+
+        TextView tlName = view.findViewById(R.id.tracklist_name);
+        TextView tlDescription = view.findViewById(R.id.tracklist_description);
+        ImageView tlImage = view.findViewById(R.id.tracklist_img);
+
+        tlName.setText(tc.getName());
+        tlDescription.setText(tc.getDescription());
+        tc.getImgList().get(0).getImg().into(tlImage);
+
+        RecyclerView newReleasesRecyclerView = view.findViewById(R.id.tracklist_recycler_view);
+        TrackListRecyclerViewAdapter trackListRecyclerViewAdapter = new TrackListRecyclerViewAdapter(tc.getTrackList());
+        newReleasesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        newReleasesRecyclerView.setAdapter(trackListRecyclerViewAdapter);*/
+
+
+
+
+
+
+
+
+
+
+
+        //RICKY's CODE
+
+        /*HomeViewModel homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         trackListViewModel = new ViewModelProvider(requireActivity(), new TrackListViewModelFactory()).get(TrackListViewModel.class);
 
         TrackContainer tc = homeViewModel.getmClickedTrackContainer();
@@ -68,7 +128,7 @@ public class TrackListFragment extends Fragment {
             }
         });
         newReleasesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        newReleasesRecyclerView.setAdapter(trackListAdapter);
+        newReleasesRecyclerView.setAdapter(trackListAdapter);*/
 
 
     }

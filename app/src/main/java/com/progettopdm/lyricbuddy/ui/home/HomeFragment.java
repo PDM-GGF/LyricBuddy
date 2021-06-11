@@ -24,6 +24,7 @@ import com.progettopdm.lyricbuddy.model.Album;
 import com.progettopdm.lyricbuddy.model.Playlist;
 import com.progettopdm.lyricbuddy.model.Track;
 import com.progettopdm.lyricbuddy.model.TrackContainer;
+import com.progettopdm.lyricbuddy.model.response.AlbumTrackListResponse;
 import com.progettopdm.lyricbuddy.repository.ICCAuthRepository;
 import com.progettopdm.lyricbuddy.repository.ISpotifyRepository;
 import com.progettopdm.lyricbuddy.repository.SpotifyRepository;
@@ -64,6 +65,17 @@ public class HomeFragment extends Fragment {
 
         TextView featuredTextView = view.findViewById(R.id.featured_text);
 
+        //DATA FETCH FROM VIEWMODEL
+        ISpotifyRepository spotifyRepository =
+                new SpotifyRepository(requireActivity().getApplication());
+
+        ICCAuthRepository iccAuthRepository =
+                new CCAuthRepository(requireActivity().getApplication());
+
+        homeViewModel = new ViewModelProvider(requireActivity(), new HomeViewModelFactory(
+                requireActivity().getApplication(), spotifyRepository, iccAuthRepository)).get(HomeViewModel.class);
+
+
         //NEW RELEASES RECYCLER VIEW
         RecyclerView newReleasesRecyclerView = view.findViewById(R.id.new_releases_list);
         newReleasesAdapter = new HomeCardRecyclerViewAdapter(mNewReleasesList, new HomeCardRecyclerViewAdapter.OnItemClickListener() {
@@ -71,20 +83,21 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemClick(TrackContainer trackContainer) {
                 homeViewModel.mClickedTrackContainer = trackContainer;
+                homeViewModel.getmAlbumTracklistLiveData((Album) trackContainer, homeViewModel.getSpotiToken().getValue()).observe(getViewLifecycleOwner(), new Observer<AlbumTrackListResponse>() {
+                    @Override
+                    public void onChanged(AlbumTrackListResponse albumTrackListResponse) {
 
-                //GET TRACKLIST
-                homeViewModel.getSpotiToken().observe(getViewLifecycleOwner(), token -> {
-                            homeViewModel.getmAlbumTracklistLiveData((Album) trackContainer, token).observe(getViewLifecycleOwner(), tracks ->{
-                                Log.d("ALBUM: ", trackContainer.getName());
-                                Log.d("TRACKS: ", tracks.getTrackList().get(0).getName());
-                                trackContainer.setTrackList(tracks.getTrackList());
-                                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-                                navController.navigate(R.id.action_global_navigation_tracklist);
-                            });
+                        if (albumTrackListResponse != null) {
+                            HomeFragmentDirections.ActionNavigationHomeToNavigationTracklist action =
+                                    HomeFragmentDirections.actionNavigationHomeToNavigationTracklist(albumTrackListResponse);
 
-                        });
+                            Navigation.findNavController(view).navigate(action);
 
-
+                            homeViewModel.setTokenToNull();
+                            homeViewModel.setTrackListToNull();
+                        }
+                    }
+                });
             }
         });
         newReleasesRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),  1,
@@ -107,15 +120,6 @@ public class HomeFragment extends Fragment {
         featuredPlaylistsRecyclerView.setAdapter(featuredPlaylistsAdapter);
 
 
-        //DATA FETCH FROM VIEWMODEL
-        ISpotifyRepository spotifyRepository =
-                new SpotifyRepository(requireActivity().getApplication());
-
-        ICCAuthRepository iccAuthRepository =
-                new CCAuthRepository(requireActivity().getApplication());
-
-        homeViewModel = new ViewModelProvider(requireActivity(), new HomeViewModelFactory(
-                requireActivity().getApplication(), spotifyRepository, iccAuthRepository)).get(HomeViewModel.class);
 
 
         //Get token then new releases

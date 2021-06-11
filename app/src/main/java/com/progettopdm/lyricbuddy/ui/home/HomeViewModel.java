@@ -43,10 +43,13 @@ public class HomeViewModel extends AndroidViewModel {
         super(application);
         this.iSpotifyRepository = iSpotifyRepository;
         this.iccAuthRepository = iccAuthRepository;
+        mAlbumTracklistLiveData = new MutableLiveData<>();
     }
 
     public MutableLiveData<String> getSpotiToken() {
-        loadSpotiToken();
+        if(spotiToken == null){
+            loadSpotiToken();
+            }
         return spotiToken;
     }
 
@@ -56,16 +59,21 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
 
-
     public TrackContainer getmClickedTrackContainer() {
         return mClickedTrackContainer;
     }
 
+    public void setTokenToNull() {
+        this.spotiToken = null;
+    }
+
+    public void setTrackListToNull() {
+        mAlbumTracklistLiveData.postValue(null);
+    }
+
     public LiveData<NewReleaseResponse> getmNewReleases(String token) {
         if(mNewReleasesLiveData == null) {
-            mNewReleasesLiveData = new MutableLiveData<>();
             loadNewReleases(token);
-
         }
         return mNewReleasesLiveData;
     }
@@ -84,7 +92,14 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
     private void loadAlbumTrackList(Album album, String token) {
-        mAlbumTracklistLiveData = iSpotifyRepository.fetchAlbumTrackList(album.getId(), token);
+
+        String id = null;
+
+        if (album != null) {
+            id = album.getId();
+        }
+
+        mAlbumTracklistLiveData = iSpotifyRepository.fetchAlbumTrackList(id, token);
     }
 
     public void loadPlaylistTracklist(List<Playlist> playlistList, String token) {
