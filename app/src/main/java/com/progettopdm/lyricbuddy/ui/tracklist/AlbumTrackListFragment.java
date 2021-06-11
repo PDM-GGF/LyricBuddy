@@ -30,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class AlbumTrackListFragment extends Fragment {
 
-    TrackListRecyclerViewAdapter trackListAdapter;
+    TrackListRecyclerViewAdapter trackListRecyclerViewAdapter;
 
     TrackListViewModel trackListViewModel;
 
@@ -62,55 +62,7 @@ public class AlbumTrackListFragment extends Fragment {
         tc.getImgList().get(0).getImg().into(tlImage);
 
         RecyclerView newReleasesRecyclerView = view.findViewById(R.id.tracklist_recycler_view);
-        TrackListRecyclerViewAdapter trackListRecyclerViewAdapter = new TrackListRecyclerViewAdapter(albumTrackListResponse.getAlbumTrackList());
-        newReleasesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        newReleasesRecyclerView.setAdapter(trackListRecyclerViewAdapter);
-
-        /*HomeViewModel viewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
-
-        TrackContainer tc = viewModel.getmClickedTrackContainer();
-
-        TextView tlName = view.findViewById(R.id.tracklist_name);
-        TextView tlDescription = view.findViewById(R.id.tracklist_description);
-        ImageView tlImage = view.findViewById(R.id.tracklist_img);
-
-        tlName.setText(tc.getName());
-        tlDescription.setText(tc.getDescription());
-        tc.getImgList().get(0).getImg().into(tlImage);
-
-        RecyclerView newReleasesRecyclerView = view.findViewById(R.id.tracklist_recycler_view);
-        TrackListRecyclerViewAdapter trackListRecyclerViewAdapter = new TrackListRecyclerViewAdapter(tc.getTrackList());
-        newReleasesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        newReleasesRecyclerView.setAdapter(trackListRecyclerViewAdapter);*/
-
-
-
-
-
-
-
-
-
-
-
-        //RICKY's CODE
-
-        /*HomeViewModel homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
-        trackListViewModel = new ViewModelProvider(requireActivity(), new TrackListViewModelFactory()).get(TrackListViewModel.class);
-
-        TrackContainer tc = homeViewModel.getmClickedTrackContainer();
-
-        TextView tlName = view.findViewById(R.id.tracklist_name);
-        TextView tlDescription = view.findViewById(R.id.tracklist_description);
-        ImageView tlImage = view.findViewById(R.id.tracklist_img);
-
-        tlName.setText(tc.getName());
-        tlDescription.setText(tc.getDescription());
-        tc.getImgList().get(0).getImg().into(tlImage);
-
-        RecyclerView newReleasesRecyclerView = view.findViewById(R.id.tracklist_recycler_view);
-
-        trackListAdapter = new TrackListRecyclerViewAdapter(tc.getTrackList(), new TrackListRecyclerViewAdapter.OnItemClickListener() {
+        trackListRecyclerViewAdapter = new TrackListRecyclerViewAdapter(albumTrackListResponse.getAlbumTrackList(), new TrackListRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Track track) {
                 trackListViewModel.mClickedTrack = track;
@@ -121,7 +73,11 @@ public class AlbumTrackListFragment extends Fragment {
             }
         });
         newReleasesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        newReleasesRecyclerView.setAdapter(trackListAdapter);*/
+        newReleasesRecyclerView.setAdapter(trackListRecyclerViewAdapter);
+
+
+
+
 
 
     }
