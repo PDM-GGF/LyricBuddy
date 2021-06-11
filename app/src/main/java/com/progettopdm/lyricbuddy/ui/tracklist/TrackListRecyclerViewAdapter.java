@@ -16,17 +16,16 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class TrackListRecyclerViewAdapter extends RecyclerView.Adapter<TrackListRecyclerViewAdapter.TrackListViewHolder>{
+public class TrackListRecyclerViewAdapter extends RecyclerView.Adapter<TrackListRecyclerViewAdapter.TrackListViewHolder> {
 
     private List<Track> trackList;
     OnItemClickListener onItemClickListener;
 
-    public TrackListRecyclerViewAdapter(List<Track> trackList) {
-        this.trackList = trackList;
-    }
-
     public interface OnItemClickListener {
         void onItemClick(Track track);
+    }
+    public TrackListRecyclerViewAdapter(List<Track> trackList){
+        this.trackList = trackList;
     }
 
     public TrackListRecyclerViewAdapter(List<Track> trackList, TrackListRecyclerViewAdapter.OnItemClickListener onItemClickListener) {
@@ -56,19 +55,22 @@ public class TrackListRecyclerViewAdapter extends RecyclerView.Adapter<TrackList
     public class TrackListViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView nameTextView;
-
+        private final TextView artistTextView;
 
         public TrackListViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.track_name);
+            artistTextView = itemView.findViewById(R.id.track_artist);
         }
 
         public void bind(Track track) {
             nameTextView.setText(track.getName());
+            artistTextView.setText(track.getArtists().get(0).getName());
 
             itemView.setOnClickListener(new View.OnClickListener() {
-                @Override public void onClick(View v) {
-
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.onItemClick(track);
                 }
             });
         }

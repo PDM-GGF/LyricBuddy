@@ -19,6 +19,7 @@ import com.progettopdm.lyricbuddy.model.response.FeaturedResponse;
 import com.progettopdm.lyricbuddy.model.response.NewReleaseResponse;
 import com.progettopdm.lyricbuddy.model.response.AlbumTrackListResponse;
 import com.progettopdm.lyricbuddy.model.response.PlaylistTrackListResponse;
+import com.progettopdm.lyricbuddy.model.response.SearchTracksResponse;
 import com.progettopdm.lyricbuddy.model.response.wrappers.TrackWrapper;
 import com.progettopdm.lyricbuddy.repository.ICCAuthRepository;
 import com.progettopdm.lyricbuddy.repository.ISpotifyRepository;
@@ -30,6 +31,7 @@ public class HomeViewModel extends AndroidViewModel {
 
     private MutableLiveData<NewReleaseResponse> mNewReleasesLiveData;
     private MutableLiveData<FeaturedResponse> mFeaturedPlaylistsLiveData;
+    private MutableLiveData<SearchTracksResponse> mSearchedPlaylistLiveData;
     private MutableLiveData<AlbumTrackListResponse> mAlbumTracklistLiveData;
     TrackContainer mClickedTrackContainer;
     MutableLiveData<String> spotiToken;
@@ -46,6 +48,11 @@ public class HomeViewModel extends AndroidViewModel {
     public MutableLiveData<String> getSpotiToken() {
         loadSpotiToken();
         return spotiToken;
+    }
+
+    public LiveData<SearchTracksResponse> getmSearchedTracksLiveData(String query, String token) {
+        loadSearchTracks(query, token);
+        return mSearchedPlaylistLiveData;
     }
 
 
@@ -105,6 +112,10 @@ public class HomeViewModel extends AndroidViewModel {
 
     private void loadFeaturedPlaylists(String token){
         mFeaturedPlaylistsLiveData = iSpotifyRepository.fetchFeaturedPlaylists(token);
+    }
+
+    private void loadSearchTracks(String query, String token){
+        mSearchedPlaylistLiveData = iSpotifyRepository.fetchSearchedTracks(query, token);
     }
 
     public void loadImagesFromUrl(List<? extends TrackContainer> tcList){

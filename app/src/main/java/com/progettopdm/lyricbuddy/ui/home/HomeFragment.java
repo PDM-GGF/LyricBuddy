@@ -107,7 +107,6 @@ public class HomeFragment extends Fragment {
         featuredPlaylistsRecyclerView.setAdapter(featuredPlaylistsAdapter);
 
 
-
         //DATA FETCH FROM VIEWMODEL
         ISpotifyRepository spotifyRepository =
                 new SpotifyRepository(requireActivity().getApplication());
@@ -159,9 +158,6 @@ public class HomeFragment extends Fragment {
                 }
             });
         });
-
-
-
     }
 
     private void updateUIForFeaturedSuccess(List<Playlist> playlistList) {

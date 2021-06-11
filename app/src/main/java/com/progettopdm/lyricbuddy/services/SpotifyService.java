@@ -4,6 +4,7 @@ import com.progettopdm.lyricbuddy.model.response.FeaturedResponse;
 import com.progettopdm.lyricbuddy.model.response.NewReleaseResponse;
 import com.progettopdm.lyricbuddy.model.response.AlbumTrackListResponse;
 import com.progettopdm.lyricbuddy.model.response.PlaylistTrackListResponse;
+import com.progettopdm.lyricbuddy.model.response.SearchTracksResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -33,4 +34,9 @@ public interface SpotifyService {
     Call<PlaylistTrackListResponse> getPlaylistTrackList(@Path("playlist_id") String playlistId,
                                                       @Query("market") String market,
                                                       @Header("Authorization") String authToken);
+
+    @GET("search")
+    Call<SearchTracksResponse> getSearchedTracks(@Query("q") String query,
+                                                 @Query("type") String type,
+                                                 @Header("Authorization") String authToken);
 }
