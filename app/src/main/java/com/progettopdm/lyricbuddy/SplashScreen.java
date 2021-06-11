@@ -18,19 +18,32 @@ public class SplashScreen extends AppCompatActivity {
 
     private UserViewModel userViewModel;
 
-    public SplashScreen() {
-        super(R.layout.activity_splash_screen);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash_screen);
 
         IUserRepository userRepository = new UserRepository(getApplication());
         userViewModel = new ViewModelProvider(this,
                 new UserViewModelFactory(getApplication(), userRepository)).get(UserViewModel.class);
 
-        if (userViewModel.getAuthenticationToken() != null) {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (userViewModel.getAuthenticationToken() != null) {
+                    //from splash screen to login activity
+                    Intent i = new Intent(SplashScreen.this, MainActivity.class);
+                    startActivity(i);
+                    finish();
+                } else {
+                    Intent intent = new Intent(SplashScreen.this, WelcomeActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        },4000);
+        /*if (userViewModel.getAuthenticationToken() != null) {
             Intent intent = new Intent(SplashScreen.this, MainActivity.class);
             startActivity(intent);
             finish();
@@ -38,7 +51,7 @@ public class SplashScreen extends AppCompatActivity {
             Intent intent = new Intent(SplashScreen.this, WelcomeActivity.class);
             startActivity(intent);
             finish();
-        }
+        }*/
     }
 
 }
@@ -46,9 +59,23 @@ public class SplashScreen extends AppCompatActivity {
 
 
 
+/*
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash_screen);
 
-
-
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //from splash screen to login activity
+                Intent i = new Intent(SplashScreen.this, Login.class);
+                startActivity(i);
+                finish();
+            }
+        },4000);
+    }
+*/
 
 
 
