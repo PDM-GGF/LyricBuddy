@@ -23,7 +23,7 @@ import com.progettopdm.lyricbuddy.repository.MxmLyricsRepository;
 import com.progettopdm.lyricbuddy.repository.MxmMatcherCallback;
 import com.progettopdm.lyricbuddy.repository.MxmMatcherRepository;
 import com.progettopdm.lyricbuddy.ui.favorites.FavoritesViewModel;
-import com.progettopdm.lyricbuddy.ui.userprofile.UserProfileViewModel;
+
 
 public class TrackFragment extends Fragment implements MxmLyricsCallback{
 
