@@ -76,26 +76,17 @@ public class Login extends AppCompatActivity {
                     }
                 });
 
-
-            }
-        });
-
-        //skip registration button
-        skipRegistrationButton = findViewById(R.id.button_skip);
-        skipRegistrationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
             }
         });
 
     }
 
 
+
     @Override
     protected void onStart() {
         super.onStart();
-        if(FirebaseAuth.getInstance().getCurrentUser() != null){
+        if(firebaseAuth.getCurrentUser() != null){
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
             finish();
         }

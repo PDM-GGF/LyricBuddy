@@ -12,7 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.progettopdm.lyricbuddy.repository.CCAuthRepository;
-import com.progettopdm.lyricbuddy.ui.userprofile.UserProfileDisabledFragment;
+
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -59,10 +59,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Handle item selection
         if (item.getItemId() == R.id.toolbar_menu_userprofile) {
-            if(FirebaseAuth.getInstance().getCurrentUser()!=null){
+            if(FirebaseAuth.getInstance().getCurrentUser()!=null) {
                 navController.navigate(R.id.action_global_navigation_userprofile_active);
-            }else{
-                navController.navigate(R.id.action_global_navigation_userprofile_disabled);
             }
             Log.d("USERPROFILE: ", "Cliccato UserProfile");
             return true;
