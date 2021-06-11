@@ -9,7 +9,14 @@
         android:id="@+id/navigation_home"
         android:name="com.progettopdm.lyricbuddy.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home"></fragment>
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_album_tracklist"
+            app:destination="@id/navigation_album_tracklist" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_playlist_tracklist"
+            app:destination="@id/navigation_playlist_tracklist" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_search"
@@ -30,10 +37,23 @@
         tools:layout="@layout/fragment_userprofile" />
 
     <fragment
-        android:id="@+id/navigation_tracklist"
-        android:name="com.progettopdm.lyricbuddy.ui.tracklist.TrackListFragment"
-        android:label="Track List"
-        tools:layout="@layout/fragment_tracklist" />
+        android:id="@+id/navigation_album_tracklist"
+        android:name="com.progettopdm.lyricbuddy.ui.tracklist.AlbumTrackListFragment"
+        android:label="Album Track List">
+        <argument
+            android:name="albumTrackList"
+            app:argType="com.progettopdm.lyricbuddy.model.response.AlbumTrackListResponse" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_playlist_tracklist"
+        android:name="com.progettopdm.lyricbuddy.ui.tracklist.PlaylistTrackListFragment"
+        android:label="Playlist Track List">
+        <argument
+            android:name="playlistTrackList"
+            app:argType="com.progettopdm.lyricbuddy.model.response.PlaylistTrackListResponse" />
+    </fragment>
+
 
     <fragment
         android:id="@+id/navigation_track"
@@ -42,8 +62,12 @@
         tools:layout="@layout/fragment_track" />
 
     <action
-        android:id="@+id/action_global_navigation_tracklist"
-        app:destination="@id/navigation_tracklist" />
+        android:id="@+id/action_global_navigation_album_tracklist"
+        app:destination="@id/navigation_album_tracklist" />
+
+    <action
+        android:id="@+id/action_global_navigation_playlist_tracklist"
+        app:destination="@id/navigation_playlist_tracklist" />
 
     <action
         android:id="@+id/action_global_navigation_userprofile"

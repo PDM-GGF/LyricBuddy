@@ -1,6 +1,7 @@
 package com.progettopdm.lyricbuddy.ui.home;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -31,6 +32,9 @@ public class HomeViewModel extends AndroidViewModel {
     private MutableLiveData<NewReleaseResponse> mNewReleasesLiveData;
     private MutableLiveData<FeaturedResponse> mFeaturedPlaylistsLiveData;
     private MutableLiveData<SearchTracksResponse> mSearchedPlaylistLiveData;
+    private MutableLiveData<AlbumTrackListResponse> mAlbumTracklistLiveData;
+    private MutableLiveData<PlaylistTrackListResponse> mPlaylistTracklistLiveData;
+
     TrackContainer mClickedTrackContainer;
     MutableLiveData<String> spotiToken;
 
@@ -41,10 +45,13 @@ public class HomeViewModel extends AndroidViewModel {
         super(application);
         this.iSpotifyRepository = iSpotifyRepository;
         this.iccAuthRepository = iccAuthRepository;
+        mAlbumTracklistLiveData = new MutableLiveData<>();
     }
 
     public MutableLiveData<String> getSpotiToken() {
-        loadSpotiToken();
+        if(spotiToken == null){
+            loadSpotiToken();
+            }
         return spotiToken;
     }
 
@@ -54,16 +61,31 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
 
-
     public TrackContainer getmClickedTrackContainer() {
         return mClickedTrackContainer;
     }
 
+    public void setTokenToNull() {
+        this.spotiToken = null;
+    }
+
+    public void setTrackListToNull(int type) {
+
+        //type = 0 -> album
+        //type = 1 -> playlist
+
+        switch (type){
+            case 0:
+                mAlbumTracklistLiveData.postValue(null);
+                break;
+            case 1:
+                mPlaylistTracklistLiveData.postValue(null);
+        }
+    }
+
     public LiveData<NewReleaseResponse> getmNewReleases(String token) {
         if(mNewReleasesLiveData == null) {
-            mNewReleasesLiveData = new MutableLiveData<>();
             loadNewReleases(token);
-
         }
         return mNewReleasesLiveData;
     }
@@ -76,33 +98,37 @@ public class HomeViewModel extends AndroidViewModel {
         return mFeaturedPlaylistsLiveData;
     }
 
-    public void loadAlbumTrackLists(List<Album> albumList, String token) {
-        for(Album a : albumList) {
-            iSpotifyRepository.fetchAlbumTrackList(a.getId(), token).observeForever(new Observer<AlbumTrackListResponse>() {
-                @Override
-                public void onChanged(AlbumTrackListResponse albumTrackListResponse) {
-                    for(Track t : albumTrackListResponse.getTrackList()) {
-                        t.setAlbum(a.getId());
-                    }
-                    a.setTrackList(albumTrackListResponse.getTrackList());
-                }
-            });
-        }
+    public LiveData<AlbumTrackListResponse> getmAlbumTracklistLiveData(Album album, String token) {
+        loadAlbumTrackList(album, token);
+        return mAlbumTracklistLiveData;
     }
 
-    public void loadPlaylistTracklist(List<Playlist> playlistList, String token) {
-        for(Playlist p : playlistList) {
-            iSpotifyRepository.fetchPlaylistTracklist(p.getId(), token).observeForever(new Observer<PlaylistTrackListResponse>() {
-                @Override
-                public void onChanged(PlaylistTrackListResponse playlistTrackListResponse) {
-                    List<Track> trackList = new ArrayList<>();
-                    for(TrackWrapper tw : playlistTrackListResponse.getTrackWrapperList()) {
-                        trackList.add(tw.getTrack());
-                    }
-                    p.setTrackList(trackList);
-                }
-            });
+    public LiveData<PlaylistTrackListResponse> getmPlaylistTracklistLiveData(Playlist playlist, String token) {
+        loadPlaylistTracklist(playlist, token);
+        return mPlaylistTracklistLiveData;
+    }
+
+    private void loadAlbumTrackList(Album album, String token) {
+
+        String id = null;
+
+        if (album != null) {
+            id = album.getId();
         }
+
+        mAlbumTracklistLiveData = iSpotifyRepository.fetchAlbumTrackList(id, token);
+    }
+
+    public void loadPlaylistTracklist(Playlist playlist, String token) {
+
+        String id = null;
+
+        if (playlist != null) {
+            id = playlist.getId();
+        }
+
+        mPlaylistTracklistLiveData = iSpotifyRepository.fetchPlaylistTracklist(id, token);
+
     }
 
     private void loadSpotiToken() {

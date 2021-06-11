@@ -1,7 +1,6 @@
 package com.progettopdm.lyricbuddy.ui.tracklist;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,17 +17,23 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.progettopdm.lyricbuddy.R;
+import com.progettopdm.lyricbuddy.model.Playlist;
 import com.progettopdm.lyricbuddy.model.Track;
 import com.progettopdm.lyricbuddy.model.TrackContainer;
+import com.progettopdm.lyricbuddy.model.response.AlbumTrackListResponse;
+import com.progettopdm.lyricbuddy.model.response.PlaylistTrackListResponse;
+import com.progettopdm.lyricbuddy.model.response.wrappers.TrackWrapper;
 import com.progettopdm.lyricbuddy.ui.home.HomeViewModel;
-import com.progettopdm.lyricbuddy.ui.home.HomeViewModelFactory;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
 
-public class TrackListFragment extends Fragment {
 
-    TrackListRecyclerViewAdapter trackListAdapter;
+public class PlaylistTrackListFragment extends Fragment {
+
+    TrackListRecyclerViewAdapter trackListRecyclerViewAdapter;
 
     TrackListViewModel trackListViewModel;
 
@@ -41,11 +46,22 @@ public class TrackListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
 
-
         HomeViewModel homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         trackListViewModel = new ViewModelProvider(requireActivity(), new TrackListViewModelFactory()).get(TrackListViewModel.class);
 
         TrackContainer tc = homeViewModel.getmClickedTrackContainer();
+
+
+        PlaylistTrackListResponse playlistTrackListResponse =
+                PlaylistTrackListFragmentArgs.fromBundle(getArguments()).getPlaylistTrackList();
+
+        List<Track> trackList = new ArrayList<>();
+
+        for (TrackWrapper tw : playlistTrackListResponse.getTrackWrapperList()) {
+            trackList.add(tw.getTrack());
+        }
+
+
 
         TextView tlName = view.findViewById(R.id.tracklist_name);
         TextView tlDescription = view.findViewById(R.id.tracklist_description);
@@ -56,8 +72,7 @@ public class TrackListFragment extends Fragment {
         tc.getImgList().get(0).getImg().into(tlImage);
 
         RecyclerView newReleasesRecyclerView = view.findViewById(R.id.tracklist_recycler_view);
-
-        trackListAdapter = new TrackListRecyclerViewAdapter(tc.getTrackList(), new TrackListRecyclerViewAdapter.OnItemClickListener() {
+        trackListRecyclerViewAdapter = new TrackListRecyclerViewAdapter(trackList, new TrackListRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Track track) {
                 trackListViewModel.mClickedTrack = track;
@@ -68,8 +83,7 @@ public class TrackListFragment extends Fragment {
             }
         });
         newReleasesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        newReleasesRecyclerView.setAdapter(trackListAdapter);
-
+        newReleasesRecyclerView.setAdapter(trackListRecyclerViewAdapter);
 
     }
 
