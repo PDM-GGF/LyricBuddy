@@ -28,4 +28,5 @@
     <string name="title_track">Track</string>
     <string name="search_hint">search for a song</string>
     <string name="lyrics">Lyrics</string>
+    <string name="matcher_fail">we couldn\'t find lyrics for the selected track :(</string>
 </resources>
