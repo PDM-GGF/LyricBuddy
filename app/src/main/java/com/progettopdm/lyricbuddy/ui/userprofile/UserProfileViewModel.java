@@ -33,13 +33,13 @@ public class UserProfileViewModel extends ViewModel {
         return mText;
     }
 
-    public static void getInfoUser(TextView fName, TextView email, TextView pNumber) {
+   /* public static void getInfoUser(TextView fName, TextView email, TextView pNumber) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             String eAddress = user.getEmail();
             email.setText(eAddress);
 
         }
-    }
+    }*/
 
 }

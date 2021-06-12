@@ -23,7 +23,7 @@ import com.progettopdm.lyricbuddy.R;
 
 import static com.progettopdm.lyricbuddy.utils.Constants.FIREBASE_REALTIME_DB;
 
-public class Register extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
     EditText registerFullName, registerPhoneNumber, registerEmail, registerPassword, registerConfirmPassword;
     Button createAccountButton, backToLogin ;
     FirebaseAuth fAuth;
@@ -47,7 +47,7 @@ public class Register extends AppCompatActivity {
         backToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),Login.class));
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 finish();
             }
         });
@@ -112,7 +112,7 @@ public class Register extends AppCompatActivity {
                                 //send user to the next page
                                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                 finish();
-                                Toast.makeText(Register.this, "Verification Email Has been Sent.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterActivity.this, "Verification Email Has been Sent.", Toast.LENGTH_SHORT).show();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -124,7 +124,7 @@ public class Register extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(Register.this, e.getMessage(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, e.getMessage(),Toast.LENGTH_SHORT).show();
                     }
                 });
 
