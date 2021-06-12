@@ -99,11 +99,10 @@ public class Register extends AppCompatActivity {
                 User user = new User(fullName, phoneNumber, email);
                 fDatabase.push().setValue(user);
 
-
-
-
                 // register the user using firebase
                 fAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+
+
 
                     @Override
                     public void onSuccess(AuthResult authResult) {

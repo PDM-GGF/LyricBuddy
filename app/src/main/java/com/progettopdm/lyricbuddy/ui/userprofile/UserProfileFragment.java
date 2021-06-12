@@ -25,7 +25,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.progettopdm.lyricbuddy.R;
 import com.progettopdm.lyricbuddy.login.Login;
 import com.progettopdm.lyricbuddy.login.User;
+import com.progettopdm.lyricbuddy.model.Album;
 import com.progettopdm.lyricbuddy.ui.search.SearchViewModel;
+
+import java.util.List;
 
 import static android.content.ContentValues.TAG;
 import static com.progettopdm.lyricbuddy.utils.Constants.FIREBASE_REALTIME_DB;
@@ -34,30 +37,23 @@ public class UserProfileFragment extends Fragment {
 
     private UserProfileViewModel userProfileViewModel;
     private Button logout;
-    private TextView fName, eAddress, psw, pNumber;
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    /*private TextView fName, eAddress, psw, pNumber;
+    private FirebaseUser user;
+    private DatabaseReference reference;
+    private String userID;*/
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         userProfileViewModel =
                 new ViewModelProvider(this).get(UserProfileViewModel.class);
         View root = inflater.inflate(R.layout.fragment_userprofile_active, container, false);
-
-        fName = root.findViewById(R.id.text_fullName);
-        eAddress = root.findViewById(R.id.text_email_address);
-        psw = root.findViewById(R.id.text_password);
-        pNumber = root.findViewById(R.id.text_phoneNumber);
-
-        UserProfileViewModel.getInfoUser(fName, eAddress, pNumber);
-
-
-        /*final TextView textView = root.findViewById(R.id.text_password);
+        final TextView textView = root.findViewById(R.id.text_password);
         userProfileViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
             }
-        });*/
+        });
         return root;
     }
 

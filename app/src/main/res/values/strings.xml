@@ -14,12 +14,12 @@
     <string name="confirm_password" translatable="false">Confirm Password</string>
     <string name="skip" translatable="false">Skip Registration</string>
     <string name="songs" translatable="false">My Songs:</string>
-    <string name= "notlogged" translatable="false"> you are not logged</string>
+    <string name="notlogged" translatable="false"> you are not logged</string>
     <string name="logout" translatable="false">Logout</string>
     <string name="phone" translatable="false"> Phone Number </string>
-
-
-
+    <string name="fpassword" translatable="false"> forgot password? </string>
+    <string name="resetPsw" translatable="false"> Reset Password </string>
+    <string name="backToLogin" translatable="false">Back To Login</string>
 
 
     <string name="recommended_home" translatable="true">Recommended for you</string>

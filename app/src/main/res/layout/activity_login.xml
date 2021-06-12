@@ -59,6 +59,18 @@
             android:drawableLeft="@drawable/ic_baseline_lock_24"
             android:textColorHint="@color/color_text_login" />
 
+        <TextView
+            android:id="@+id/forgotPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="0dp"
+            android:text="@string/fpassword"
+            android:layout_gravity="right"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/button_login"
+            />
+
         <Button
             android:id="@+id/button_login"
             android:layout_width="match_parent"

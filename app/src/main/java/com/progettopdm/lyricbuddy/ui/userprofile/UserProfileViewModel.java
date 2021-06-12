@@ -10,11 +10,16 @@ import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.progettopdm.lyricbuddy.R;
+import com.progettopdm.lyricbuddy.login.User;
 
 
 public class UserProfileViewModel extends ViewModel {
     private MutableLiveData<String> mText;
-    //TextView fullname, email, phoneNumber;
+    private TextView fullname, email, phoneNumber;
+
 
 
 
@@ -28,17 +33,13 @@ public class UserProfileViewModel extends ViewModel {
         return mText;
     }
 
-    public static void getInfoUser(TextView fName, TextView email, TextView pNumber){
+    public static void getInfoUser(TextView fName, TextView email, TextView pNumber) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user != null){
-            String name = user.getDisplayName();
+        if (user != null) {
             String eAddress = user.getEmail();
-            String phone = user.getPhoneNumber();
-
-            fName.setText(name);
             email.setText(eAddress);
-            pNumber.setText(phone);
-        }
 
+        }
     }
+
 }

@@ -108,7 +108,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
             android:background="@drawable/button_transparent"
-            android:text="Back To Login"
+            android:text="@string/backToLogin"
             android:textColor="@color/white"/>
     </LinearLayout>
 
