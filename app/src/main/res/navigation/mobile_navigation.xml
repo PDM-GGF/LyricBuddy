@@ -59,7 +59,9 @@
         android:id="@+id/navigation_track"
         android:name="com.progettopdm.lyricbuddy.ui.track.TrackFragment"
         android:label="@string/title_track"
-        tools:layout="@layout/fragment_track" />
+        tools:layout="@layout/fragment_track">
+
+    </fragment>
 
     <action
         android:id="@+id/action_global_navigation_album_tracklist"

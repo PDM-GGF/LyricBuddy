@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,7 +77,9 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
             ImageView trackImage = root.findViewById(R.id.track_img);
             Glide.with(view).load(track_artwork.getImgUrl()).into(trackImage);
         }else{
-            Log.d("AlbumError" , "Can't load the album artwork");
+            GenericImage track_artwork = trackListViewModel.getmClickedImage();
+            ImageView trackImage = root.findViewById(R.id.track_img);
+            Glide.with(view).load(track_artwork.getImgUrl()).into(trackImage);
         }
 
         super.onActivityCreated(savedInstanceState);
@@ -91,12 +94,14 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
         lyrics = lyrics.substring(0, lyrics.indexOf("*"));
 
         TextView trackLyrics = root.findViewById(R.id.track_lyrics);
+        trackLyrics.setMovementMethod(new ScrollingMovementMethod());
         trackLyrics.setText(lyrics);
     }
 
     @Override
     public void onLyricsFailure(String msg) {
-
+        TextView trackLyrics = root.findViewById(R.id.track_lyrics);
+        trackLyrics.setText(msg);
     }
 
     @Override
@@ -108,7 +113,7 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
     @Override
     public void onMatcherFailure(String msg) {
         TextView trackLyrics = root.findViewById(R.id.track_lyrics);
-        trackLyrics.setText("Ci dispiace, abbiamo incontrato un errore :(");
+        trackLyrics.setText(R.string.matcher_fail);
     }
 
 }
