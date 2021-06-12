@@ -2,6 +2,7 @@ package com.progettopdm.lyricbuddy.ui.userprofile;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -24,6 +27,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.progettopdm.lyricbuddy.R;
 import com.progettopdm.lyricbuddy.login.LoginActivity;
 import com.progettopdm.lyricbuddy.login.User;
+
+import org.jetbrains.annotations.NotNull;
 
 public class UserProfileFragment extends Fragment {
 
@@ -61,27 +66,25 @@ public class UserProfileFragment extends Fragment {
         final TextView eAddress = view.findViewById(R.id.text_email_address);
         final TextView pNumber = view.findViewById(R.id.text_phoneNumber);
 
-        reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener(){
+        reference.child("users").child(userID).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User userProfile = snapshot.getValue(User.class);
-                if (userProfile != null){
-                    String fullName = userProfile.getFullName();
-                    String email = userProfile.getEmail();
-                    String phone = userProfile.getPhoneNumber();
+            public void onComplete(@NonNull @NotNull Task<DataSnapshot> task) {
+                if(!task.isSuccessful()) {
+                    Log.d("Error ", task.getException().getMessage());
+                }else{
+                    User userProfile = task.getResult().getValue(User.class);
+                    if (userProfile != null){
+                        String fullName = userProfile.getFullName();
+                        String email = userProfile.getEmail();
+                        String phone = userProfile.getPhoneNumber();
 
-                    fName.setText(fullName);
-                    eAddress.setText(email);
-                    pNumber.setText(phone);
-
+                        fName.setText(fullName);
+                        eAddress.setText(email);
+                        pNumber.setText(phone);
+                    }
                 }
             }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error){
-
-
-            }
         });
 
         logout = view.findViewById(R.id.button_logout);
