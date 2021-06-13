@@ -58,25 +58,22 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
         List<Artist> artists = trackListViewModel.getmClickedTrack().getArtists();
 
         //Generate string "artists", this part puts the artists separated by a comma if needed
-        String string_artists;
-        if(artists.size() > 1){
-            string_artists = "";
-            for( Artist artist : artists){
-                string_artists += artist.getName() + ", ";
-            }
-            string_artists = string_artists.substring(0, string_artists.length() - 2);
-        }else{
-            string_artists = artists.get(0).getName();
+        StringBuilder string_artists = new StringBuilder();
+        for(Artist a : artists){
+            if(a.equals(artists.get(0)))
+                string_artists.append(a.getName());
+            else
+                string_artists.append(", ").append(a.getName());
         }
 
-        trackArtist.setText(string_artists);
+        trackArtist.setText(string_artists.toString());
 
         //Check if the album is set
-        if(trackListViewModel.getmClickedTrack().getAlbum() != null){
+        if (trackListViewModel.getmClickedTrack().getAlbum() != null) {
             GenericImage track_artwork = trackListViewModel.getmClickedTrack().getAlbum().getImgList().get(0);
             ImageView trackImage = root.findViewById(R.id.track_img);
             Glide.with(view).load(track_artwork.getImgUrl()).into(trackImage);
-        }else{
+        } else {
             GenericImage track_artwork = trackListViewModel.getmClickedImage();
             ImageView trackImage = root.findViewById(R.id.track_img);
             Glide.with(view).load(track_artwork.getImgUrl()).into(trackImage);
@@ -89,19 +86,26 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
 
     }
 
+    private void lyricsFailed(){
+        TextView lyricsTitle = root.findViewById(R.id.lyrics_title);
+        lyricsTitle.setText(R.string.lyircs_fail);
+    }
+
     @Override
     public void onLyricsGet(String lyrics) {
-        lyrics = lyrics.substring(0, lyrics.indexOf("*"));
-
-        TextView trackLyrics = root.findViewById(R.id.track_lyrics);
-        trackLyrics.setMovementMethod(new ScrollingMovementMethod());
-        trackLyrics.setText(lyrics);
+        try {
+            lyrics = lyrics.substring(0, lyrics.indexOf("*"));
+            TextView trackLyrics = root.findViewById(R.id.track_lyrics);
+            trackLyrics.setMovementMethod(new ScrollingMovementMethod());
+            trackLyrics.setText(lyrics);
+        } catch (java.lang.StringIndexOutOfBoundsException e) {
+            lyricsFailed();
+        }
     }
 
     @Override
     public void onLyricsFailure(String msg) {
-        TextView trackLyrics = root.findViewById(R.id.track_lyrics);
-        trackLyrics.setText(msg);
+        lyricsFailed();
     }
 
     @Override
@@ -112,8 +116,7 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
 
     @Override
     public void onMatcherFailure(String msg) {
-        TextView trackLyrics = root.findViewById(R.id.track_lyrics);
-        trackLyrics.setText(R.string.matcher_fail);
+        lyricsFailed();
     }
 
 }
