@@ -5,10 +5,13 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.room.Entity;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+@Entity(tableName = "tracks", ignoredColumns = "artists")
 public class Track implements Parcelable {
 
     @SerializedName("id")
