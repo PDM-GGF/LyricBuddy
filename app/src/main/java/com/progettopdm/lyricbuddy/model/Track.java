@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -12,17 +13,17 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-@Entity(tableName = "tracks", ignoredColumns = {"artists", "album"})
+@Entity(tableName = "tracks", ignoredColumns = {"albumId","artists", "album"})
 public class Track implements Parcelable {
 
     @SerializedName("id")
-    @PrimaryKey
-    String trackId;
-    String name;
-    int duration_ms;
-    String lyrics;
-    String albumId;
-    Boolean favourite;
+    @PrimaryKey @NonNull
+    private String trackId;
+    private String name;
+    private int duration_ms;
+    private String lyrics;
+    private String albumId;
+    //private Boolean favourite;
     Album album;
     List<Artist> artists;
 
@@ -31,7 +32,7 @@ public class Track implements Parcelable {
         this.name = name;
         this.duration_ms = duration_ms;
         this.lyrics = lyrics;
-        this.favourite = false;
+        //this.favourite = false;
     }
 
     public Track(Parcel in) {
