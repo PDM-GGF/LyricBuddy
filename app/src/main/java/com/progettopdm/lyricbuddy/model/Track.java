@@ -11,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-@Entity(tableName = "tracks", ignoredColumns = "artists")
+@Entity(tableName = "tracks", ignoredColumns = {"artists", "album"})
 public class Track implements Parcelable {
 
     @SerializedName("id")
@@ -20,6 +20,7 @@ public class Track implements Parcelable {
     int duration_ms;
     String lyrics;
     String albumId;
+    Boolean favourite;
     Album album;
     List<Artist> artists;
 
@@ -28,6 +29,7 @@ public class Track implements Parcelable {
         this.name = name;
         this.duration_ms = duration_ms;
         this.lyrics = lyrics;
+        this.favourite = false;
     }
 
     public Track(Parcel in) {
