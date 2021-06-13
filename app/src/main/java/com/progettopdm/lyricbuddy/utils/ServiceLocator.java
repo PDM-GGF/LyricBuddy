@@ -1,5 +1,9 @@
 package com.progettopdm.lyricbuddy.utils;
 
+import android.app.Application;
+
+import com.progettopdm.lyricbuddy.database.TrackRoomDatabase;
+import com.progettopdm.lyricbuddy.model.Track;
 import com.progettopdm.lyricbuddy.services.MxmMatcherService;
 import com.progettopdm.lyricbuddy.services.MxmLyricsService;
 import com.progettopdm.lyricbuddy.services.CCAuthService;
@@ -45,5 +49,9 @@ public class ServiceLocator {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.MXM_BASE_URL).
                 addConverterFactory(GsonConverterFactory.create()).build();
         return retrofit.create(MxmMatcherService.class);
+    }
+
+    public TrackRoomDatabase getTrackDao (Application application){
+        return TrackRoomDatabase.getDatabase(application);
     }
 }
