@@ -86,22 +86,26 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
 
     }
 
+    private void lyricsFailed(){
+        TextView lyricsTitle = root.findViewById(R.id.lyrics_title);
+        lyricsTitle.setText(R.string.lyircs_fail);
+    }
+
     @Override
     public void onLyricsGet(String lyrics) {
         try {
             lyrics = lyrics.substring(0, lyrics.indexOf("*"));
+            TextView trackLyrics = root.findViewById(R.id.track_lyrics);
+            trackLyrics.setMovementMethod(new ScrollingMovementMethod());
+            trackLyrics.setText(lyrics);
         } catch (java.lang.StringIndexOutOfBoundsException e) {
-            lyrics = "Scusa, probabilmente questi lyrics non sono ancora disponibili :( ";
+            lyricsFailed();
         }
-        TextView trackLyrics = root.findViewById(R.id.track_lyrics);
-        trackLyrics.setMovementMethod(new ScrollingMovementMethod());
-        trackLyrics.setText(lyrics);
     }
 
     @Override
     public void onLyricsFailure(String msg) {
-        TextView trackLyrics = root.findViewById(R.id.track_lyrics);
-        trackLyrics.setText(msg);
+        lyricsFailed();
     }
 
     @Override
@@ -112,8 +116,7 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
 
     @Override
     public void onMatcherFailure(String msg) {
-        TextView trackLyrics = root.findViewById(R.id.track_lyrics);
-        trackLyrics.setText(R.string.matcher_fail);
+        lyricsFailed();
     }
 
 }
