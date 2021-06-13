@@ -46,8 +46,12 @@ public class Track implements Parcelable {
         }
     };
 
-    public void setAlbum(String album) {
-        this.albumId = album;
+    public void setAlbum(Album album) {
+        this.album = album;
+    }
+
+    public void setAlbumId(String albumId) {
+        this.albumId = albumId;
     }
 
     public String getTrackId() {

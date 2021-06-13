@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.progettopdm.lyricbuddy.R;
 import com.progettopdm.lyricbuddy.model.Track;
 
@@ -56,16 +57,27 @@ public class TrackListRecyclerViewAdapter extends RecyclerView.Adapter<TrackList
 
         private final TextView nameTextView;
         private final TextView artistTextView;
+        private final ImageView trackImageView;
 
         public TrackListViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.track_name);
             artistTextView = itemView.findViewById(R.id.track_artist);
+            trackImageView = itemView.findViewById(R.id.track_img);
         }
 
         public void bind(Track track) {
             nameTextView.setText(track.getName());
             artistTextView.setText(track.getArtists().get(0).getName());
+
+            if(track.getAlbum() != null) {
+                if(track.getAlbum().getImgList() != null)
+                    Glide.with(itemView).load(track.getAlbum().getImgList().get(0).getImgUrl()).into(trackImageView);
+
+            } else {
+
+            }
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.progettopdm.lyricbuddy.R;
+import com.progettopdm.lyricbuddy.model.Album;
 import com.progettopdm.lyricbuddy.model.Track;
 import com.progettopdm.lyricbuddy.model.TrackContainer;
 import com.progettopdm.lyricbuddy.model.response.AlbumTrackListResponse;
@@ -26,6 +27,8 @@ import com.progettopdm.lyricbuddy.ui.home.HomeViewModel;
 import com.progettopdm.lyricbuddy.ui.home.HomeViewModelFactory;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 
 public class AlbumTrackListFragment extends Fragment {
@@ -61,8 +64,15 @@ public class AlbumTrackListFragment extends Fragment {
         tlDescription.setText(tc.getDescription());
         tc.getImgList().get(0).getImg().into(tlImage);
 
+        List<Track> trackList = albumTrackListResponse.getAlbumTrackList();
+
+        //set album for tracks (for img list)
+        for(Track t : trackList) {
+            t.setAlbum((Album) tc);
+        }
+
         RecyclerView newReleasesRecyclerView = view.findViewById(R.id.tracklist_recycler_view);
-        trackListRecyclerViewAdapter = new TrackListRecyclerViewAdapter(albumTrackListResponse.getAlbumTrackList(), new TrackListRecyclerViewAdapter.OnItemClickListener() {
+        trackListRecyclerViewAdapter = new TrackListRecyclerViewAdapter(trackList, new TrackListRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Track track) {
                 trackListViewModel.mClickedTrack = track;
