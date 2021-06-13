@@ -13,6 +13,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -39,6 +42,7 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_track, container, false);
         return root;
+
     }
 
     @Override
@@ -59,8 +63,8 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
 
         //Generate string "artists", this part puts the artists separated by a comma if needed
         StringBuilder string_artists = new StringBuilder();
-        for(Artist a : artists){
-            if(a.equals(artists.get(0)))
+        for (Artist a : artists) {
+            if (a.equals(artists.get(0)))
                 string_artists.append(a.getName());
             else
                 string_artists.append(", ").append(a.getName());
@@ -84,9 +88,18 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
         mxmMatcherRepository = new MxmMatcherRepository(this);
         mxmMatcherRepository.fetchTrackId(q_track, q_artist);
 
+        CheckBox heart = root.findViewById(R.id.heart_checkbox);
+        heart.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked){
+                Log.d("ADDED TO FAVOURITES", trackListViewModel.getmClickedTrack().getName());
+            }else{
+                Log.d("REMOVED FROM FAVOURITES", trackListViewModel.getmClickedTrack().getName());
+            }
+        });
+
     }
 
-    private void lyricsFailed(){
+    private void lyricsFailed() {
         TextView lyricsTitle = root.findViewById(R.id.lyrics_title);
         lyricsTitle.setText(R.string.lyircs_fail);
     }
