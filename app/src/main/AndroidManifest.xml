@@ -22,15 +22,6 @@
             </intent-filter>
         </activity>
 
-
-        <activity
-            android:name=".login.Login">
-        </activity>
-
-        <activity
-            android:name=".login.Register">
-        </activity>
-
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
