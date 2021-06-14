@@ -50,7 +50,4 @@ public class ServiceLocator {
                 addConverterFactory(GsonConverterFactory.create()).build();
         return retrofit.create(MxmMatcherService.class);
     }
-    public TrackRoomDatabase getTrackDao(Context context) {
-        return TrackRoomDatabase.getDatabase(context);
-    }
 }

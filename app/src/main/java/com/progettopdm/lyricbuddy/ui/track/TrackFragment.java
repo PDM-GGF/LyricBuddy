@@ -52,9 +52,8 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        FragmentActivity application = this.getActivity();
-        TrackRoomDatabase db = ServiceLocator.getInstance().getTrackDao(application);
-        this.tTrackDao = db.TrackDao();
+        //FragmentActivity application = this.getActivity();
+        //this.tTrackDao = db.TrackDao();
 
         trackListViewModel = new ViewModelProvider(requireActivity()).get(TrackListViewModel.class);
 
@@ -102,8 +101,8 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
         if (trackListViewModel.getmClickedTrack().getDuration_ms() != 0) {
             String duration =
                     TimeUnit.MILLISECONDS.toMinutes(trackListViewModel.getmClickedTrack().getDuration_ms())
-                    + ":" +
-                    String.valueOf(TimeUnit.MILLISECONDS.toSeconds(trackListViewModel.getmClickedTrack().getDuration_ms()) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(trackListViewModel.getmClickedTrack().getDuration_ms())));
+                            + ":" +
+                            String.valueOf(TimeUnit.MILLISECONDS.toSeconds(trackListViewModel.getmClickedTrack().getDuration_ms()) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(trackListViewModel.getmClickedTrack().getDuration_ms())));
             string_info.append("\nDuration: ").append(duration);
         }
         trackInfo.setText(string_info.toString());
@@ -131,7 +130,7 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
         lyricsTitle.setText(R.string.lyircs_fail);
     }
 
-    private void saveDataInDatabase(Track track) {
+    /*private void saveDataInDatabase(Track track) {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
@@ -139,8 +138,7 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
             }
         };
         new Thread(runnable).start();
-    }
-
+    }*/
 
     @Override
     public void onLyricsGet(String lyrics) {
