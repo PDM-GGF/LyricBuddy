@@ -17,6 +17,7 @@ public class Album extends TrackContainer implements Parcelable {
     List<GenericImage> genericImageList;
     List<Track> trackList;
     List<Artist> artists;
+    String release_date;
 
 
     public Album(String name, List<GenericImage> genericImageList) {
@@ -43,14 +44,14 @@ public class Album extends TrackContainer implements Parcelable {
 
     @Override
     public String getDescription() {
-        String artistList = "";
-        for(Artist a : artists){
-            if(a.equals(artists.get(0)))
-                artistList += a.getName();
+        StringBuilder artistList = new StringBuilder();
+        for (Artist a : artists) {
+            if (a.equals(artists.get(0)))
+                artistList.append(a.getName());
             else
-                artistList += ", " + a.getName();
+                artistList.append(", ").append(a.getName());
         }
-        return artistList;
+        return artistList.toString();
     }
 
     @Override
@@ -92,6 +93,10 @@ public class Album extends TrackContainer implements Parcelable {
         return name;
     }
 
+
+    public String getRelease_date() {
+        return release_date;
+    }
 
     @Override
     public int describeContents() {

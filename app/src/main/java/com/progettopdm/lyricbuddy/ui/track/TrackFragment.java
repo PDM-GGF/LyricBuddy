@@ -93,13 +93,15 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
         StringBuilder string_info = new StringBuilder();
         if (trackListViewModel.getmClickedTrack().getAlbum() != null) {
             string_info.append("Album: ").append(trackListViewModel.getmClickedTrack().getAlbum().getName());
+            string_info.append("\nReleased: ").append(trackListViewModel.getmClickedTrack().getAlbum().getRelease_date());
         }
+
         if (trackListViewModel.getmClickedTrack().getPopularity() != null) {
             string_info.append("\nPopularity: ").append(trackListViewModel.getmClickedTrack().getPopularity());
         }
         if (trackListViewModel.getmClickedTrack().getDuration_ms() != 0) {
             String duration =
-                    String.valueOf(TimeUnit.MILLISECONDS.toMinutes(trackListViewModel.getmClickedTrack().getDuration_ms()))
+                    TimeUnit.MILLISECONDS.toMinutes(trackListViewModel.getmClickedTrack().getDuration_ms())
                     + ":" +
                     String.valueOf(TimeUnit.MILLISECONDS.toSeconds(trackListViewModel.getmClickedTrack().getDuration_ms()) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(trackListViewModel.getmClickedTrack().getDuration_ms())));
             string_info.append("\nDuration: ").append(duration);
