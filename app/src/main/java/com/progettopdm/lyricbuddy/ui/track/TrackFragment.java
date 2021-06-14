@@ -1,6 +1,7 @@
 package com.progettopdm.lyricbuddy.ui.track;
 
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -25,10 +26,14 @@ import com.progettopdm.lyricbuddy.database.TrackRoomDatabase;
 import com.progettopdm.lyricbuddy.model.Artist;
 import com.progettopdm.lyricbuddy.model.GenericImage;
 import com.progettopdm.lyricbuddy.model.Track;
+import com.progettopdm.lyricbuddy.repository.DatabaseRepository;
+import com.progettopdm.lyricbuddy.repository.IDatabaseRepository;
 import com.progettopdm.lyricbuddy.repository.MxmLyricsCallback;
 import com.progettopdm.lyricbuddy.repository.MxmLyricsRepository;
 import com.progettopdm.lyricbuddy.repository.MxmMatcherCallback;
 import com.progettopdm.lyricbuddy.repository.MxmMatcherRepository;
+import com.progettopdm.lyricbuddy.ui.favorites.FavoritesViewModel;
+import com.progettopdm.lyricbuddy.ui.favorites.FavoritesViewModelFactory;
 import com.progettopdm.lyricbuddy.ui.tracklist.TrackListViewModel;
 import com.progettopdm.lyricbuddy.utils.ServiceLocator;
 
@@ -39,9 +44,11 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
     private TrackDao tTrackDao;
     private MxmLyricsRepository mxmLyricsRepository;
     private MxmMatcherRepository mxmMatcherRepository;
+    private IDatabaseRepository iDatabaseRepository;
 
     private View root;
     private TrackListViewModel trackListViewModel;
+    private FavoritesViewModel favoritesViewModel;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,11 +59,38 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        FragmentActivity application = this.getActivity();
-        TrackRoomDatabase db = ServiceLocator.getInstance().getTrackDao(application);
-        this.tTrackDao = db.TrackDao();
+
+        CheckBox heart = root.findViewById(R.id.heart_checkbox);
 
         trackListViewModel = new ViewModelProvider(requireActivity()).get(TrackListViewModel.class);
+
+        TrackRoomDatabase db = ServiceLocator.getInstance().getTrackDao(requireActivity().getApplication());
+        this.tTrackDao = db.TrackDao();
+
+        iDatabaseRepository = new DatabaseRepository(getActivity().getApplication());
+
+        favoritesViewModel =
+                new ViewModelProvider(requireActivity(),
+                        new FavoritesViewModelFactory(requireActivity().getApplication(), iDatabaseRepository))
+                        .get(FavoritesViewModel.class);
+
+
+        //Controlla se la traccia è tra i preferiti
+        favoritesViewModel.getmTracks().observe(getViewLifecycleOwner(), new Observer<List<Track>>() {
+            @Override
+            public void onChanged(List<Track> tracks) {
+                for(Track t : tracks) {
+                    if(t.getTrackId().equals(trackListViewModel.getmClickedTrack().getTrackId())) {
+                        heart.setChecked(true);
+                    }
+                }
+
+            }
+        });
+
+
+
+
 
         String q_track = trackListViewModel.getmClickedTrack().getName();
         String q_artist = trackListViewModel.getmClickedTrack().getArtists().get(0).getName();
@@ -102,8 +136,8 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
         if (trackListViewModel.getmClickedTrack().getDuration_ms() != 0) {
             String duration =
                     TimeUnit.MILLISECONDS.toMinutes(trackListViewModel.getmClickedTrack().getDuration_ms())
-                    + ":" +
-                    String.valueOf(TimeUnit.MILLISECONDS.toSeconds(trackListViewModel.getmClickedTrack().getDuration_ms()) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(trackListViewModel.getmClickedTrack().getDuration_ms())));
+                            + ":" +
+                            String.valueOf(TimeUnit.MILLISECONDS.toSeconds(trackListViewModel.getmClickedTrack().getDuration_ms()) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(trackListViewModel.getmClickedTrack().getDuration_ms())));
             string_info.append("\nDuration: ").append(duration);
         }
         trackInfo.setText(string_info.toString());
@@ -113,17 +147,40 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
         mxmMatcherRepository = new MxmMatcherRepository(this);
         mxmMatcherRepository.fetchTrackId(q_track, q_artist);
 
-        CheckBox heart = root.findViewById(R.id.heart_checkbox);
-        heart.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                Log.d("ADDED TO FAVOURITES", trackListViewModel.getmClickedTrack().getName());
-                //saveDataInDatabase(trackListViewModel.getmClickedTrack());
-                //List<Track> tracks = tTrackDao.getAllTracks();
-                //Log.d("DB", readDataFromDatabase().get(0).getName());
-            } else {
-                Log.d("REMOVED FROM FAVOURITES", trackListViewModel.getmClickedTrack().getName());
+
+        heart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (heart.isChecked()) {
+
+                    favoritesViewModel.getmTracks().observe(getViewLifecycleOwner(), new Observer<List<Track>>() {
+                        @Override
+                        public void onChanged(List<Track> tracks) {
+                            boolean isInDb = false;
+                            for(Track t : tracks) {
+                                if(t.getTrackId().equals(trackListViewModel.getmClickedTrack().getTrackId())) {
+                                    isInDb = true;
+                                }
+                            }
+                            if(!isInDb) {
+                                saveDataInDatabase(trackListViewModel.getmClickedTrack());
+                                Log.d("FAVORITE", "CREATED");
+
+                            }
+
+                        }
+                    });
+
+                } else {
+
+                    deleteDataInDatabase(trackListViewModel.getmClickedTrack());
+                    Log.d("FAVORITE", "DELETED");
+                    heart.setChecked(false);
+
+                }
             }
         });
+
     }
 
     private void lyricsFailed() {
@@ -136,6 +193,16 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
             @Override
             public void run() {
                 tTrackDao.insertTrack(track);
+            }
+        };
+        new Thread(runnable).start();
+    }
+
+    private void deleteDataInDatabase(Track track) {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                tTrackDao.deleteTrack(track);
             }
         };
         new Thread(runnable).start();

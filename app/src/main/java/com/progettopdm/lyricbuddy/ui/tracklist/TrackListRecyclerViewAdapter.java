@@ -68,7 +68,9 @@ public class TrackListRecyclerViewAdapter extends RecyclerView.Adapter<TrackList
 
         public void bind(Track track) {
             nameTextView.setText(track.getName());
-            artistTextView.setText(track.getArtists().get(0).getName());
+            if(track.getArtists() != null){
+                artistTextView.setText(track.getArtists().get(0).getName());
+            }
 
             if(track.getAlbum() != null) {
                 if(track.getAlbum().getImgList() != null)
@@ -86,5 +88,8 @@ public class TrackListRecyclerViewAdapter extends RecyclerView.Adapter<TrackList
                 }
             });
         }
+
     }
+
+
 }

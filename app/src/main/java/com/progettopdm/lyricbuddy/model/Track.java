@@ -1,12 +1,11 @@
 package com.progettopdm.lyricbuddy.model;
 
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -57,6 +56,10 @@ public class Track implements Parcelable {
             return new Track[size];
         }
     };
+
+    public List<Artist> getArtist() {
+        return this.artists;
+    }
 
     public void setAlbum(Album album) {
         this.album = album;
