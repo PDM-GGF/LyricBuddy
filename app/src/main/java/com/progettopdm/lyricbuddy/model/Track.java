@@ -5,20 +5,31 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.SerializedName;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
+
+@Entity(tableName = "tracks", ignoredColumns = {"album", "artists"})
 
 public class Track implements Parcelable {
 
     @SerializedName("id")
+    @PrimaryKey
+    @NotNull
     String trackId;
     String name;
     int duration_ms;
     String lyrics;
     String albumId;
+    String popularity;
     Album album;
     List<Artist> artists;
+
 
     public Track(String trackId, String name, int duration_ms, String lyrics) {
         this.trackId = trackId;
@@ -74,6 +85,18 @@ public class Track implements Parcelable {
         return duration_ms;
     }
 
+    public List<Artist> getArtists() {
+        return artists;
+    }
+
+    public Album getAlbum() {
+        return album;
+    }
+
+    public String getPopularity() {
+        return popularity;
+    }
+
     public String getLyrics() {
         return lyrics;
     }
@@ -82,12 +105,16 @@ public class Track implements Parcelable {
         this.lyrics = lyrics;
     }
 
-    public List<Artist> getArtists() {
-        return artists;
+    public String getAlbumId() {
+        return albumId;
     }
 
-    public Album getAlbum() {
-        return album;
+    public void setDuration_ms(int duration_ms) {
+        this.duration_ms = duration_ms;
+    }
+
+    public void setPopularity(String popularity) {
+        this.popularity = popularity;
     }
 
     @Override

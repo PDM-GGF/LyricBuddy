@@ -49,10 +49,8 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         trackListViewModel = new ViewModelProvider(requireActivity()).get(TrackListViewModel.class);
 
-
         String q_track = trackListViewModel.getmClickedTrack().getName();
         String q_artist = trackListViewModel.getmClickedTrack().getArtists().get(0).getName();
-
 
         TextView trackName = root.findViewById(R.id.track_name);
         TextView trackArtist = root.findViewById(R.id.track_artist);
@@ -69,7 +67,6 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
             else
                 string_artists.append(", ").append(a.getName());
         }
-
         trackArtist.setText(string_artists.toString());
 
         //Check if the album is set
@@ -83,6 +80,17 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
             Glide.with(view).load(track_artwork.getImgUrl()).into(trackImage);
         }
 
+        TextView trackInfo = root.findViewById(R.id.track_info);
+        StringBuilder string_info = new StringBuilder();
+        if (trackListViewModel.getmClickedTrack().getAlbum() != null) {
+            string_info.append("Album: " + trackListViewModel.getmClickedTrack().getAlbum().getName());
+        }
+        if (trackListViewModel.getmClickedTrack().getPopularity() != null) {
+            string_info.append("Popularity: " + trackListViewModel.getmClickedTrack().getPopularity() + "\n");
+
+        }
+        trackInfo.setText(string_info.toString());
+
         super.onActivityCreated(savedInstanceState);
 
         mxmMatcherRepository = new MxmMatcherRepository(this);
@@ -90,13 +98,13 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
 
         CheckBox heart = root.findViewById(R.id.heart_checkbox);
         heart.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked){
+            if (isChecked) {
                 Log.d("ADDED TO FAVOURITES", trackListViewModel.getmClickedTrack().getName());
-            }else{
+
+            } else {
                 Log.d("REMOVED FROM FAVOURITES", trackListViewModel.getmClickedTrack().getName());
             }
         });
-
     }
 
     private void lyricsFailed() {
