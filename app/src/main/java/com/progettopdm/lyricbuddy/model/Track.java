@@ -30,6 +30,7 @@ public class Track implements Parcelable {
     Album album;
     List<Artist> artists;
 
+    public Track(){}
 
     public Track(String trackId, String name, int duration_ms, String lyrics) {
         this.trackId = trackId;

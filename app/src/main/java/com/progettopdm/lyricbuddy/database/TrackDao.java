@@ -13,11 +13,10 @@ import java.util.List;
 public interface TrackDao {
 
     @Insert
-        //void insertTracks(List<Track> tracks);
     void insertTrack(Track track);
 
     @Query("SELECT * FROM tracks")
-    List<Track> getAllTrack();
+    List<Track> getAllTracks();
 
     @Query("DELETE FROM tracks")
     void deleteAll();

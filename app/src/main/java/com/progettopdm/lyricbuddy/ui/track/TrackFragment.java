@@ -1,5 +1,6 @@
 package com.progettopdm.lyricbuddy.ui.track;
 
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -13,31 +14,35 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.progettopdm.lyricbuddy.R;
+import com.progettopdm.lyricbuddy.database.TrackDao;
+import com.progettopdm.lyricbuddy.database.TrackRoomDatabase;
 import com.progettopdm.lyricbuddy.model.Artist;
 import com.progettopdm.lyricbuddy.model.GenericImage;
+import com.progettopdm.lyricbuddy.model.Track;
 import com.progettopdm.lyricbuddy.repository.MxmLyricsCallback;
 import com.progettopdm.lyricbuddy.repository.MxmLyricsRepository;
 import com.progettopdm.lyricbuddy.repository.MxmMatcherCallback;
 import com.progettopdm.lyricbuddy.repository.MxmMatcherRepository;
 import com.progettopdm.lyricbuddy.ui.tracklist.TrackListViewModel;
+import com.progettopdm.lyricbuddy.utils.ServiceLocator;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMatcherCallback {
-
+    private TrackDao tTrackDao;
     private MxmLyricsRepository mxmLyricsRepository;
     private MxmMatcherRepository mxmMatcherRepository;
 
     private View root;
     private TrackListViewModel trackListViewModel;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_track, container, false);
@@ -47,6 +52,10 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        FragmentActivity application = this.getActivity();
+        TrackRoomDatabase db = ServiceLocator.getInstance().getTrackDao(application);
+        this.tTrackDao = db.TrackDao();
+
         trackListViewModel = new ViewModelProvider(requireActivity()).get(TrackListViewModel.class);
 
         String q_track = trackListViewModel.getmClickedTrack().getName();
@@ -83,11 +92,17 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
         TextView trackInfo = root.findViewById(R.id.track_info);
         StringBuilder string_info = new StringBuilder();
         if (trackListViewModel.getmClickedTrack().getAlbum() != null) {
-            string_info.append("Album: " + trackListViewModel.getmClickedTrack().getAlbum().getName());
+            string_info.append("Album: ").append(trackListViewModel.getmClickedTrack().getAlbum().getName());
         }
         if (trackListViewModel.getmClickedTrack().getPopularity() != null) {
-            string_info.append("Popularity: " + trackListViewModel.getmClickedTrack().getPopularity() + "\n");
-
+            string_info.append("\nPopularity: ").append(trackListViewModel.getmClickedTrack().getPopularity());
+        }
+        if (trackListViewModel.getmClickedTrack().getDuration_ms() != 0) {
+            String duration =
+                    String.valueOf(TimeUnit.MILLISECONDS.toMinutes(trackListViewModel.getmClickedTrack().getDuration_ms()))
+                    + ":" +
+                    String.valueOf(TimeUnit.MILLISECONDS.toSeconds(trackListViewModel.getmClickedTrack().getDuration_ms()) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(trackListViewModel.getmClickedTrack().getDuration_ms())));
+            string_info.append("\nDuration: ").append(duration);
         }
         trackInfo.setText(string_info.toString());
 
@@ -100,7 +115,9 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
         heart.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 Log.d("ADDED TO FAVOURITES", trackListViewModel.getmClickedTrack().getName());
-
+                //saveDataInDatabase(trackListViewModel.getmClickedTrack());
+                //List<Track> tracks = tTrackDao.getAllTracks();
+                //Log.d("DB", readDataFromDatabase().get(0).getName());
             } else {
                 Log.d("REMOVED FROM FAVOURITES", trackListViewModel.getmClickedTrack().getName());
             }
@@ -111,6 +128,17 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
         TextView lyricsTitle = root.findViewById(R.id.lyrics_title);
         lyricsTitle.setText(R.string.lyircs_fail);
     }
+
+    private void saveDataInDatabase(Track track) {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                tTrackDao.insertTrack(track);
+            }
+        };
+        new Thread(runnable).start();
+    }
+
 
     @Override
     public void onLyricsGet(String lyrics) {

@@ -54,36 +54,23 @@
         android:id="@+id/heart_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:button="@drawable/sl_favourite_24dp"
-        app:buttonTint="@android:color/white"
         android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
+        android:button="@drawable/sl_favourite_24dp"
+        app:buttonTint="@android:color/white"
         app:layout_constraintStart_toEndOf="@+id/track_img"
-        app:layout_constraintTop_toBottomOf="@+id/track_artist"
-        />
-
-    <TextView
-        android:id="@+id/info_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Info"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/track_img"
-        app:layout_constraintTop_toBottomOf="@+id/track_img" />
+        app:layout_constraintTop_toBottomOf="@+id/track_artist" />
 
     <TextView
         android:id="@+id/track_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Album: "
+        android:text=""
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/track_img"
-        app:layout_constraintTop_toBottomOf="@+id/info_title" />
-
+        app:layout_constraintTop_toBottomOf="@+id/track_img" />
 
     <TextView
         android:id="@+id/lyrics_title"
@@ -95,7 +82,6 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/track_img"
         app:layout_constraintTop_toBottomOf="@+id/track_info" />
-
 
     <ScrollView
         android:layout_width="match_parent"
