@@ -33,32 +33,11 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navView, navController);
 
-        TextView title = findViewById(R.id.toolbar_title);
-        title.setText("LyricBuddy");
 
         Toolbar toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(null);
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.toolbar_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-
-        // Handle item selection
-        if (item.getItemId() == R.id.toolbar_menu_userprofile) {
-            navController.navigate(R.id.action_global_navigation_userprofile);
-            return true;
-        }
-        return true;
     }
 
 }

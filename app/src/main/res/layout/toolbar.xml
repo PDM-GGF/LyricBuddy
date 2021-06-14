@@ -6,7 +6,7 @@
     android:background="@color/color_background">
 
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center">
 
@@ -18,7 +18,7 @@
             android:src="@mipmap/ic_launcher_lb_foreground" />
 
         <TextView
-            android:id="@+id/toolbar_title"
+            android:id="@+id/toolbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
