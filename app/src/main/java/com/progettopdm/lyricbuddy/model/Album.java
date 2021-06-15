@@ -3,21 +3,35 @@ package com.progettopdm.lyricbuddy.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
 import com.google.gson.annotations.SerializedName;
+import com.progettopdm.lyricbuddy.database.Converters;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+@Entity(tableName = "albums")
 public class Album extends TrackContainer implements Parcelable {
 
     @SerializedName("id")
+    @PrimaryKey
+    @NotNull
     String albumId;
     @SerializedName("name")
     String name;
     @SerializedName("images")
+    @TypeConverters(Converters.class)
     List<GenericImage> genericImageList;
+    @TypeConverters(Converters.class)
     List<Track> trackList;
+    @TypeConverters(Converters.class)
     List<Artist> artists;
     String release_date;
+
 
 
     public Album(String name, List<GenericImage> genericImageList) {
