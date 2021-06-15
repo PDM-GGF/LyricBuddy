@@ -1,6 +1,33 @@
 <resources>
-    <string name="app_name">LyricBuddy</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="app_name" translatable="false">LyricBuddy</string>
+    <string name="title_search">Search</string>
+    <string name="title_favorites">Favorites</string>
+    <string name="title_home" translatable="false">Home</string>
+
+
+    <string name="login" translatable="false">Login</string>
+    <string name="username" translatable="false">Username</string>
+    <string name="password" translatable="false">Password</string>
+    <string name="signup" translatable="false">Sign Up</string>
+    <string name="full_name" translatable="false">Full Name</string>
+    <string name="email_address" translatable="false">Email Address</string>
+    <string name="confirm_password" translatable="false">Confirm Password</string>
+    <string name="skip" translatable="false">Skip Registration</string>
+
+
+
+
+
+
+    <string name="recommended_home" translatable="true">Recommended for you</string>
+    <string name="new_home" translatable="true">New Hits</string>
+    <string name="best_home" translatable="true">All time best</string>
+    <string name="title_userprofile"> User Profile </string>
+    <string name="new_releases">New Releases</string>
+    <string name="featured_playlists">Featured</string>
+    <string name="title_track">Track</string>
+    <string name="search_hint">search for a song</string>
+    <string name="lyrics">Lyrics</string>
+    <string name="lyircs_fail">Lyrics not available :(</string>
+    <string name="no_favs">You still don\'t have favorite tracks mate</string>
 </resources>

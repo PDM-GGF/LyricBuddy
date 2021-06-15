@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_search">Cerca</string>
+    <string name="title_favorites">Preferiti</string>
+    <string name="recommended_home">Consigliate</string>
+    <string name="new_home">Le hit del momento</string>
+    <string name="best_home">Le migliori di sempre</string>
+    <string name="title_userprofile">Profilo</string>
+    <string name="new_releases">Nuove Uscite</string>
+    <string name="featured_playlists">In primo piano</string>
+    <string name="title_track">Traccia</string>
+    <string name="search_hint">cerca una traccia</string>
+    <string name="lyrics">Testo</string>
+    <string name="lyircs_fail">Lyrics non disponibili</string>
+    <string name="no_favs">Non hai ancora tracce preferite loz</string>
+</resources>
