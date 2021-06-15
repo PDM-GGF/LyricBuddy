@@ -13,9 +13,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
@@ -52,6 +54,7 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_track, container, false);
 
+
         return root;
 
     }
@@ -61,6 +64,14 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
 
         Toolbar toolbar = getActivity().findViewById(R.id.main_toolbar);
         toolbar.setVisibility(View.INVISIBLE);
+
+        final Button back = (Button) root.findViewById(R.id.back_button);
+        back.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
+
 
         CheckBox heart = root.findViewById(R.id.heart_checkbox);
 
