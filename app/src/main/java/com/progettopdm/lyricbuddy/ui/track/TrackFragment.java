@@ -1,6 +1,5 @@
 package com.progettopdm.lyricbuddy.ui.track;
 
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -10,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +16,9 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
-import com.progettopdm.lyricbuddy.MainActivity;
 import com.progettopdm.lyricbuddy.R;
 import com.progettopdm.lyricbuddy.database.TrackDao;
 import com.progettopdm.lyricbuddy.database.TrackRoomDatabase;
@@ -52,9 +49,6 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
     private TrackListViewModel trackListViewModel;
     private FavoritesViewModel favoritesViewModel;
 
-    //private Toolbar tool;
-
-
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_track, container, false);
 
@@ -64,8 +58,9 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        //tool = view.findViewById(R.id.toolbar);
-        //tool.setVisibility(View.INVISIBLE);
+
+        Toolbar toolbar = getActivity().findViewById(R.id.main_toolbar);
+        toolbar.setVisibility(View.INVISIBLE);
 
         CheckBox heart = root.findViewById(R.id.heart_checkbox);
 
@@ -94,7 +89,6 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
 
             }
         });
-
 
         String q_track = trackListViewModel.getmClickedTrack().getName();
         String q_artist = trackListViewModel.getmClickedTrack().getArtists().get(0).getName();
@@ -142,13 +136,6 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
 
         /*if (trackListViewModel.getmClickedTrack().getPopularity() != null) {
             string_info.append("\nPopularity: ").append(trackListViewModel.getmClickedTrack().getPopularity());
-        }
-        if (trackListViewModel.getmClickedTrack().getDuration_ms() != 0) {
-            String duration =
-                    TimeUnit.MILLISECONDS.toMinutes(trackListViewModel.getmClickedTrack().getDuration_ms())
-                            + ":" +
-                            String.valueOf(TimeUnit.MILLISECONDS.toSeconds(trackListViewModel.getmClickedTrack().getDuration_ms()) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(trackListViewModel.getmClickedTrack().getDuration_ms())));
-            string_info.append("\nDuration: ").append(duration);
         }*/
 
 
