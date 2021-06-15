@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
@@ -60,7 +61,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        Toolbar toolbar = getActivity().findViewById(R.id.main_toolbar);
+        toolbar.setVisibility(View.VISIBLE);
         mNewReleasesList = new ArrayList<>();
         mFeaturedList = new ArrayList<>();
 

@@ -1,5 +1,6 @@
 package com.progettopdm.lyricbuddy.ui.search;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -66,7 +67,8 @@ public class SearchFragment extends Fragment {
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         trackListViewModel = new ViewModelProvider(requireActivity(), new TrackListViewModelFactory()).get(TrackListViewModel.class);
-
+        Toolbar toolbar = getActivity().findViewById(R.id.main_toolbar);
+        toolbar.setVisibility(View.VISIBLE);
         //DATA FETCH FROM VIEWMODEL
         ISpotifyRepository spotifyRepository =
                 new SpotifyRepository(requireActivity().getApplication());
