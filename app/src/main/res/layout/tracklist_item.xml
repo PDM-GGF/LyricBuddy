@@ -1,59 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal" >
+    android:layout_marginBottom="16dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:orientation="horizontal"
+    tools:targetApi="m">
 
 
     <ImageView
         android:id="@+id/track_img"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/track_name"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        app:layout_constraintStart_toEndOf="@+id/track_img"
+        app:layout_constraintTop_toTopOf="@+id/track_img" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/track_artist"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@+id/track_img"
+        app:layout_constraintTop_toBottomOf="@+id/track_name"
+        tools:ignore="MissingConstraints" />
 
-        <TextView
-            android:id="@+id/track_name"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:layout_marginStart="16dp"
-            android:gravity="center_vertical"
-            android:paddingLeft="7dp"
-            android:paddingRight="7dp"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="track name"
-            android:foreground="?android:attr/selectableItemBackground"
-            />
 
-        <TextView
-            android:id="@+id/track_artist"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:paddingLeft="7dp"
-            android:text="track artist"
-            android:textSize="10sp"
-            android:textStyle="bold" />
-
-        <View
-            android:id="@+id/track_item_divider"
-            android:layout_width="409dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="7dp"
-            android:layout_weight="1"
-            android:background="?android:attr/listDivider"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tracklist_description" />
-
-    </LinearLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
