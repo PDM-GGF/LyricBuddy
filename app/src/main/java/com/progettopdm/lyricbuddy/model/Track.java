@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-@Entity(tableName = "tracks",ignoredColumns = "album")
+@Entity(tableName = "tracks")
 
 public class Track implements Parcelable {
 

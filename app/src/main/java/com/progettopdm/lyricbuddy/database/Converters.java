@@ -31,8 +31,9 @@ public class Converters {
 
     @TypeConverter
     public static String albumToString (Album album) {
+        Type albumType = new TypeToken<Album>() {}.getType();
         Gson gson = new Gson();
-        String json = gson.toJson(album);
+        String json = gson.toJson(album, albumType);
         return json;
     }
 
