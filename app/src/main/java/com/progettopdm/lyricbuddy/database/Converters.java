@@ -1,6 +1,8 @@
 package com.progettopdm.lyricbuddy.database;
 
 import android.media.Image;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 import androidx.room.ProvidedTypeConverter;
@@ -20,10 +22,11 @@ import java.util.List;
 @ProvidedTypeConverter
 public class Converters {
 
-   /* @TypeConverter
+   @TypeConverter
     public static Album stringToAlbum (String album) {
-        Album a = new Album()
-        return new Gson().fromJson(album, a);
+       Album a;
+       a = new Gson().fromJson(album, Album.class);
+       return a;
     }
 
     @TypeConverter
@@ -31,7 +34,7 @@ public class Converters {
         Gson gson = new Gson();
         String json = gson.toJson(album);
         return json;
-    }*/
+    }
 
     @TypeConverter
     public static List<Artist> stringToArtist (String artist) {

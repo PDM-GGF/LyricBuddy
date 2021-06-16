@@ -29,7 +29,7 @@ public class Track implements Parcelable {
     String albumId;
     String popularity;
 
-    //@TypeConverters(Converters.class)
+    @TypeConverters(Converters.class)
     Album album;
 
     @TypeConverters(Converters.class)

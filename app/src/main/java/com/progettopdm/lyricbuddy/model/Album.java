@@ -33,6 +33,7 @@ public class Album extends TrackContainer implements Parcelable {
     String release_date;
 
 
+    public Album(){}
 
     public Album(String name, List<GenericImage> genericImageList) {
         this.name = name;
