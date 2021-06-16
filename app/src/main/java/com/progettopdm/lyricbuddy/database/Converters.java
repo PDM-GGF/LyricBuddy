@@ -32,7 +32,7 @@ public class Converters {
         String json = gson.toJson(album);
         return json;
     }*/
-////////////////////////////////////////////////////////////////////////////////////////////////////
+
     @TypeConverter
     public static List<Artist> stringToArtist (String artist) {
         Type listArtist = new TypeToken<ArrayList<Artist>>() {}.getType();
@@ -46,7 +46,7 @@ public class Converters {
         return json;
     }
 
-    /////////////////////////////////////////////////////////////////////////////////////////////////////
+
     @TypeConverter
     public static List<GenericImage> stringToImage (String image) {
         Type img = new TypeToken<ArrayList<GenericImage>>() {}.getType();
@@ -60,7 +60,7 @@ public class Converters {
         return json;
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////
+
     @TypeConverter
     public static List<Track> stringToTrack (String tracklist) {
         Type tL = new TypeToken<ArrayList<Track>>() {}.getType();
