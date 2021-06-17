@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".ui.home.HomeFragment">
+    android:scrollbars="none"
+    tools:context=".ui.home.HomeFragment"
+    android:layout_marginTop="70dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -12,25 +14,24 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/search_card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            app:cardCornerRadius="20dp"
+            android:layout_width="175dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="16dp"
+            app:cardBackgroundColor="@color/color_foreground"
+            app:cardCornerRadius="10dp"
             app:cardElevation="10dp"
             app:cardMaxElevation="12dp"
-            app:cardUseCompatPadding="true"
+            app:cardUseCompatPadding="false"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:cardBackgroundColor="@color/color_foreground"
-            >
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/search"
-                android:layout_width="match_parent"
+                android:layout_width="114dp"
                 android:layout_height="90dp"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="10dp"
                 android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
                 android:contentDescription="@string/title_search"
                 android:src="@drawable/outline_search_24"
                 app:tint="@color/white" />
@@ -40,7 +41,44 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="10dp"
-                android:text="Search a song"
+                android:text="@string/title_search"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/favorites_card"
+            android:layout_width="175dp"
+            android:layout_height="150dp"
+            android:layout_marginEnd="16dp"
+            app:cardBackgroundColor="@color/color_foreground"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="10dp"
+            app:cardMaxElevation="12dp"
+            app:cardUseCompatPadding="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/favorites"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:contentDescription="@string/title_search"
+                android:src="@drawable/ic_favorite_outline_24dp"
+                app:tint="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:text="@string/title_favorites"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="20sp"
@@ -54,6 +92,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="sans-serif-black"
             android:text="@string/new_releases"
             android:textColor="@color/white"
