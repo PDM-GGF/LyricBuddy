@@ -90,7 +90,9 @@ public class FavoritesFragment extends Fragment {
         trackListRecyclerViewAdapter = new TrackListRecyclerViewAdapter(favList, new TrackListRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Track track) {
-
+                trackListViewModel.setmClickedTrack(track);
+                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                navController.navigate(R.id.action_global_navigation_track);
             }
         });
         searchResultsRecyclerView.setAdapter(trackListRecyclerViewAdapter);
