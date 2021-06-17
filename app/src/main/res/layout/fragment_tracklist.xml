@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginBottom="70dp">
 
     <ImageView
         android:id="@+id/tracklist_img"
@@ -46,9 +47,10 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tracklist_recycler_view"
-        android:layout_width="410dp"
-        android:layout_height="332dp"
+        android:layout_width="405dp"
+        android:layout_height="335dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.166"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/divider" />
 
