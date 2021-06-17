@@ -41,11 +41,15 @@ public class Album extends TrackContainer implements Parcelable {
     @Expose
     String release_date;
 
-    public Album(){}
+    public Album(){
+        this.albumId = "";
+    }
 
     public Album(String name, List<GenericImage> genericImageList) {
         this.name = name;
         this.genericImageList = genericImageList;
+        this.albumId = "";
+
     }
 
     public List<GenericImage> getImgList() {
@@ -89,7 +93,7 @@ public class Album extends TrackContainer implements Parcelable {
     protected Album(Parcel in) {
         name = in.readString();
         genericImageList = in.createTypedArrayList(GenericImage.CREATOR);
-        albumId = null;
+        albumId = "";
     }
 
     public static final Creator<Album> CREATOR = new Creator<Album>() {

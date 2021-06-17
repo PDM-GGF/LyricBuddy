@@ -25,6 +25,7 @@ public class Artist implements Parcelable {
     }
 
     public Artist() {
+        this.artistId = "";
     }
 
     public String getArtistId() {
