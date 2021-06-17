@@ -35,6 +35,7 @@ public class Album extends TrackContainer implements Parcelable {
     @Expose
     @TypeConverters(Converters.class)
     List<Artist> artists;
+    @Expose
     String release_date;
 
 
