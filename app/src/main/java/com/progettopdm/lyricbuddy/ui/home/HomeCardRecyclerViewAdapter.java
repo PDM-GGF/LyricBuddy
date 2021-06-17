@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.progettopdm.lyricbuddy.R;
+import com.progettopdm.lyricbuddy.model.Album;
+import com.progettopdm.lyricbuddy.model.Playlist;
 import com.progettopdm.lyricbuddy.model.TrackContainer;
 
 import java.util.List;
@@ -49,23 +51,32 @@ public class HomeCardRecyclerViewAdapter extends RecyclerView.Adapter<HomeCardRe
     public class NewReleasesViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView nameTextView;
+        private final TextView descriptionTextView;
         private final ImageView tcImageView;
 
 
         public NewReleasesViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.tc_name);
+            descriptionTextView = itemView.findViewById(R.id.tc_description);
             tcImageView = itemView.findViewById(R.id.tc_cover);
+
         }
 
         public void bind(TrackContainer trackContainer) {
-            nameTextView.setText(trackContainer.getName());
 
-            if(trackContainer.getImgList() != null)
+            nameTextView.setText(trackContainer.getName());
+            if (trackContainer instanceof Album) {
+                descriptionTextView.setText(trackContainer.getDescription());
+            } else if (trackContainer instanceof Playlist) {
+                descriptionTextView.setText(R.string.playlist);
+            }
+            if (trackContainer.getImgList() != null)
                 trackContainer.getImgList().get(0).getImg().into(tcImageView);
 
             itemView.setOnClickListener(new View.OnClickListener() {
-                @Override public void onClick(View v) {
+                @Override
+                public void onClick(View v) {
 
                     onItemClickListener.onItemClick(trackContainer);
                 }

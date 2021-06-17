@@ -1,5 +1,6 @@
 package com.progettopdm.lyricbuddy.ui.search;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -50,7 +51,7 @@ public class SearchFragment extends Fragment {
 
     TrackListViewModel trackListViewModel;
 
-    private HomeViewModel homeViewModel;
+    private SearchViewModel searchViewModel;
 
     TrackListRecyclerViewAdapter trackListRecyclerViewAdapter;
 
@@ -66,7 +67,8 @@ public class SearchFragment extends Fragment {
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         trackListViewModel = new ViewModelProvider(requireActivity(), new TrackListViewModelFactory()).get(TrackListViewModel.class);
-
+        Toolbar toolbar = getActivity().findViewById(R.id.main_toolbar);
+        toolbar.setVisibility(View.VISIBLE);
         //DATA FETCH FROM VIEWMODEL
         ISpotifyRepository spotifyRepository =
                 new SpotifyRepository(requireActivity().getApplication());
@@ -74,8 +76,8 @@ public class SearchFragment extends Fragment {
         ICCAuthRepository iccAuthRepository =
                 new CCAuthRepository(requireActivity().getApplication());
 
-        homeViewModel = new ViewModelProvider(requireActivity(), new HomeViewModelFactory(
-                requireActivity().getApplication(), spotifyRepository, iccAuthRepository)).get(HomeViewModel.class);
+        searchViewModel = new ViewModelProvider(requireActivity(), new SearchViewModelFactory(
+                requireActivity().getApplication(), spotifyRepository, iccAuthRepository)).get(SearchViewModel.class);
 
         RecyclerView searchResultsRecyclerView = view.findViewById(R.id.results_recycler);
         searchResultsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -98,8 +100,8 @@ public class SearchFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 //TEST SEARCH
-                homeViewModel.getSpotiToken().observe(getViewLifecycleOwner(), token ->{
-                    homeViewModel.getmSearchedTracksLiveData(query, token).observe(getViewLifecycleOwner(), tracks ->{
+                searchViewModel.getSpotiToken().observe(getViewLifecycleOwner(), token ->{
+                    searchViewModel.getmSearchedTracksLiveData(query, token).observe(getViewLifecycleOwner(), tracks ->{
                         List<Track> trackList = tracks.getTrackWrapper().getTrackList();
                         updateResults(trackList);
                         searchBar.clearFocus();

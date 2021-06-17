@@ -30,4 +30,8 @@
     <string name="lyrics">Lyrics</string>
     <string name="lyircs_fail">Lyrics not available :(</string>
     <string name="no_favs">You still don\'t have favorite tracks mate</string>
+    <string name="lyrics_title">[Lyrics]</string>
+    <string name="album" translatable="false">Album</string>
+    <string name="playlist" translatable="false">Playlist</string>
+    <string name="your_favorites">Your favorites</string>
 </resources>

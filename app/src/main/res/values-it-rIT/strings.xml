@@ -13,4 +13,6 @@
     <string name="lyrics">Testo</string>
     <string name="lyircs_fail">Lyrics non disponibili</string>
     <string name="no_favs">Non hai ancora tracce preferite loz</string>
+    <string name="lyrics_title">[Testo]</string>
+    <string name="your_favorites">Le tue preferite</string>
 </resources>

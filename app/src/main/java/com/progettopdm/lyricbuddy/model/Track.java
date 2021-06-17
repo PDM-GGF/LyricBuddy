@@ -4,16 +4,18 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
 import com.google.gson.annotations.SerializedName;
+import com.progettopdm.lyricbuddy.database.Converters;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-@Entity(tableName = "tracks", ignoredColumns = {"album", "artists"})
+@Entity(tableName = "tracks")
 
 public class Track implements Parcelable {
 
@@ -26,8 +28,12 @@ public class Track implements Parcelable {
     String lyrics;
     String albumId;
     String popularity;
+
+    @TypeConverters(Converters.class)
     Album album;
-    List<Artist> artists;
+
+    @TypeConverters(Converters.class)
+    public List<Artist> artists;
 
     public Track(){}
 

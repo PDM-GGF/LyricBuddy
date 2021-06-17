@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -45,7 +46,8 @@ public class PlaylistTrackListFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-
+        Toolbar toolbar = getActivity().findViewById(R.id.main_toolbar);
+        toolbar.setVisibility(View.INVISIBLE);
         HomeViewModel homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         trackListViewModel = new ViewModelProvider(requireActivity(), new TrackListViewModelFactory()).get(TrackListViewModel.class);
 
@@ -60,7 +62,6 @@ public class PlaylistTrackListFragment extends Fragment {
         for (TrackWrapper tw : playlistTrackListResponse.getTrackWrapperList()) {
             trackList.add(tw.getTrack());
         }
-
 
 
         TextView tlName = view.findViewById(R.id.tracklist_name);

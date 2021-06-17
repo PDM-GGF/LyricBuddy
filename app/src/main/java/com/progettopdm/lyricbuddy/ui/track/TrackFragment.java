@@ -1,6 +1,5 @@
 package com.progettopdm.lyricbuddy.ui.track;
 
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -10,14 +9,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.progettopdm.lyricbuddy.R;
@@ -50,15 +51,28 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
     private TrackListViewModel trackListViewModel;
     private FavoritesViewModel favoritesViewModel;
 
-
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_track, container, false);
+
+
         return root;
 
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+        Toolbar toolbar = getActivity().findViewById(R.id.main_toolbar);
+        toolbar.setVisibility(View.INVISIBLE);
+
+        //BackButton
+        final ImageView back = root.findViewById(R.id.back_button);
+        back.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
+
 
         CheckBox heart = root.findViewById(R.id.heart_checkbox);
 
@@ -79,18 +93,14 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
         favoritesViewModel.getmTracks().observe(getViewLifecycleOwner(), new Observer<List<Track>>() {
             @Override
             public void onChanged(List<Track> tracks) {
-                for(Track t : tracks) {
-                    if(t.getTrackId().equals(trackListViewModel.getmClickedTrack().getTrackId())) {
+                for (Track t : tracks) {
+                    if (t.getTrackId().equals(trackListViewModel.getmClickedTrack().getTrackId())) {
                         heart.setChecked(true);
                     }
                 }
 
             }
         });
-
-
-
-
 
         String q_track = trackListViewModel.getmClickedTrack().getName();
         String q_artist = trackListViewModel.getmClickedTrack().getArtists().get(0).getName();
@@ -112,35 +122,43 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
         }
         trackArtist.setText(string_artists.toString());
 
+        ImageView trackImage = root.findViewById(R.id.track_img);
+        ImageView infoImage = root.findViewById(R.id.album_artwork);
+        GenericImage track_artwork;
+
         //Check if the album is set
         if (trackListViewModel.getmClickedTrack().getAlbum() != null) {
-            GenericImage track_artwork = trackListViewModel.getmClickedTrack().getAlbum().getImgList().get(0);
-            ImageView trackImage = root.findViewById(R.id.track_img);
-            Glide.with(view).load(track_artwork.getImgUrl()).into(trackImage);
+            track_artwork = trackListViewModel.getmClickedTrack().getAlbum().getImgList().get(0);
         } else {
-            GenericImage track_artwork = trackListViewModel.getmClickedImage();
-            ImageView trackImage = root.findViewById(R.id.track_img);
-            Glide.with(view).load(track_artwork.getImgUrl()).into(trackImage);
+            track_artwork = trackListViewModel.getmClickedImage();
         }
 
-        TextView trackInfo = root.findViewById(R.id.track_info);
+        Glide.with(view).load(track_artwork.getImgUrl()).into(trackImage);
+        Glide.with(view).load(track_artwork.getImgUrl()).into(infoImage);
+
+        TextView albumInfo = root.findViewById(R.id.album_info);
+        TextView albumReleaseDate = root.findViewById(R.id.album_release_date);
         StringBuilder string_info = new StringBuilder();
         if (trackListViewModel.getmClickedTrack().getAlbum() != null) {
-            string_info.append("Album: ").append(trackListViewModel.getmClickedTrack().getAlbum().getName());
-            string_info.append("\nReleased: ").append(trackListViewModel.getmClickedTrack().getAlbum().getRelease_date());
+            string_info.append(trackListViewModel.getmClickedTrack().getAlbum().getName());
+            string_info.append("\ndi ").append(trackListViewModel.getmClickedTrack().getArtists().get(0).getName());
+            albumInfo.setText(string_info.toString());
+            albumReleaseDate.setText("Released " + trackListViewModel.getmClickedTrack().getAlbum().getRelease_date());
         }
 
-        if (trackListViewModel.getmClickedTrack().getPopularity() != null) {
+        /*if (trackListViewModel.getmClickedTrack().getPopularity() != null) {
             string_info.append("\nPopularity: ").append(trackListViewModel.getmClickedTrack().getPopularity());
-        }
+        }*/
+
+
         if (trackListViewModel.getmClickedTrack().getDuration_ms() != 0) {
             String duration =
                     TimeUnit.MILLISECONDS.toMinutes(trackListViewModel.getmClickedTrack().getDuration_ms())
                             + ":" +
                             String.valueOf(TimeUnit.MILLISECONDS.toSeconds(trackListViewModel.getmClickedTrack().getDuration_ms()) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(trackListViewModel.getmClickedTrack().getDuration_ms())));
-            string_info.append("\nDuration: ").append(duration);
+            TextView lyricsTitle = root.findViewById(R.id.lyrics_title);
+            lyricsTitle.setText("[duration " + duration + "]");
         }
-        trackInfo.setText(string_info.toString());
 
         super.onActivityCreated(savedInstanceState);
 
@@ -157,12 +175,12 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
                         @Override
                         public void onChanged(List<Track> tracks) {
                             boolean isInDb = false;
-                            for(Track t : tracks) {
-                                if(t.getTrackId().equals(trackListViewModel.getmClickedTrack().getTrackId())) {
+                            for (Track t : tracks) {
+                                if (t.getTrackId().equals(trackListViewModel.getmClickedTrack().getTrackId())) {
                                     isInDb = true;
                                 }
                             }
-                            if(!isInDb) {
+                            if (!isInDb) {
                                 saveDataInDatabase(trackListViewModel.getmClickedTrack());
                                 Log.d("FAVORITE", "CREATED");
 
@@ -213,8 +231,9 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
     public void onLyricsGet(String lyrics) {
         try {
             lyrics = lyrics.substring(0, lyrics.indexOf("*"));
+            lyrics = lyrics.trim();
             TextView trackLyrics = root.findViewById(R.id.track_lyrics);
-            trackLyrics.setMovementMethod(new ScrollingMovementMethod());
+            //trackLyrics.setMovementMethod(new ScrollingMovementMethod());
             trackLyrics.setText(lyrics);
         } catch (java.lang.StringIndexOutOfBoundsException e) {
             lyricsFailed();
