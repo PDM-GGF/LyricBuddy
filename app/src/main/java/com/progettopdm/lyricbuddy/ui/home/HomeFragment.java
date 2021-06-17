@@ -63,15 +63,6 @@ public class HomeFragment extends Fragment {
         Toolbar toolbar = getActivity().findViewById(R.id.main_toolbar);
         toolbar.setVisibility(View.VISIBLE);
 
-        //SearchButton
-        final ImageView search = view.findViewById(R.id.search);
-        search.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-                navController.navigate(R.id.navigation_search);
-            }
-        });
-
 
         mNewReleasesList = new ArrayList<>();
         mFeaturedList = new ArrayList<>();
