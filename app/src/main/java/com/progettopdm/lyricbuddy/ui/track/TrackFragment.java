@@ -65,6 +65,7 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
         Toolbar toolbar = getActivity().findViewById(R.id.main_toolbar);
         toolbar.setVisibility(View.INVISIBLE);
 
+        //BackButton
         final ImageView back = root.findViewById(R.id.back_button);
         back.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

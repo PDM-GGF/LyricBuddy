@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -62,6 +63,16 @@ public class HomeFragment extends Fragment {
         Toolbar toolbar = getActivity().findViewById(R.id.main_toolbar);
         toolbar.setVisibility(View.VISIBLE);
 
+        //SearchButton
+        final ImageView search = view.findViewById(R.id.search);
+        search.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                navController.navigate(R.id.navigation_search);
+            }
+        });
+
+
         mNewReleasesList = new ArrayList<>();
         mFeaturedList = new ArrayList<>();
 
@@ -102,7 +113,7 @@ public class HomeFragment extends Fragment {
                 });
             }
         });
-        newReleasesRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),  1,
+        newReleasesRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1,
                 GridLayoutManager.HORIZONTAL, false));
         newReleasesRecyclerView.setAdapter(newReleasesAdapter);
 
@@ -130,15 +141,14 @@ public class HomeFragment extends Fragment {
                 });
             }
         });
-        featuredPlaylistsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),  1,
+        featuredPlaylistsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1,
                 GridLayoutManager.HORIZONTAL, false));
         featuredPlaylistsRecyclerView.setAdapter(featuredPlaylistsAdapter);
 
 
-
         //Get token then new releases
-        homeViewModel.getSpotiToken().observe(getViewLifecycleOwner(), token ->{
-            homeViewModel.getmNewReleases(token).observe(getViewLifecycleOwner(), response ->{
+        homeViewModel.getSpotiToken().observe(getViewLifecycleOwner(), token -> {
+            homeViewModel.getmNewReleases(token).observe(getViewLifecycleOwner(), response -> {
 
                 if (response != null) {
                     List<Album> albumList = response.getAlbumWrapper().getAlbumList();
@@ -147,15 +157,15 @@ public class HomeFragment extends Fragment {
                     homeViewModel.loadImagesFromUrl(albumList);
 
                     updateUIForNewReleasesSuccess(albumList);
-                }else{
+                } else {
                     Log.d("FAILED: ", "HOME FRAGMENT COULDN'T FETCH");
                 }
             });
         });
 
         //Get token then featured playlists
-        homeViewModel.getSpotiToken().observe(getViewLifecycleOwner(), token ->{
-            homeViewModel.getmFeaturedPlaylists(token).observe(getViewLifecycleOwner(), response ->{
+        homeViewModel.getSpotiToken().observe(getViewLifecycleOwner(), token -> {
+            homeViewModel.getmFeaturedPlaylists(token).observe(getViewLifecycleOwner(), response -> {
 
                 if (response != null) {
                     List<Playlist> playlistList = response.getPlaylistWrapper().getPlaylistList();
@@ -168,7 +178,7 @@ public class HomeFragment extends Fragment {
                     homeViewModel.loadImagesFromUrl(playlistList);
 
                     updateUIForFeaturedSuccess(playlistList);
-                }else{
+                } else {
                     Log.d("FAILED: ", "HOME FRAGMENT COULDN'T FETCH");
                 }
             });
