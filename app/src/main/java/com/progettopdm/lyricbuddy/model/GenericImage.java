@@ -5,6 +5,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.bumptech.glide.RequestBuilder;
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.IOException;
@@ -12,8 +13,10 @@ import java.net.URL;
 
 public class GenericImage implements Parcelable {
 
+    @Expose
     @SerializedName("url")
     URL imgUrl;
+    @Expose
     RequestBuilder<Drawable> img;
 
     public GenericImage(URL imgUrl) throws IOException {

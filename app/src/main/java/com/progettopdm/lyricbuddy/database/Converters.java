@@ -9,6 +9,7 @@ import androidx.room.ProvidedTypeConverter;
 import androidx.room.TypeConverter;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.progettopdm.lyricbuddy.model.Album;
 import com.progettopdm.lyricbuddy.model.Artist;
@@ -18,6 +19,8 @@ import com.progettopdm.lyricbuddy.model.Track;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.lang.reflect.Modifier.TRANSIENT;
 
 @ProvidedTypeConverter
 public class Converters {
@@ -32,7 +35,10 @@ public class Converters {
     @TypeConverter
     public static String albumToString (Album album) {
         Type albumType = new TypeToken<Album>() {}.getType();
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .excludeFieldsWithModifiers(TRANSIENT) // STATIC|TRANSIENT in the default configuration
+                .create();
         String json = gson.toJson(album, albumType);
         return json;
     }

@@ -7,6 +7,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.progettopdm.lyricbuddy.database.Converters;
 
@@ -17,17 +18,21 @@ import java.util.List;
 @Entity(tableName = "albums")
 public class Album extends TrackContainer implements Parcelable {
 
+    @Expose
     @SerializedName("id")
     @PrimaryKey
     @NotNull
     String albumId;
+    @Expose
     @SerializedName("name")
     String name;
     @SerializedName("images")
+    @Expose
     @TypeConverters(Converters.class)
     List<GenericImage> genericImageList;
     @TypeConverters(Converters.class)
     List<Track> trackList;
+    @Expose
     @TypeConverters(Converters.class)
     List<Artist> artists;
     String release_date;
