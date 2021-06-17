@@ -1,5 +1,6 @@
 package com.progettopdm.lyricbuddy.model;
 
+import android.content.res.Resources;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -9,11 +10,13 @@ import androidx.room.TypeConverters;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.progettopdm.lyricbuddy.R;
 import com.progettopdm.lyricbuddy.database.Converters;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity(tableName = "albums")
 public class Album extends TrackContainer implements Parcelable {
@@ -37,7 +40,6 @@ public class Album extends TrackContainer implements Parcelable {
     List<Artist> artists;
     @Expose
     String release_date;
-
 
     public Album(){}
 
@@ -87,6 +89,7 @@ public class Album extends TrackContainer implements Parcelable {
     protected Album(Parcel in) {
         name = in.readString();
         genericImageList = in.createTypedArrayList(GenericImage.CREATOR);
+        albumId = null;
     }
 
     public static final Creator<Album> CREATOR = new Creator<Album>() {
@@ -101,8 +104,8 @@ public class Album extends TrackContainer implements Parcelable {
         }
     };
 
-    public void setAlbumId(String albumId) {
-        this.albumId = albumId;
+    public void setAlbumId(@NotNull String albumId) {
+        this.albumId = Objects.requireNonNull(albumId);
     }
 
     @Override
