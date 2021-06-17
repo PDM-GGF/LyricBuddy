@@ -31,7 +31,6 @@ public class HomeViewModel extends AndroidViewModel {
 
     private MutableLiveData<NewReleaseResponse> mNewReleasesLiveData;
     private MutableLiveData<FeaturedResponse> mFeaturedPlaylistsLiveData;
-    private MutableLiveData<SearchTracksResponse> mSearchedPlaylistLiveData;
     private MutableLiveData<AlbumTrackListResponse> mAlbumTracklistLiveData;
     private MutableLiveData<PlaylistTrackListResponse> mPlaylistTracklistLiveData;
 
@@ -54,12 +53,6 @@ public class HomeViewModel extends AndroidViewModel {
             }
         return spotiToken;
     }
-
-    public LiveData<SearchTracksResponse> getmSearchedTracksLiveData(String query, String token) {
-        loadSearchTracks(query, token);
-        return mSearchedPlaylistLiveData;
-    }
-
 
     public TrackContainer getmClickedTrackContainer() {
         return mClickedTrackContainer;
@@ -141,10 +134,6 @@ public class HomeViewModel extends AndroidViewModel {
 
     private void loadFeaturedPlaylists(String token){
         mFeaturedPlaylistsLiveData = iSpotifyRepository.fetchFeaturedPlaylists(token);
-    }
-
-    private void loadSearchTracks(String query, String token){
-        mSearchedPlaylistLiveData = iSpotifyRepository.fetchSearchedTracks(query, token);
     }
 
     public void loadImagesFromUrl(List<? extends TrackContainer> tcList){

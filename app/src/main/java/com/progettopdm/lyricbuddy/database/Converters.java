@@ -1,12 +1,15 @@
 package com.progettopdm.lyricbuddy.database;
 
 import android.media.Image;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 import androidx.room.ProvidedTypeConverter;
 import androidx.room.TypeConverter;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.progettopdm.lyricbuddy.model.Album;
 import com.progettopdm.lyricbuddy.model.Artist;
@@ -17,21 +20,28 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.reflect.Modifier.TRANSIENT;
+
 @ProvidedTypeConverter
 public class Converters {
 
-   /* @TypeConverter
+   @TypeConverter
     public static Album stringToAlbum (String album) {
-        Album a = new Album()
-        return new Gson().fromJson(album, a);
+       Album a;
+       a = new Gson().fromJson(album, Album.class);
+       return a;
     }
 
     @TypeConverter
     public static String albumToString (Album album) {
-        Gson gson = new Gson();
-        String json = gson.toJson(album);
+        Type albumType = new TypeToken<Album>() {}.getType();
+        Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .excludeFieldsWithModifiers(TRANSIENT) // STATIC|TRANSIENT in the default configuration
+                .create();
+        String json = gson.toJson(album, albumType);
         return json;
-    }*/
+    }
 
     @TypeConverter
     public static List<Artist> stringToArtist (String artist) {

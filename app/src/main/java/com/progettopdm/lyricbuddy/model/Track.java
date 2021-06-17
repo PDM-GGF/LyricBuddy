@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-@Entity(tableName = "tracks",ignoredColumns = "album")
+@Entity(tableName = "tracks")
 
 public class Track implements Parcelable {
 
@@ -29,7 +29,7 @@ public class Track implements Parcelable {
     String albumId;
     String popularity;
 
-    //@TypeConverters(Converters.class)
+    @TypeConverters(Converters.class)
     Album album;
 
     @TypeConverters(Converters.class)

@@ -12,7 +12,7 @@ import com.progettopdm.lyricbuddy.model.Artist;
 import com.progettopdm.lyricbuddy.model.Track;
 import com.progettopdm.lyricbuddy.utils.Constants;
 
-@Database(entities = {Track.class, Artist.class, /*Album.class*/}, version = 2)
+@Database(entities = {Track.class, Artist.class, Album.class}, version = 2)
 @TypeConverters({Converters.class})
 public abstract class TrackRoomDatabase extends RoomDatabase {
 
