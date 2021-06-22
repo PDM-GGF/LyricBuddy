@@ -15,10 +15,6 @@
     <string name="skip" translatable="false">Skip Registration</string>
 
 
-
-
-
-
     <string name="recommended_home" translatable="true">Recommended for you</string>
     <string name="new_home" translatable="true">New Hits</string>
     <string name="best_home" translatable="true">All time best</string>
