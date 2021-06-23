@@ -53,8 +53,6 @@ public class TrackFragment extends Fragment implements MxmLyricsCallback, MxmMat
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_track, container, false);
-
-
         return root;
 
     }

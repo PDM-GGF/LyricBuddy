@@ -51,6 +51,13 @@ public class AlbumTrackListFragment extends Fragment {
 
         TrackContainer tc = homeViewModel.getmClickedTrackContainer();
 
+        //BackButton
+        final ImageView back = view.findViewById(R.id.back_button);
+        back.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
 
         AlbumTrackListResponse albumTrackListResponse =
                 AlbumTrackListFragmentArgs.fromBundle(getArguments()).getAlbumTrackList();

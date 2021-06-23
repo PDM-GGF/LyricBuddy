@@ -35,7 +35,6 @@ import java.util.List;
 public class PlaylistTrackListFragment extends Fragment {
 
     TrackListRecyclerViewAdapter trackListRecyclerViewAdapter;
-
     TrackListViewModel trackListViewModel;
 
     @Override
@@ -48,11 +47,19 @@ public class PlaylistTrackListFragment extends Fragment {
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         Toolbar toolbar = getActivity().findViewById(R.id.main_toolbar);
         toolbar.setVisibility(View.INVISIBLE);
+
         HomeViewModel homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         trackListViewModel = new ViewModelProvider(requireActivity(), new TrackListViewModelFactory()).get(TrackListViewModel.class);
 
-        TrackContainer tc = homeViewModel.getmClickedTrackContainer();
+        //BackButton
+        final ImageView back = view.findViewById(R.id.back_button);
+        back.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
 
+        TrackContainer tc = homeViewModel.getmClickedTrackContainer();
 
         PlaylistTrackListResponse playlistTrackListResponse =
                 PlaylistTrackListFragmentArgs.fromBundle(getArguments()).getPlaylistTrackList();
