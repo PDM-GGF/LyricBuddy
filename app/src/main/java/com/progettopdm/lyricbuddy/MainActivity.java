@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.progettopdm.lyricbuddy.repository.CCAuthRepository;
 
 
@@ -44,5 +45,29 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+
+        // Handle item selection
+        if (item.getItemId() == R.id.toolbar_menu_userprofile) {
+            if(FirebaseAuth.getInstance().getCurrentUser()!=null) {
+                navController.navigate(R.id.action_global_navigation_userprofile);
+            }
+            Log.d("USERPROFILE: ", "Cliccato UserProfile");
+            return true;
+        }
+        return true;
+    }
+
 
 }

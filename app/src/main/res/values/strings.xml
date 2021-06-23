@@ -13,6 +13,10 @@
     <string name="email_address" translatable="false">Email Address</string>
     <string name="confirm_password" translatable="false">Confirm Password</string>
     <string name="skip" translatable="false">Skip Registration</string>
+    <string name="fpassword" translatable="false">Forgot Password?</string>
+    <string name="phone" translatable="false">Phone Number</string>
+    <string name="backToLogin" translatable="false">Back To Login</string>
+
 
 
     <string name="recommended_home" translatable="true">Recommended for you</string>
